@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    font-family: 'Epilogue', sans-serif;
+}
+
+#home {
+    height: 100vh;
+}
+
+.title {
+    color: #121212;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15rem;
+    animation: glitch 5s 5s infinite;
+}
+
+.sub-title {
+    color: #121212;
+    font-size: 20px;
+}
+
+.decorated-text {
+    color: #00bcd4;
+    font-weight: bolder;
+}
+
+.log {
+    margin: 2px !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    background-color: #00bcd4 !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: 0px 0px 10px rgba(0, 174, 255, 0.5);
+    font-size: 20px !important;
+    text-align: center !important;
+}
+
+.btn {
+    border-radius: 0% !important;
+    transition: all .2s ease-in-out !important;
+    background-color: #00bcd4 !important;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 6px 0.5px #00bcd4;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.navbar {
+    padding: 2% !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #121212 !important;
+    font-weight: bolder !important;
+}
+
+.sign {
+    margin: 5px !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    background-color: #00bcd4 !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: 0px 0px 10px #00bcd4;
+}
+
+.reg {
+    margin: 5px !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    background-color: #00bcd4 !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: 0px 0px 10px #00bcd4;
+}
+
+@media only screen and (min-width: 1000px) {
+    .title {
+        font-size: 40px;
+        padding-top: 10rem;
+    }
+    .sub-title {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    .title {
+        font-size: 90px;
+        padding-top: 20rem;
+    }
+    .sub-title {
+        font-size: 35px;
+    }
+    .btn {
+        font-size: 30px !important;
+    }
+    .navbar-brand {
+        font-size: 50px !important;
+    }
+}

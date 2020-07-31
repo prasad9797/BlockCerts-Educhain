@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="115.12mm" height="44.86mm" viewBox="0 0 326.32 127.16">
+  <g id="cert">
+    <rect x="0.5" y="0.5" width="325.32" height="126.16" style="fill: #fff;stroke: #000;stroke-miterlimit: 10"/>
+  </g>
+  <g id="text-fields">
+    <text id="name" transform="translate(11.47 24.63)" style="font-size: 12px;font-family: MyriadPro-Regular, Myriad Pro">name </text>
+    <text id="cert-id" transform="translate(11.47 46.91)" style="font-size: 12px;font-family: MyriadPro-Regular, Myriad Pro">1234567890</text>
+  </g>
+</svg>

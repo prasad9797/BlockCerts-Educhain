@@ -1,0 +1,17 @@
+.admin-dashboard {
+    padding: 2%;
+}
+
+.admin-title {
+    font-weight: bolder;
+    color: #121212;
+}
+
+.upload-cert-template {
+    color: #121212;
+}
+
+.admin-dashboard .card {
+    border: none !important;
+    padding: 20px;
+}
