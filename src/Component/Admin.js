@@ -6,6 +6,7 @@ import image from '../images/upload_file.png';
 
 
 export default function Admin() {
+
     return (
         <section id="admin">
             <div className="custom-nav slide-bottom">
@@ -28,7 +29,7 @@ export default function Admin() {
                             <Card.Body>
                                 <Card.Title className="upload-cert-template">Upload Certificate Template</Card.Title>
                             </Card.Body>
-                            <Button variant="primary">Upload Template</Button>
+                            <input type="file" id="file" className="fileInput" accept=".svg" />
                         </Card>
                     </Col>
                     <Col>
@@ -37,11 +38,11 @@ export default function Admin() {
                             <Card.Body>
                                 <Card.Title className="upload-cert-template">Upload Certificate Data</Card.Title>
                             </Card.Body>
-                            <Button variant="primary">Upload Data</Button>
+                            <input type="file" id="file" className="fileInput" accept=".csv" />
                         </Card>
                     </Col>
                 </Row>
-                {/* <Button variant="primary" className='swing-in-left-fwd' style={{ animationDelay: '0.4s' }}>Submit</Button> */}
+                <Button variant="primary" className='swing-in-left-fwd' style={{ animationDelay: '0.4s' }}>Upload Data</Button>
             </div>
         </section >
     );

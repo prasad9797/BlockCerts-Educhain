@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Admin from './Component/Admin';
+import Cert from './test/CertTest';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/signin" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path='/admin' component={Admin} />
+        <Route exact path='/cert' component={Cert} />
       </Switch>
     </Router>
   );

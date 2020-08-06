@@ -11,12 +11,6 @@ class Login extends React.Component {
                     <Navbar collapseOnSelect expand="lg" variant="light">
                         <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                        {/* <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="ml-auto">
-                                <Button className="sign" href="/signin">Sign In</Button>
-                                <Button className="reg">Register</Button>
-                            </Nav>
-                        </Navbar.Collapse> */}
                     </Navbar>
                 </div>
                 <Row xs={12} md={3} className="justify-content-center align-items-center">
@@ -46,7 +40,7 @@ class Login extends React.Component {
                             </Form.Group> */}
                             <a href="/register" className="no-account swing-in-left-fwd" style={{ animationDelay: "1s" }}>Don't have an account? Click here to create one!</a>
                             <p align="center" className="swing-in-left-fwd" style={{ animationDelay: "1.2s" }}>
-                                <Button href='/admin' variant="primary" type="submit">
+                                <Button variant="primary" type="submit">
                                     Submit
                                 </Button>
                             </p>
