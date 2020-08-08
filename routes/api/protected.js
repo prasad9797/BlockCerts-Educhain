@@ -27,20 +27,20 @@ const upload = multer({
 // @access  private
 router.post("/addCerts", async (req, res, next) => {
   try {
-    await upload(req, res, (err) => {
-      if (err) {
-        console.log(err);
-        throw {
-          statusCode: 400,
-          customMessage: "Try again later",
-        };
-      }
-      //   console.log("1..");
-      //   setTimeout(() => {
-      //     console.log("waited");
-      //   }, 3000);
-    });
-    var cert = await csv().fromFile("./temp-storage/tempcsvfile.csv");
+    // await upload(req, res, (err) => {
+    //   if (err) {
+    //     console.log(err);
+    //     throw {
+    //       statusCode: 400,
+    //       customMessage: "Try again later",
+    //     };
+    //   }
+    //   console.log("1..");
+    //   setTimeout(() => {
+    //     console.log("waited");
+    //   }, 3000);
+    // });
+    var cert = req.body.cert; //await csv().fromFile("./temp-storage/tempcsvfile.csv");
     var svg = req.body.svg;
     var query = "insert into data(email,hashId,uploaded,jsonString,svg) values";
     await cert.map((i, index) => {
@@ -54,14 +54,14 @@ router.post("/addCerts", async (req, res, next) => {
     await db.query(query, (err, result) => {
       if (err) {
         console.log(err);
-        fs.unlinkSync("./temp-storage/tempcsvfile.csv");
+        // fs.unlinkSync("./temp-storage/tempcsvfile.csv");
         throw {
           statusCode: 400,
           customMessage: "Try again lateraejhfdc",
         };
       }
       //   console.log(query);
-      fs.unlinkSync("./temp-storage/tempcsvfile.csv");
+      //   fs.unlinkSync("./temp-storage/tempcsvfile.csv");
       res.status(200).json({
         message: "data will be updated shortly",
       });
