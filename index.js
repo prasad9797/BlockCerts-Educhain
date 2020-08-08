@@ -9,7 +9,7 @@ const error = require("./middlewares/error");
 const cron = require("node-cron");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 app.use(cors());
 app.use(logger("common"));
 
