@@ -28,10 +28,9 @@ class Admin extends React.Component {
     handleFile = async (e) => {
         // console.log([e.target.name] + ":" + e.target.value);
         await this.setState({
-            [e.target.name]: e.target.files[0]
+            [e.target.name]: e.target.files[0].name
         })
         console.log(this.state.svg);
-        console.log(this.state.csv);
     }
 
     submit = () => {
@@ -67,7 +66,7 @@ class Admin extends React.Component {
                     <Row xs={1} sm={1} md={2} lg={2} className="justify-content-md-center">
                         <Col>
                             <Card style={{ width: '60%' }} className="swing-in-left-fwd">
-                                {this.state.certAvailable ? <div><h3>List will display here</h3> OR </div> : <Card.Img className="mx-auto" variant="top" src={folder} />}
+                                {this.state.certAvailable ? <div><h3 style={{ color: 'white' }}>List will display here</h3> <span style={{ color: 'white' }}> OR </span> </div> : <Card.Img className="mx-auto" variant="top" src={folder} />}
                                 <Card.Body>
                                     <Card.Title className="upload-cert-template">Upload Certificate Template</Card.Title>
                                 </Card.Body>
@@ -82,13 +81,17 @@ class Admin extends React.Component {
                                 </Card.Body>
                                 <CSVReader
                                     onDrop={(data) => {
+                                        var dataTemp = [];
                                         for (var i = 0; i < data.length; i++) {
+                                            if (data[i]["data"]["certID"] !== "" && data[i]["data"]["name"]) {
+                                                dataTemp.push(data[i]);
+                                            }
                                             delete data[i]["errors"];
                                             delete data[i]["meta"];
                                         }
-                                        console.log("Data : ", data);
+                                        console.log("Data : ", dataTemp);
                                         this.setState({
-                                            csv: data
+                                            csv: dataTemp
                                         })
                                         console.log("State Updated : ", this.state.csv);
                                     }}
@@ -98,7 +101,7 @@ class Admin extends React.Component {
                                     addRemoveButton
                                     onRemoveFile={this.handleOnRemoveFile}
                                 >
-                                    <span style={{ color: 'white' }}>Drop CSV file here or click to upload.</span>
+                                    <span style={{ color: 'white' }}> Click to upload.</span>
                                 </CSVReader>
                             </Card>
                         </Col>
