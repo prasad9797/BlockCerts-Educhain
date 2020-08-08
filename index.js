@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const config = require("config");
+const bodyparser = require("body-parser");
 const logger = require("morgan");
 const app = express();
 const auth = require("./middlewares/auth");
@@ -8,8 +9,9 @@ const runner = require("./middlewares/runner");
 const error = require("./middlewares/error");
 const cron = require("node-cron");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false, limit: "50mb" }));
+app.use(express.json({ extended: false, limit: "50mb" }));
+app.use(express.urlencoded({ extended: false }));
+
 app.use(cors());
 app.use(logger("common"));
 
