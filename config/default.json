@@ -1,0 +1,10 @@
+{
+  "jwtPrivateKey": "jwtPrivateKey",
+  "mysql": "mysql",
+  "PORT": "PORT",
+  "ethAddress": "ethAddress",
+  "abi": "abi",
+  "defaultUserame": "defaultUserame",
+  "defaultPassword": "defaultPassword",
+  "cryptoSecret": "cryptoSecret"
+}
