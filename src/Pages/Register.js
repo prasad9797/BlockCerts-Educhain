@@ -16,6 +16,10 @@ class Register extends React.Component {
         admin: false
     }
 
+    submitHandler = () => {
+
+    }
+
     componentDidMount() {
         console.log(this.state.admin);
     }
@@ -37,7 +41,7 @@ class Register extends React.Component {
                 </div>
                 <Row xs={1} md={3} className="justify-content-center align-items-center">
                     <Col>
-                        <h2 className="header-title swing-in-left-fwd" align="center">Register</h2>
+                        <h2 className="header-title swing-in-left-fwd" align="center">Sign Up</h2>
                         <Form className="login-form">
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label className="swing-in-left-fwd">Email address</Form.Label>
@@ -71,9 +75,9 @@ class Register extends React.Component {
                             {/* <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Check me out" />
                             </Form.Group> */}
-                            <a href="/signin" className="already-account swing-in-left-fwd" style={{ animationDelay: "1.4s" }}>Already have an Account?Click here to Sign In!</a>
+                            <a href="/login" className="already-account swing-in-left-fwd" style={{ animationDelay: "1.4s" }}>Already have an Account?Click here to Sign In!</a>
                             <p align="center" className="swing-in-left-fwd" style={{ animationDelay: "1.6s" }}>
-                                <Button className="form-button" type="submit">
+                                <Button className="form-button" type="submit" onClick={this.submitHandler}>
                                     Submit
                         </Button>
                             </p>

@@ -1,0 +1,14 @@
+#info {
+    background-color: white;
+}
+
+.introHeader {
+    color: rgb(18, 29, 51);
+    margin-top: 2%;
+    font-weight: bolder;
+}
+
+.introPoints {
+    color: black;
+    padding: 5% 5% 0px 5%;
+}

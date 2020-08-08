@@ -1,0 +1,14 @@
+#features {
+    background-color: rgb(18, 29, 51);
+}
+
+.featureHeader {
+    color: white;
+    margin-top: 2%;
+    font-weight: bolder;
+}
+
+.featurePoints {
+    color: white;
+    padding: 5% 5% 0px 5%;
+}

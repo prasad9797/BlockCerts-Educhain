@@ -1,14 +1,16 @@
 * {
-    color: #00bcd4;
-    font-family: 'Epilogue', sans-serif;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #login {
     overflow-x: hidden;
+    height: 100vh;
+    background-color: rgb(18, 29, 51);
 }
 
 .text-muted {
-    color: #00bcd4 !important;
+    color: white !important;
 }
 
 /* .login-form {
@@ -17,7 +19,7 @@
 
 .header-title {
     padding-top: 2rem;
-    color: #00bcd4;
+    color: white;
     font-size: 40px;
     font-weight: bolder;
 }
@@ -31,31 +33,41 @@
     margin-bottom: 10px !important;
 }
 
+.custom-control-input {
+    opacity: 1 !important;
+}
+
 .btn {
+    border-bottom: 4px;
     border-color: transparent !important;
-    padding-left: 50px !important;
-    padding-right: 50px !important;
-    box-shadow: 0px 0px 5px #00bcd4;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    /* box-shadow: 0px 0px 5px #00bcd4; */
 }
 
 .no-account {
-    color: #00bcd4;
+    color: white;
 }
 
 .no-account:hover {
-    color: #00bcd4;
+    color: white;
 }
 
 .already-account {
-    color: #00bcd4;
+    color: white;
 }
 
 .already-account:hover {
-    color: #00bcd4;
+    color: white;
 }
 
 .form-button {
     margin: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bolder;
 }
 
 @media only screen and (min-width: 1000) {

@@ -1,14 +1,86 @@
 import React from 'react';
-import { Form, Button, Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { Form, Button, Row, Col, Navbar } from 'react-bootstrap';
 import '../CSS/login.css';
 import '../CSS/animation.css';
 
 class Login extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: null,
+            password: "",
+            isAdmin: false,
+            errors: "",
+            isValid: false
+        }
+    }
+
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    isAdmin = () => {
+        this.setState({
+            isAdmin: !this.state.isAdmin
+        })
+    }
+
+    validate() {
+        this.setState({
+            error: ""
+        })
+        let isValid = true;
+
+        if (this.state.email !== null) {
+            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            if (!pattern.test(this.state.email)) {
+                isValid = false;
+                this.setState({
+                    errors: "Please enter valid email address"
+                })
+            }
+        }
+        else if (this.state.password === "" && this.state.email !== null) {
+            isValid = false;
+            this.setState({
+                errors: "Please enter password"
+            })
+        }
+        else {
+            this.setState({
+                errors: "Please check Email and Password"
+            })
+        }
+
+        this.setState({
+            isValid: isValid
+        })
+    }
+
+    onSubmit = async (e) => {
+        await this.validate();
+        if (this.state.isValid) {
+            console.log("validated")
+            if (this.state.isAdmin) {
+                //Call Admin route
+                console.log(this.state.isAdmin);
+                console.log(this.state.errors);
+            }
+            else {
+                //Call User route
+            }
+        }
+    }
+
     render() {
         return (
             <section id="login">
                 <div className="custom-nav slide-bottom">
-                    <Navbar collapseOnSelect expand="lg" variant="light">
+                    <Navbar variant="light">
                         <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     </Navbar>
@@ -19,7 +91,7 @@ class Login extends React.Component {
                         <Form className="login-form">
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label className="swing-in-left-fwd">Email address</Form.Label>
-                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.2s" }} type="email" placeholder="Enter email" />
+                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.2s" }} type="email" name="email" placeholder="Enter email" onChange={this.changeHandler} error={this.state.errors.email} />
                                 <Form.Text className="text-muted swing-in-left-fwd" style={{ animationDelay: "0.4s" }}>
                                     We'll never share your email with anyone else.
                         </Form.Text>
@@ -27,20 +99,20 @@ class Login extends React.Component {
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label className="swing-in-left-fwd" style={{ animationDelay: "0.6s" }}>Password</Form.Label>
-                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.8s" }} type="password" placeholder="Password" />
+                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.8s" }} name="password" type="password" placeholder="Password" onChange={this.changeHandler} />
                             </Form.Group>
                             <Form.Check
                                 className="swing-in-left-fwd" style={{ animationDelay: "1s" }}
                                 type="switch"
                                 id="custom-switch"
                                 label="Login as Admin (Toggle if Admin)"
+                                name="isAdmin"
+                                onChange={this.isAdmin}
                             />
-                            {/* <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Check me out" />
-                            </Form.Group> */}
-                            <a href="/register" className="no-account swing-in-left-fwd" style={{ animationDelay: "1s" }}>Don't have an account? Click here to create one!</a>
+                            <a href="/signup" className="no-account swing-in-left-fwd" style={{ animationDelay: "1s" }}>Don't have an account? Click here to create one!</a>
+                            <p align="center" className="error">{this.state.errors}</p>
                             <p align="center" className="swing-in-left-fwd" style={{ animationDelay: "1.2s" }}>
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" onClick={this.onSubmit}>
                                     Submit
                                 </Button>
                             </p>

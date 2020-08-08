@@ -1,5 +1,7 @@
 #admin {
     overflow: hidden !important;
+    height: 100vh;
+    background-color: rgb(18, 29, 51);
 }
 
 .admin-dashboard {
@@ -8,19 +10,35 @@
 
 .admin-title {
     font-weight: bolder;
-    color: #121212;
+    color: white;
+    padding-bottom: 2rem;
 }
 
 .upload-cert-template {
-    color: #121212;
+    color: white;
 }
 
 .admin-dashboard .card {
     border: none !important;
     padding: 20px;
+    background-color: transparent !important;
 }
 
 .fileInput {
-    color: #00bcd4;
-    border-radius: 0;
+    color: white;
+    border: 0.5px solid white;
+    border-radius: 4px;
+}
+
+.card-body {
+    flex: none !important;
+}
+
+.card-img-top {
+    width: 40% !important;
+    justify-content: center !important;
+}
+
+.admin-dashboard .btn {
+    margin-top: 1rem;
 }
