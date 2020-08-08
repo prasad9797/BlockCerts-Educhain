@@ -22,9 +22,9 @@ app.get("/", (req, res) =>
 
 // cron.schedule("1 * * * * *", runner);
 
-const Auth = require("./routes/api/Auth");
-const Protected = require("./routes/api/Protected");
-const Public = require("./routes/api/Public");
+const Auth = require("./routes/api/auth");
+const Protected = require("./routes/api/protected");
+const Public = require("./routes/api/public");
 
 app.use("/api/v1/auth", Auth);
 app.use("/api/v1/protected", Protected);
