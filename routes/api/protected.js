@@ -13,7 +13,7 @@ const fs = require("fs");
 const storage = multer.diskStorage({
   destination: "./temp-storage/",
   filename: function (req, file, cb) {
-    cb(null, "tempcsvfile" + path.extname(file.originalname));
+    cb(null, "tempcsvfile.csv");
   },
 });
 
@@ -35,11 +35,15 @@ router.post("/addCerts", async (req, res, next) => {
           customMessage: "Try again later",
         };
       }
+      //   console.log("1..");
+      //   setTimeout(() => {
+      //     console.log("waited");
+      //   }, 3000);
     });
     var cert = await csv().fromFile("./temp-storage/tempcsvfile.csv");
     var svg = req.body.svg;
     var query = "insert into data(email,hashId,uploaded,jsonString,svg) values";
-    cert.map((i, index) => {
+    await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
       query =
         query +
@@ -47,9 +51,10 @@ router.post("/addCerts", async (req, res, next) => {
       console.log(index);
     });
     query = query.substring(0, query.length - 1);
-    db.query(query, (err, result) => {
+    await db.query(query, (err, result) => {
       if (err) {
         console.log(err);
+        fs.unlinkSync("./temp-storage/tempcsvfile.csv");
         throw {
           statusCode: 400,
           customMessage: "Try again lateraejhfdc",
