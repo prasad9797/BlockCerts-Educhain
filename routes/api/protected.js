@@ -48,7 +48,7 @@ router.post("/addCerts", async (req, res, next) => {
       query =
         query +
         `('${i.email}','${token}',${0},'${JSON.stringify(i)}','${svg}'),`;
-      console.log(index);
+      //   console.log(index);
     });
     query = query.substring(0, query.length - 1);
     await db.query(query, (err, result) => {
