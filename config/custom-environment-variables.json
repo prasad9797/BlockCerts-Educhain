@@ -4,7 +4,7 @@
   "PORT": "PORT",
   "ethAddress": "ethAddress",
   "abi": "abi",
-  "defaultUserame": "defaultUserame",
+  "defaultUsername": "defaultUsername",
   "defaultPassword": "defaultPassword",
   "cryptoSecret": "cryptoSecret"
 }
