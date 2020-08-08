@@ -4,14 +4,15 @@ import '../CSS/admin.css';
 import '../CSS/animation.css';
 import axios from 'axios';
 import folder from '../images/unnamed.png';
+import { CSVReader } from "react-papaparse";
 
 class Admin extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            svg: null,
-            csv: null,
+            svg: "",
+            csv: {},
             certAvailable: false
         }
     }
@@ -33,18 +34,19 @@ class Admin extends React.Component {
         console.log(this.state.csv);
     }
 
-    // submit() {
-    //     const data = new FormData()
-    //     data.append('file', this.state.csv);
-    //     console.warn(this.state.csv);
-    //     let url = "http://localhost:8000/upload.php";
-
-    //     axios.post(url, data, { // receive two parameter endpoint url ,form data 
-    //     })
-    //         .then(res => { // then print response status
-    //             console.warn(res);
-    //         })
-    // }
+    submit = () => {
+        //Send data to server
+        axios.post('https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts',
+            {
+                svg: this.state.svg,
+                cert: this.state.csv
+            }
+        ).then((res) => {
+            console.log(res.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     render() {
         return (
@@ -78,11 +80,30 @@ class Admin extends React.Component {
                                 <Card.Body>
                                     <Card.Title className="upload-cert-template">Upload Certificate Data</Card.Title>
                                 </Card.Body>
-                                <input type="file" name="csv" id="csv" className="fileInput" accept=".csv" onChange={this.handleFile} />
+                                <CSVReader
+                                    onDrop={(data) => {
+                                        for (var i = 0; i < data.length; i++) {
+                                            delete data[i]["errors"];
+                                            delete data[i]["meta"];
+                                        }
+                                        console.log("Data : ", data);
+                                        this.setState({
+                                            csv: data
+                                        })
+                                        console.log("State Updated : ", this.state.csv);
+                                    }}
+                                    config={{ header: true }}
+                                    onError={this.handleOnError}
+                                    style={{ padding: '0' }}
+                                    addRemoveButton
+                                    onRemoveFile={this.handleOnRemoveFile}
+                                >
+                                    <span style={{ color: 'white' }}>Drop CSV file here or click to upload.</span>
+                                </CSVReader>
                             </Card>
                         </Col>
                     </Row>
-                    <Button variant="primary" className='swing-in-left-fwd' style={{ animationDelay: '0.4s' }}>Upload Data</Button>
+                    <Button variant="primary" className='swing-in-left-fwd' style={{ animationDelay: '0.4s' }} onClick={this.submit}>Upload Data</Button>
                 </div>
             </section >
         );

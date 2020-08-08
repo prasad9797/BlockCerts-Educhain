@@ -1,6 +1,9 @@
+* {
+    color: black;
+}
+
 #admin {
     overflow: hidden !important;
-    height: 100vh;
     background-color: rgb(18, 29, 51);
 }
 
