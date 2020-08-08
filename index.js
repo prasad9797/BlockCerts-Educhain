@@ -32,6 +32,6 @@ app.use("/api/v1/public", Public);
 
 app.use(error);
 
-app.listen(5000, () =>
+app.listen(process.env.PORT || 5000, () =>
   console.log(`Server is listening at http://localhost:5000`)
 );
