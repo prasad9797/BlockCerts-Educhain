@@ -5,6 +5,8 @@ import '../CSS/animation.css';
 import axios from 'axios';
 import folder from '../images/unnamed.png';
 import { CSVReader } from "react-papaparse";
+import FooterComp from '../Component/footer';
+import Footer from '../Component/footer';
 
 class Admin extends React.Component {
     constructor(props) {
@@ -80,6 +82,8 @@ class Admin extends React.Component {
                                     <Card.Title className="upload-cert-template">Upload Certificate Data</Card.Title>
                                 </Card.Body>
                                 <CSVReader
+                                    type=".csv"
+                                    noDrag
                                     onDrop={(data) => {
                                         var dataTemp = [];
                                         for (var i = 0; i < data.length; i++) {
@@ -101,13 +105,14 @@ class Admin extends React.Component {
                                     addRemoveButton
                                     onRemoveFile={this.handleOnRemoveFile}
                                 >
-                                    <span style={{ color: 'white' }}> Click to upload.</span>
+                                    <span style={{ color: 'white' }}> Click to upload (CSV only)</span>
                                 </CSVReader>
                             </Card>
                         </Col>
                     </Row>
                     <Button variant="primary" className='swing-in-left-fwd' style={{ animationDelay: '0.4s' }} onClick={this.submit}>Upload Data</Button>
                 </div>
+                <FooterComp />
             </section >
         );
     }

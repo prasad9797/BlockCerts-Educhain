@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button, Nav, Navbar } from 'react-bootstrap';
 import '../CSS/home.css';
 import '../CSS/animation.css';
+import FooterComp from './footer';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
@@ -36,6 +37,7 @@ export default function Home() {
                     </Col>
                 </Row>
             </Container>
+            <FooterComp />
         </section>
     );
 }

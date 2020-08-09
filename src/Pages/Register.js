@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import '../CSS/login.css';
 import '../CSS/animation.css';
+import FooterComp from '../Component/footer';
 
 class Register extends React.Component {
 
@@ -84,6 +85,7 @@ class Register extends React.Component {
                         </Form>
                     </Col>
                 </Row>
+                <FooterComp />
             </section>
         );
     }

@@ -8,8 +8,8 @@ function Main() {
     return (
         <div>
             <Home />
-            <Info />
-            <Features />
+            {/* <Info />
+            <Features /> */}
         </div>
 
     );

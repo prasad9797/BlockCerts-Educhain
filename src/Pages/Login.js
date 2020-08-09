@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, Navbar } from 'react-bootstrap';
 import '../CSS/login.css';
 import '../CSS/animation.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import FooterComp from '../Component/footer';
 
 class Login extends React.Component {
 
@@ -133,6 +133,7 @@ class Login extends React.Component {
                         </Form>
                     </Col>
                 </Row>
+                <FooterComp />
             </section>
         );
     }
