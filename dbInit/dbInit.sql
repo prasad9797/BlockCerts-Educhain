@@ -31,7 +31,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `data` (
   `email` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `hashId` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `uploaded` tinyint(1) NOT NULL DEFAULT '1',
+  `transactionHash` varchar(250) default NULL,
+  `uploaded` tinyint(1) NOT NULL DEFAULT '0',
+  `notify` tinyint(1) NOT NULL DEFAULT '0',
   `jsonString` longtext COLLATE utf8_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

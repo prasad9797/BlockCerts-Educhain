@@ -1,10 +1,67 @@
 {
-  "jwtPrivateKey": "jwtPrivateKey",
-  "mysql": "mysql",
-  "PORT": "PORT",
-  "ethAddress": "ethAddress",
-  "abi": "abi",
-  "defaultUserame": "defaultUserame",
-  "defaultPassword": "defaultPassword",
-  "cryptoSecret": "cryptoSecret"
+  "jwtPrivateKey": "my-secret-123#@%",
+
+  "mysqlHost": "remotemysql.com",
+  "mysqlUser": "hOU1qOK3ou",
+  "mysqlPassword": "173WBaFw69",
+  "mysqlDatabase": "hOU1qOK3ou",
+
+  "PORT": "5000",
+
+  "defaultUsername": "admin@691#!",
+  "defaultPassword": "admin@691#!",
+
+  "ethAddress": "0x5A91B43571183B22925bc7DE4d4B9Bc4D5B46B7E",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_keys",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_certs",
+          "type": "string"
+        }
+      ],
+      "name": "newCert",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "certificates",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "privateKey": "02167d27c57067d66a9fd452e3a7cc7347e78eefe0a473750c7d4297fbe414bc",
+  "contractAddr": "0x715925ff36cf50bd3D3e134f207625Dd9EBD0510",
+  "infuraAPIkey": "02c413bd8e8d48bcbae27daa4ae9ce8b",
+  "infuraEndpoint": "https://ropsten.infura.io/v3",
+  "network": "network",
+
+  "SMTPmail": "phyerwaaldev@gmail.com",
+  "SMTPpassword": "Phyer@123"
 }

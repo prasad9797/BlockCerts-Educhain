@@ -1,13 +1,14 @@
-// get all certs by email
-// get get by hashid
 const express = require("express");
 const router = express.Router();
 const config = require("config");
 const db = require("../../dbInit/dbConn");
 const Web3 = require("web3");
-const infura = `https://ropsten.infura.io/v3/02c413bd8e8d48bcbae27daa4ae9ce8b`;
+
+const infuraURL = config.get("infuraEndpoint");
+const APIkey = config.get("infuraAPIkey");
+const infura = `${infuraURL}/${APIkey}`;
 const web3 = new Web3(new Web3.providers.HttpProvider(infura));
-const addr = "0x5A91B43571183B22925bc7DE4d4B9Bc4D5B46B7E";
+// const abi = config.get("abi");
 const abi = [
   {
     inputs: [
@@ -52,21 +53,53 @@ const abi = [
     type: "function",
   },
 ];
-const contractAddr = "0x715925ff36cf50bd3D3e134f207625Dd9EBD0510";
+const contractAddr = config.get("contractAddr");
+
 var contract = new web3.eth.Contract(abi, contractAddr);
 
-// @route   POST api/v1/addCert
-// @desc    add certs to blockchain network
-// @access  private
-router.get("/:id", async (req, res, next) => {
+// @route   POST api/v1/public/:id
+// @desc    get getsingle cert from blockchain
+// @access  public
+router.get("/single/:id", async (req, res, next) => {
   try {
     var id = req.params.id;
-    var data = contract.methods
+    contract.methods
       .certificates(id)
       .call()
       .then((result) => {
         res.status(200).json({ result: JSON.parse(result) });
+      })
+      .catch((err) => {
+        console.log(err);
+        next(err);
       });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+// @route   POST api/v1/public/:email
+// @desc    get all certs for an email account
+// @access  public
+router.get("/:email", async (req, res, next) => {
+  try {
+    var email = req.params.email;
+    db.query(
+      `select hashId from data where email = '${email}'`,
+      (err, data) => {
+        if (err) {
+          throw {
+            statusCode: 400,
+            customMessage: "Try again later",
+          };
+        }
+        res.status(200).json({
+          message: "certifictaes found",
+          data: data,
+        });
+      }
+    );
   } catch (err) {
     console.log(err);
     next(err);

@@ -3,10 +3,10 @@ const mysql = require("mysql");
 
 // Create connection
 const db = mysql.createConnection({
-  host: "remotemysql.com",
-  user: "hOU1qOK3ou",
-  password: "173WBaFw69",
-  database: "hOU1qOK3ou",
+  host: config.get("mysqlHost"),
+  user: config.get("mysqlUser"),
+  password: config.get("mysqlPassword"),
+  database: config.get("mysqlDatabase"),
 });
 
 module.exports = db;
