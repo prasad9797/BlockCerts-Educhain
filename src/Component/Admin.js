@@ -6,7 +6,6 @@ import axios from 'axios';
 import folder from '../images/unnamed.png';
 import { CSVReader } from "react-papaparse";
 import FooterComp from '../Component/footer';
-import Footer from '../Component/footer';
 
 class Admin extends React.Component {
     constructor(props) {
