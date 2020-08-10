@@ -6,6 +6,9 @@ import axios from 'axios';
 import folder from '../images/unnamed.png';
 import { CSVReader } from "react-papaparse";
 import FooterComp from '../Component/footer';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { SET_ERROR } from '../actions/types';
 
 class Admin extends React.Component {
     constructor(props) {
@@ -14,7 +17,19 @@ class Admin extends React.Component {
         this.state = {
             svg: "",
             csv: {},
-            certAvailable: false
+            certAvailable: false,
+            isAllowedToView: false
+        }
+    }
+
+    componentWillMount() {
+        if (this.props.isAuthenticated && this.props.isAdmin) {
+            this.setState({ isAllowedToView: true })
+        }
+        else {
+            this.setState({ isAllowedToView: false });
+            this.props.setErrors('Please login as Admin to view the page');
+            console.log(this.props.errors);
         }
     }
 
@@ -49,7 +64,7 @@ class Admin extends React.Component {
     }
 
     render() {
-        return (
+        return this.state.isAllowedToView ? (
             <section id="admin">
                 <div className="custom-nav slide-bottom">
                     <Navbar collapseOnSelect expand="lg" variant="light">
@@ -113,8 +128,21 @@ class Admin extends React.Component {
                 </div>
                 <FooterComp />
             </section >
-        );
+        ) : <Redirect to='/login' />;
     }
 }
 
-export default Admin;
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.isAuthenticated,
+    isAdmin: state.isAdmin,
+    errors: state.errors
+})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setErrors: (errors) => { dispatch({ type: SET_ERROR, errors: errors }) }
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

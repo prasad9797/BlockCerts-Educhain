@@ -4,6 +4,8 @@ import '../CSS/login.css';
 import '../CSS/animation.css';
 import axios from 'axios';
 import FooterComp from '../Component/footer';
+import { connect } from 'react-redux';
+import { SET_USER, SET_ADMIN } from '../actions/types';
 
 class Login extends React.Component {
 
@@ -16,6 +18,14 @@ class Login extends React.Component {
             isAdmin: false,
             errors: "",
             isValid: false
+        }
+    }
+
+    componentWillMount() {
+        console.log(this.props.errors);
+        if (this.props.errors !== '') {
+            this.setState({ errors: this.props.errors });
+            console.log(this.state.errors);
         }
     }
 
@@ -36,7 +46,7 @@ class Login extends React.Component {
             error: ""
         })
         let isValid = true;
-
+        // Turn ON before site goes live
         // if (this.state.email !== null) {
         //     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
         //     if (!pattern.test(this.state.email)) {
@@ -74,6 +84,7 @@ class Login extends React.Component {
                 ).then((res) => {
                     console.log(res.data);
                     axios.defaults.headers.common['Authorization'] = res.data.data;
+                    this.props.auth(this.state.isAdmin);
                     this.props.history.push("/admin");
                 }).catch(() => {
                     this.setState({
@@ -105,7 +116,7 @@ class Login extends React.Component {
                         <Form className="login-form">
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label className="swing-in-left-fwd">Email address</Form.Label>
-                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.2s" }} type="email" name="email" placeholder="Enter email" onChange={this.changeHandler} error={this.state.errors.email} />
+                                <Form.Control className="swing-in-left-fwd" style={{ animationDelay: "0.2s" }} type="email" name="email" placeholder="Enter email" onChange={this.changeHandler} />
                                 <Form.Text className="text-muted swing-in-left-fwd" style={{ animationDelay: "0.4s" }}>
                                     We'll never share your email with anyone else.
                         </Form.Text>
@@ -139,4 +150,21 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    errors: state.errors
+})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        auth: (isAdmin) => {
+            if (isAdmin) {
+                dispatch({ type: SET_ADMIN })
+            }
+            else {
+                dispatch({ type: SET_USER })
+            }
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

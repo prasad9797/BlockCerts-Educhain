@@ -25,6 +25,12 @@
     font-weight: bolder;
 }
 
+header-title-reg {
+    color: white;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
 .form-control:focus {
     outline: 0;
     box-shadow: transparent !important;
