@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const config = require("config");
+const db = require("../../dbInit/dbConn");
 const generateToken = require("../../middlewares/token").generateToken;
 
 router.post("/", async (req, res, next) => {
@@ -34,10 +35,8 @@ router.post("/login", async (req, res, next) => {
   try {
     var email = req.body.email;
     var password = req.body.password;
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
     db.query(
-      `SELECT * FROM users WHERE email = '${email}' AND password = '${hash}')`,
+      `SELECT password FROM users WHERE email = '${email}' OR phone = '${email}')`,
       (err, data) => {
         if (err) {
           throw {
@@ -45,9 +44,18 @@ router.post("/login", async (req, res, next) => {
             customMessage: "Try again later",
           };
         }
+        if ( !bcrypt.compareSync(req.body.password, data.password) ) {
+          throw {
+            statusCode: 401,
+            customMessage: "Invalid credentials",
+          };
+        }
+        const token = generateToken({
+          email: req.body.email,
+        });
         res.status(200).json({
           message: "Login Successful",
-          data: data,
+          data: `Bearer ${token}`,
         });
       }
     );
