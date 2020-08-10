@@ -3,6 +3,8 @@ const router = express.Router();
 const config = require("config");
 const db = require("../../dbInit/dbConn");
 const Web3 = require("web3");
+const bcrypt = require('bcrypt');
+const { has } = require("config");
 
 const infuraURL = config.get("infuraEndpoint");
 const APIkey = config.get("infuraAPIkey");
@@ -57,7 +59,7 @@ const contractAddr = config.get("contractAddr");
 
 var contract = new web3.eth.Contract(abi, contractAddr);
 
-// @route   POST api/v1/public/:id
+// @route   POST api/v1/public/single/:id
 // @desc    get getsingle cert from blockchain
 // @access  public
 router.get("/single/:id", async (req, res, next) => {
@@ -96,6 +98,39 @@ router.get("/:email", async (req, res, next) => {
         }
         res.status(200).json({
           message: "certifictaes found",
+          data: data,
+        });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+// @route   POST api/v1/public/registere
+// @desc    register a new user
+// @access  public
+router.post("/register", async (req, res, next) => {
+  try {
+    var fname = req.body.fname;
+    var lname = req.body.lname;
+    var email = req.body.email;
+    var phone = req.body.phone;
+    var password = req.body.password;
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(password, salt);
+    db.query(
+      `INSERT INTO users (fname, lname, email, phone, password) VALUES ('${fname}','${lname}','${email}','${phone}','${hash}')`,
+      (err, data) => {
+        if (err) {
+          throw {
+            statusCode: 400,
+            customMessage: "Try again later",
+          };
+        }
+        res.status(200).json({
+          message: "Registered Successfully",
           data: data,
         });
       }
