@@ -8,7 +8,7 @@ const signTransaction = require("../transaction-utils/certTransactions")
 const send = require("../transaction-utils/certTransactions").send;
 
 async function runner() {
-  var result = null;
+  var result = [];
   db.query("select * from data data where uploaded = 0 limit 100", function (
     err,
     res

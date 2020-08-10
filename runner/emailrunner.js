@@ -9,7 +9,7 @@ const transport = nodemailer.createTransport({
   },
 });
 async function emailrunner() {
-  var result = null;
+  var result = [];
   db.query(
     "select * from data where uploaded = 1 and notify = 1 limit 100",
     function (err, res) {
