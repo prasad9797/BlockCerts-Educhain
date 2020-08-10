@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button, Row, Col, Navbar } from "react-bootstrap";
 import FooterComp from "../Component/footer";
+import axios from "axios";
 import "../CSS/login.css";
 import "../CSS/animation.css";
 
@@ -16,6 +17,7 @@ class Register extends React.Component {
     error: "",
   };
 
+  //Set values of each textfield into individual state values.
   changeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -87,7 +89,28 @@ class Register extends React.Component {
 
   submitHandler = async () => {
     await this.validate();
+    let user = {
+      email: this.state.email,
+      fname: this.state.firstname,
+      lname: this.state.lastname,
+      phone: this.state.phone,
+      password: this.state.password,
+    };
     //axios
+    axios
+      .post(
+        "https://blockcerts-dapp.herokuapp.com/api/v1/public/register",
+        user
+      )
+      .then((res) => {
+        console.log(res.data);
+        this.props.history.push("/login");
+      })
+      .catch(() => {
+        this.setState({
+          errors: "Something went wrong",
+        });
+      });
   };
 
   componentDidMount() {
@@ -142,6 +165,7 @@ class Register extends React.Component {
                   className="swing-in-left-fwd"
                   style={{ animationDelay: "0.2s" }}
                   type="number"
+                  min="0"
                   placeholder="+91..."
                   name="phone"
                   onChange={this.changeHandler}
