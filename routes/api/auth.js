@@ -30,4 +30,31 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.post("/login", async (req, res, next) => {
+  try {
+    var email = req.body.email;
+    var password = req.body.password;
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(password, salt);
+    db.query(
+      `SELECT * FROM users WHERE email = '${email}' AND password = '${hash}')`,
+      (err, data) => {
+        if (err) {
+          throw {
+            statusCode: 400,
+            customMessage: "Try again later",
+          };
+        }
+        res.status(200).json({
+          message: "Login Successful",
+          data: data,
+        });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 module.exports = router;
