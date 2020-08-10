@@ -108,7 +108,7 @@ router.get("/:email", async (req, res, next) => {
   }
 });
 
-// @route   POST api/v1/public/registere
+// @route   POST api/v1/public/register
 // @desc    register a new user
 // @access  public
 router.post("/register", async (req, res, next) => {
