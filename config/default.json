@@ -2,9 +2,9 @@
   "jwtPrivateKey": "my-secret-123#@%",
 
   "mysqlHost": "remotemysql.com",
-  "mysqlUser": "hOU1qOK3ou",
-  "mysqlPassword": "173WBaFw69",
-  "mysqlDatabase": "hOU1qOK3ou",
+  "mysqlUser": "P2yLmrfPAy",
+  "mysqlPassword": "cKIR7WXNSe",
+  "mysqlDatabase": "P2yLmrfPAy",
 
   "PORT": "5000",
 
