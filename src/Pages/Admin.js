@@ -68,7 +68,7 @@ class Admin extends React.Component {
   };
 
   render() {
-    return (
+    return this.props.isAdmin ? (
       <section id="admin">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
@@ -174,6 +174,8 @@ class Admin extends React.Component {
         </div>
         <FooterComp />
       </section>
+    ) : (
+      <Redirect to="/login" />
     );
   }
 }

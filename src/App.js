@@ -17,9 +17,10 @@ function App() {
         <Route exact path="/signup" component={Register} />
         <Route exact path="/cert" component={Cert} />
         <Route exact path="/dev" component={Devs} />
-        <Switch>
+        <Route exact path="/admin" component={Admin} />
+        {/* <Switch>
           <PrivateRoute exact path="/admin" component={Admin} />
-        </Switch>
+        </Switch> */}
       </Switch>
     </Router>
   );
