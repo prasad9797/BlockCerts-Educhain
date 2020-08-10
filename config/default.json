@@ -9,8 +9,7 @@
   "PORT": "5000",
 
   "defaultUsername": "admin@691#!",
-  "defaultPassword": "admin@691#!",
-
+  "defaultPassword": "$2a$10$ZcpXPs7vckBcU/9zyb.L9e8ERR5qhANwGwaj1.GxPVluqKsIHJhVm",
   "ethAddress": "0x5A91B43571183B22925bc7DE4d4B9Bc4D5B46B7E",
   "abi": [
     {
