@@ -3,7 +3,7 @@ const router = express.Router();
 const config = require("config");
 const db = require("../../dbInit/dbConn");
 const Web3 = require("web3");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const { has } = require("config");
 
 const infuraURL = config.get("infuraEndpoint");
@@ -111,34 +111,5 @@ router.get("/:email", async (req, res, next) => {
 // @route   POST api/v1/public/register
 // @desc    register a new user
 // @access  public
-router.post("/register", async (req, res, next) => {
-  try {
-    var fname = req.body.fname;
-    var lname = req.body.lname;
-    var email = req.body.email;
-    var phone = req.body.phone;
-    var password = req.body.password;
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
-    db.query(
-      `INSERT INTO users (fname, lname, email, phone, password) VALUES ('${fname}','${lname}','${email}','${phone}','${hash}')`,
-      (err, data) => {
-        if (err) {
-          throw {
-            statusCode: 400,
-            customMessage: "Try again later",
-          };
-        }
-        res.status(200).json({
-          message: "Registered Successfully",
-          data: data,
-        });
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
 
 module.exports = router;
