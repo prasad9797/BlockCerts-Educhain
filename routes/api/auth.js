@@ -61,6 +61,7 @@ router.post("/login", (req, res, next) => {
         const token = generateToken(
           {
             username: req.body.username,
+            fname: JSON.parse(pass).fname,
           },
           3600
         );
