@@ -2,10 +2,11 @@ import React from "react";
 import Main from "./Pages/Main";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Admin from "./Pages/Admin";
 import Cert from "./test/CertTest";
 import Devs from "./Pages/developers";
+import StudentDashboard from "./Component/StudentDashboard";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./common/PrivateRoute";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/cert" component={Cert} />
         <Route exact path="/dev" component={Devs} />
         <Route exact path="/admin" component={Admin} />
+        <Route exact path="/student/dashboard" component={StudentDashboard} />
         {/* <Switch>
           <PrivateRoute exact path="/admin" component={Admin} />
         </Switch> */}

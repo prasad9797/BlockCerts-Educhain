@@ -79,11 +79,11 @@ class Login extends React.Component {
         axios
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth", auth)
           .then(async (res) => {
-            await this.props.auth(this.state.isAdmin);
-            console.log(this.props.isAdmin);
+            await this.props.auth(true);
+            console.log(this.props.Admin);
             setTimeout(() => {
               this.login(res);
-            }, 10000);
+            }, 2000);
           })
           .catch(() => {
             this.setState({
@@ -209,7 +209,8 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAdmin: state.isAdmin,
+    isAuthenticated: state.isAuthenticated,
+    Admin: state.Admin,
   };
 };
 
@@ -217,7 +218,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     auth: (isAdmin) => {
       if (isAdmin) {
-        dispatch({ type: SET_ADMIN });
+        dispatch({ type: SET_ADMIN, isAdmin: isAdmin });
       } else {
         dispatch({ type: SET_USER });
       }

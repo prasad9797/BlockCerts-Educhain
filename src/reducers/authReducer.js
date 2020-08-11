@@ -3,25 +3,26 @@ import { SET_ADMIN } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
-  isAdmin: false,
+  Admin: false,
   isUser: false,
 };
 
 const auth = (state = initialState, action) => {
   console.log(action.type);
+  console.log(action.isAdmin);
   switch (action.type) {
     case SET_USER:
       return {
         ...state,
         isAuthenticated: true,
-        isAdmin: false,
+        Admin: false,
         isUser: true,
       };
     case SET_ADMIN:
       return {
         ...state,
         isAuthenticated: true,
-        isAdmin: true,
+        Admin: action.isAdmin,
         isUser: false,
       };
     default:
