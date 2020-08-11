@@ -1,10 +1,38 @@
-import { combineReducers } from 'redux';
-import authReducer from './authReducer'
-import errorReducer from './errorReducer';
+import { SET_USER, LOGOUT } from "../actions/types";
+import { SET_ADMIN } from "../actions/types";
 
+const initialState = {
+  isAuthenticated: false,
+  Admin: false,
+  jwtToken: null,
+};
 
-export default combineReducers({
-    auth: authReducer,
-    error: errorReducer
-});
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_USER:
+      return {
+        ...state,
+        isAuthenticated: true,
+        Admin: false,
+        jwtToken: action.token,
+      };
+    case SET_ADMIN:
+      return {
+        ...state,
+        isAuthenticated: true,
+        Admin: true,
+        jwtToken: action.token,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        Admin: false,
+        jwtToken: null,
+      };
+    default:
+      return state;
+  }
+};
 
+export default rootReducer;

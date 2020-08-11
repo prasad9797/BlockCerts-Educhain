@@ -98,10 +98,7 @@ class Register extends React.Component {
     };
     //axios
     axios
-      .post(
-        "https://blockcerts-dapp.herokuapp.com/api/v1/public/register",
-        user
-      )
+      .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/register", user)
       .then((res) => {
         console.log(res.data);
         this.props.history.push("/login");
@@ -240,7 +237,7 @@ class Register extends React.Component {
                   onChange={this.changeHandler}
                 />
               </Form.Group>
-              <Form.Check
+              {/* <Form.Check
                 className="swing-in-left-fwd"
                 style={{ animationDelay: "0.2s" }}
                 type="switch"
@@ -253,14 +250,14 @@ class Register extends React.Component {
                 checked={this.state.admin}
                 id="custom-switch"
                 label="Register as Admin (Toggle if Admin)"
-              />
+              /> */}
               {/* <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Check me out" />
                             </Form.Group> */}
               <a
                 href="/login"
                 className="already-account swing-in-left-fwd"
-                style={{ animationDelay: "1.4s" }}
+                style={{ animationDelay: "0.2s" }}
               >
                 Already have an Account?Click here to Sign In!
               </a>

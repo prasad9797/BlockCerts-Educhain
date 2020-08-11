@@ -8,7 +8,7 @@ import { CSVReader } from "react-papaparse";
 import FooterComp from "../Component/footer";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { SET_ERROR } from "../actions/types";
+import { LOGOUT } from "../actions/types";
 
 class Admin extends React.Component {
   constructor(props) {
@@ -20,6 +20,23 @@ class Admin extends React.Component {
       certAvailable: false,
       isAllowedToView: false,
     };
+  }
+
+  componentWillMount() {
+    console.log(this.state.isAllowedToView);
+    console.log(sessionStorage.getItem("state"));
+    if (localStorage.getItem("state") !== null) {
+      console.log(sessionStorage.getItem("state"));
+      this.setState({ isAllowedToView: true });
+    } else if (this.props.isAdmin) {
+      console.log(this.props.isAdmin);
+      this.setState({ isAllowedToView: true });
+    } else {
+      console.log("Logout");
+      delete axios.defaults.headers.common["Authorization"];
+      this.props.Logout();
+      this.props.history.push("/login");
+    }
   }
 
   //   componentWillMount() {
@@ -36,13 +53,14 @@ class Admin extends React.Component {
   //       : console.log("Nothing");
   //   }
 
-  // componentDidMount() {
-  //     //Call get route to fetch Certificate Thumbnail
-  //     axios.get('fetchTemplateRoute').then(function (response) {
-  //         console.log(response);
-  //          this.setState({cert: true})
-  //     })
-  // }
+  componentDidMount() {
+    //Call get route to fetch Certificate Thumbnail
+    // axios.get('fetchTemplateRoute').then(function (response) {
+    //     console.log(response);
+    //      this.setState({cert: true})
+    // })
+    console.log(this.state.isAllowedToView);
+  }
 
   handleFile = async (e) => {
     // console.log([e.target.name] + ":" + e.target.value);
@@ -67,16 +85,24 @@ class Admin extends React.Component {
       });
   };
 
+  logout = () => {
+    this.setState({ isAllowedToView: false });
+    axios.defaults.headers.common["Authorization"] = "";
+    sessionStorage.removeItem("state");
+    this.props.Logout();
+    this.props.history.push("/login");
+  };
+
   render() {
-    return this.props.isAdmin ? (
+    return this.state.isAllowedToView ? (
       <section id="admin">
         <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="light">
+          <Navbar collapseOnSelect expand="lg" variant="dark">
             <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
-                <Button className="sign" href="/">
+                <Button className="sign" onClick={this.logout}>
                   Log Out
                 </Button>
               </Nav>
@@ -182,7 +208,15 @@ class Admin extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.isAuthenticated,
-  isAdmin: state.isAdmin,
+  isAdmin: state.Admin,
 });
 
-export default connect(mapStateToProps)(Admin);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Logout: () => {
+      dispatch({ type: LOGOUT });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

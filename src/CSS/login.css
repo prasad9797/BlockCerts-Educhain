@@ -1,17 +1,17 @@
 * {
-    color: white;
-    font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-family: "Montserrat", sans-serif;
 }
 
 #login {
-    overflow-x: hidden;
-    color: white;
-    height: 100vh;
-    background-color: rgb(18, 29, 51);
+  overflow-x: hidden;
+  color: white;
+  height: 100vh;
+  background-color: rgb(18, 29, 51);
 }
 
 .text-muted {
-    color: white !important;
+  color: white !important;
 }
 
 /* .login-form {
@@ -19,86 +19,93 @@
 } */
 
 .header-title {
-    padding-top: 2rem;
-    color: white;
-    font-size: 40px;
-    font-weight: bolder;
+  padding-top: 2rem;
+  color: white;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 header-title-reg {
-    color: white;
-    font-size: 40px;
-    font-weight: bolder;
+  color: white;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 .form-control:focus {
-    outline: 0;
-    box-shadow: transparent !important;
+  outline: 0;
+  box-shadow: transparent !important;
 }
 
 .custom-control-label {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .custom-control-input {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 .btn {
-    border-bottom: 4px;
-    border-color: transparent !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    /* box-shadow: 0px 0px 5px #00bcd4; */
+  border-bottom: 4px;
+  border-color: transparent !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  /* box-shadow: 0px 0px 5px #00bcd4; */
 }
 
 .no-account {
-    color: white;
+  color: white;
 }
 
 .no-account:hover {
-    color: white;
+  color: white;
 }
 
 .already-account {
-    color: white;
+  color: white;
 }
 
 .already-account:hover {
-    color: white;
+  color: white;
 }
 
 .form-button {
-    margin: 10px;
+  margin: 10px;
 }
 
 .error {
-    color: red;
-    font-weight: bolder;
+  color: red;
+  font-weight: bolder;
 }
 
 @media only screen and (min-width: 1000) {
-    .header-title {
-        padding-top: 15rem;
-        font-size: 40px;
-    }
+  .header-title {
+    padding-top: 15rem;
+    font-size: 40px;
+  }
 }
 
 @media only screen and (min-width: 1500) {
-    .header-title {
-        font-size: 70px !important;
-    }
+  .header-title {
+    font-size: 70px !important;
+  }
+}
+
+@media only screen and (max-width: 700) {
+  .login-fields {
+    margin: 5% !important;
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
 
-input[type=number] {
-    -moz-appearance: textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }

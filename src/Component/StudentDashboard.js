@@ -2,8 +2,17 @@ import React from "react";
 import { Navbar, Nav, Button, Container, Col, Row } from "react-bootstrap";
 import image from "../images/cert.svg";
 import "../CSS/s_dashboard.css";
+import { connect } from "react-redux";
+import { LOGOUT } from "../actions/types";
+import axios from "axios";
 
 class StudentDashboard extends React.Component {
+  logout = () => {
+    axios.defaults.headers.common["Authorization"] = "";
+    this.props.Logout();
+    this.props.history.push("/login");
+  };
+
   render() {
     return (
       <section id="student_dashboard">
@@ -13,7 +22,7 @@ class StudentDashboard extends React.Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
-                <Button className="sign" href="/">
+                <Button className="sign" onClick={this.logout}>
                   Log Out
                 </Button>
               </Nav>
@@ -51,4 +60,12 @@ class StudentDashboard extends React.Component {
   }
 }
 
-export default StudentDashboard;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Logout: () => {
+      dispatch({ type: LOGOUT });
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(StudentDashboard);

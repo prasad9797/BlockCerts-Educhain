@@ -6,6 +6,8 @@ import axios from "axios";
 import FooterComp from "../Component/footer";
 import { connect } from "react-redux";
 import { SET_USER, SET_ADMIN } from "../actions/types";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class Login extends React.Component {
       isAdmin: false,
       errors: "",
       isValid: false,
+      isAutheticating: false,
     };
   }
 
@@ -37,16 +40,17 @@ class Login extends React.Component {
       error: "",
     });
     let isValid = true;
-    // Turn ON before site goes live
-    // if (this.state.email !== null) {
-    //     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    //     if (!pattern.test(this.state.email)) {
-    //         isValid = false;
-    //         this.setState({
-    //             errors: "Please enter valid email address"
-    //         })
-    //     }
-    // }
+    if (this.state.email !== null) {
+      var pattern = new RegExp(
+        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+      );
+      if (!pattern.test(this.state.email)) {
+        isValid = false;
+        this.setState({
+          errors: "Please enter valid email address",
+        });
+      }
+    }
     if (this.state.password === "") {
       isValid = false;
       this.setState({
@@ -58,14 +62,12 @@ class Login extends React.Component {
     });
   }
 
-  login(res) {
-    console.log(res.data);
-    axios.defaults.headers.common["Authorization"] = res.data.data;
-    this.props.history.push("/admin");
-  }
-
   onSubmit = async (e) => {
     e.preventDefault();
+    this.setState({
+      isAutheticating: true,
+      errors: "",
+    });
     await this.validate();
     if (this.state.isValid) {
       console.log("validated");
@@ -79,36 +81,39 @@ class Login extends React.Component {
         axios
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth", auth)
           .then(async (res) => {
-            await this.props.auth(true);
+            await this.props.auth(true, res.data.data);
             console.log(this.props.Admin);
-            setTimeout(() => {
-              this.login(res);
-            }, 2000);
+            console.log(res.data);
+            axios.defaults.headers.common["Authorization"] = res.data.data;
+            this.props.history.push("/admin");
           })
           .catch(() => {
             this.setState({
               errors: "Incorrect Email or Password",
+              isAutheticating: false,
             });
           });
       } else {
         //Call User route
-        // this.setState({
-        //     errors: "User Route not yet assigned.."
-        // })
+        this.setState({
+          errors: "",
+        });
         let auth = {
-          email: this.state.email,
+          username: this.state.email,
           password: this.state.password,
         };
         axios
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/login", auth)
           .then((res) => {
             console.log(res.data);
-            // axios.defaults.headers.common["Authorization"] = res.data.data;
+            axios.defaults.headers.common["Authorization"] = res.data.data;
             console.log("User logged in!");
+            this.props.history.push("/student/dashboard");
           })
           .catch(() => {
             this.setState({
               errors: "Incorrect Email or Password",
+              isAutheticating: false,
             });
           });
       }
@@ -133,7 +138,7 @@ class Login extends React.Component {
             <h2 className="header-title swing-in-left-fwd" align="center">
               Login
             </h2>
-            <Form className="login-form">
+            <Form className="login-form login-fields">
               <Form.Group controlId="formBasicEmail">
                 <Form.Label className="swing-in-left-fwd">
                   Email address
@@ -194,9 +199,31 @@ class Login extends React.Component {
                 className="swing-in-left-fwd"
                 style={{ animationDelay: "1.2s" }}
               >
-                <Button variant="primary" onClick={this.onSubmit}>
-                  Submit
-                </Button>
+                {this.state.isAutheticating ? (
+                  // <a
+                  //   align="center"
+                  //   style={{ backgroundColor: "transparent", padding: "0" }}
+                  // >
+                  //   Checking...
+                  // </a>
+                  <Loader
+                    type="ThreeDots"
+                    color="white"
+                    height={60}
+                    width={60}
+                    style={{ backgroundColor: "transparent" }}
+                  />
+                ) : (
+                  <Button variant="primary" onClick={this.onSubmit}>
+                    {" "}
+                    <a
+                      align="center"
+                      style={{ backgroundColor: "transparent", padding: "0" }}
+                    >
+                      Submit
+                    </a>
+                  </Button>
+                )}
               </p>
             </Form>
           </Col>
@@ -216,11 +243,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (isAdmin) => {
+    auth: (isAdmin, jwtToken) => {
       if (isAdmin) {
-        dispatch({ type: SET_ADMIN, isAdmin: isAdmin });
+        dispatch({ type: SET_ADMIN, token: jwtToken });
       } else {
-        dispatch({ type: SET_USER });
+        dispatch({ type: SET_USER, token: jwtToken });
       }
     },
   };
