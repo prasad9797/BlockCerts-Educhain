@@ -18,7 +18,7 @@ router.post("/", async (req, res, next) => {
       };
     }
     const token = generateToken({
-      username: req.body.username,
+      username: req.body.username,600
     });
     res.status(200).json({
       status: 200,
@@ -51,7 +51,7 @@ router.post("/login", async (req, res, next) => {
           };
         }
         const token = generateToken({
-          email: req.body.email,
+          email: req.body.email, 3600
         });
         res.status(200).json({
           message: "Login Successful",
