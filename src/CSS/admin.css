@@ -1,9 +1,6 @@
-* {
-    background-color: rgb(18, 29, 51);
-}
-
 #admin {
     overflow: hidden !important;
+    background-color: rgb(18, 29, 51);
 }
 
 .admin-dashboard {

@@ -5,14 +5,19 @@
   font-family: "Montserrat", sans-serif;
 }
 
+body {
+  background-image: url('../images/certificate_bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 #home {
   height: 100vh;
-  background-color: rgb(18, 29, 51);
   overflow-x: hidden;
 }
 
 .title {
-  color: white;
+  color: black;
   justify-content: center;
   align-items: center;
   padding-top: 15rem;
@@ -20,7 +25,7 @@
 }
 
 .sub-title {
-  color: white;
+  color: black;
   font-size: 20px;
 }
 
@@ -60,13 +65,14 @@
   padding: 2% !important;
 }
 
-.navbar-light .navbar-brand {
-  color: white !important;
+.navbar-dark .navbar-brand {
+  color: black !important;
   font-weight: bolder !important;
 }
 
 .navbar-brand {
   font-weight: bolder;
+  color: black;
 }
 
 .sign {
