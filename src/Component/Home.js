@@ -27,30 +27,32 @@ export default function Home() {
       <Container fluid>
         <Row sm={12} md={1}>
           <Col>
-            <h1
-              align="center"
-              className="title swing-in-left-fwd"
-              style={{ animationDelay: "0.2s" }}
-            >
-              Secure your <span className="decorated-text">Certificate</span>
-            </h1>
-            <p
-              align="center"
-              className="sub-title swing-in-left-fwd"
-              style={{ animationDelay: "0.4s" }}
-            >
-              Authenticate your Certificates with Ease!
-            </p>
-            <p align="center">
-              <Link to="/login">
-                <Button
-                  className="log swing-in-left-fwd"
-                  style={{ animationDelay: "0.6s" }}
-                >
-                  Get Started
-                </Button>
-              </Link>
-            </p>
+            <div className="center-div">
+              <h1
+                align="center"
+                className="title swing-in-left-fwd"
+                style={{ animationDelay: "0.2s" }}
+              >
+                Secure your <span className="decorated-text">Certificate</span>
+              </h1>
+              <p
+                align="center"
+                className="sub-title swing-in-left-fwd"
+                style={{ animationDelay: "0.4s" }}
+              >
+                Authenticate your Certificates with Ease!
+              </p>
+              <p align="center">
+                <Link to="/login">
+                  <Button
+                    className="log swing-in-left-fwd"
+                    style={{ animationDelay: "0.6s" }}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </p>
+            </div>
           </Col>
         </Row>
       </Container>

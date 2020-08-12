@@ -131,7 +131,10 @@ body {
 }
 
 @media only screen and (max-width: 400px) {
-  .title {
-    padding-top: 50%;
+  .center-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 25%);
   }
 }
