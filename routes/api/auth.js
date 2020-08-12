@@ -2,11 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const config = require("config");
-const db = require("../../dbInit/dbConn");
 const generateToken = require("../../middlewares/token").generateToken;
-const jwt = require("jsonwebtoken");
-// const config = require("config");
-const jwtPrivateKey = config.get("jwtPrivateKey");
+const pgp = require("../../dbInit/dbConn").pgp;
 
 router.post("/", async (req, res, next) => {
   try {
@@ -23,6 +20,7 @@ router.post("/", async (req, res, next) => {
     const token = generateToken(
       {
         username: req.body.username,
+        role: "admin",
       },
       600
     );
@@ -37,72 +35,68 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   try {
-    var email = req.body.username;
-    var password = req.body.password;
-    db.query(
-      `SELECT * FROM users WHERE email = '${email}' OR phone = '${email}'`,
-      (err, data) => {
-        if (err) {
-          console.log(err);
-          throw {
-            statusCode: 400,
-            customMessage: "Try again later",
-          };
-        }
-        var pass = JSON.stringify(data[0]);
-        if (!bcrypt.compareSync(password, JSON.parse(pass).password)) {
-          throw {
-            statusCode: 401,
-            customMessage: "Invalid credentials",
-          };
-        }
-        const token = generateToken(
-          {
-            username: req.body.username,
-            fname: JSON.parse(pass).fname,
-          },
-          3600
-        );
-        res.status(200).json({
-          message: "Login Successful",
-          data: `Bearer ${token}`,
-        });
-      }
+    var result = await pgp.query(
+      "SELECT * FROM users WHERE email = ${email} OR phone = ${email}",
+      { email: req.body.username }
     );
+
+    if (result.length == 0) {
+      throw {
+        statusCode: 404,
+        customMessage: "User does not exist",
+      };
+    } else if (!bcrypt.compareSync(req.body.password, result[0].password)) {
+      throw {
+        statusCode: 401,
+        customMessage: "Invalid credentials",
+      };
+    }
+    const token = generateToken(
+      {
+        useremail: req.body.username,
+        name: result[0].fname + " " + result[0].lname,
+      },
+      3600
+    );
+    res.status(200).json({
+      message: "Logged in Successfully",
+      data: `Bearer ${token}`,
+    });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });
 
 router.post("/register", async (req, res, next) => {
   try {
-    var fname = req.body.fname;
-    var lname = req.body.lname;
-    var email = req.body.email;
-    var phone = req.body.phone;
-    var password = req.body.password;
     var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
-    db.query(
-      `INSERT INTO users (fname, lname, email, phone, password) VALUES ('${fname}','${lname}','${email}','${phone}','${hash}')`,
-      (err, data) => {
-        if (err) {
-          throw {
-            statusCode: 400,
-            customMessage: "Try again later",
-          };
-        }
-        res.status(200).json({
-          message: "Registered Successfully",
-          data: data,
-        });
+    var hash = bcrypt.hashSync(req.body.password, salt);
+    var result = await pgp.query("select * from users where email = ${email}", {
+      email: req.body.email,
+    });
+    if (result.length !== 0) {
+      throw {
+        statusCode: 404,
+        customMessage: "User with the same email already exists",
+      };
+    }
+    result = await pgp.query(
+      "INSERT INTO users (fname, lname, email, phone, password) VALUES (${fname},${lname},${email},${phone},${hash}) returning email",
+      {
+        fname: req.body.fname,
+        lname: req.body.lname,
+        email: req.body.email,
+        phone: req.body.phone,
+        hash: hash,
       }
     );
+    res.status(200).json({
+      message: "Registered Successfully",
+      data: result[0].email,
+    });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });

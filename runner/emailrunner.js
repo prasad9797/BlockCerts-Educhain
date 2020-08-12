@@ -9,20 +9,8 @@ const transport = nodemailer.createTransport({
   },
 });
 async function emailrunner() {
-  var result = [];
-  db.query(
-    "select * from data where uploaded = 1 and notify = 1 limit 100",
-    function (err, res) {
-      if (err) {
-        console.log(err);
-        throw {
-          statusCode: 400,
-          customMessage: "Try again later",
-        };
-      } else if (res.length > 0) {
-        result = JSON.stringify(res);
-      }
-    }
+  var result = await db.query(
+    "select * from certs where uploaded = 1 and notify = 1 limit 100"
   );
   for (var i = 0; i < result.length; i++) {
     var mailOptions = {
@@ -40,7 +28,7 @@ async function emailrunner() {
         };
       }
       db.query(
-        `update data set notify=0 where hashId = '${result[i].jsonString}'`,
+        `update data set notify=0 where id = '${result[i].id}'`,
         function (err, data) {}
       );
     });

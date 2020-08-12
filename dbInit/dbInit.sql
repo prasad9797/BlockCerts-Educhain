@@ -38,7 +38,7 @@ CREATE TABLE `data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `users` (
-  `email` varchar(250) NOT NULL,
+  `email` varchar(250) primary key NOT NULL,
   `fname` varchar(250) NOT NULL,
   `lname` varchar(250) NOT NULL,
   `phone` varchar(250) NOT NULL,
@@ -59,3 +59,12 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- postgres
+
+create table certs(email varchar(250) not null, id varchar(250) primary key not null,transactionHash varchar(250) default null, uploaded boolean default false not null, notify boolean default false not null, jsonString text not null);
+
+create table users(email varchar(250) primary key not null , fname varchar(250) not null, lname varchar(250) not null, phone varchar(10) not null, password varchar(250) not null);
+
+d2pl1qfka3fv3g

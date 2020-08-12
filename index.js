@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
   });
 });
 
-cron.schedule("* */3 * * *", runner);
-cron.schedule("* */3 * * *", emailrunner);
+// cron.schedule("* */3 * * *", runner);
+// cron.schedule("* */3 * * *", emailrunner);
 
 const Auth = require("./routes/api/auth");
 const Protected = require("./routes/api/protected");

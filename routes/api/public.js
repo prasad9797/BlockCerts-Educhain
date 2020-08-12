@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const config = require("config");
-const db = require("../../dbInit/dbConn");
 const Web3 = require("web3");
 const bcrypt = require("bcrypt");
-const { has } = require("config");
 
 const infuraURL = config.get("infuraEndpoint");
 const APIkey = config.get("infuraAPIkey");
@@ -69,6 +67,7 @@ router.get("/single/:id", async (req, res, next) => {
       .certificates(id)
       .call()
       .then((result) => {
+        console.log(result);
         res.status(200).json({ result: JSON.parse(result) });
       })
       .catch((err) => {
@@ -80,36 +79,5 @@ router.get("/single/:id", async (req, res, next) => {
     next(err);
   }
 });
-
-// @route   POST api/v1/public/:email
-// @desc    get all certs for an email account
-// @access  public
-router.get("/:email", async (req, res, next) => {
-  try {
-    var email = req.params.email;
-    db.query(
-      `select hashId from data where email = '${email}'`,
-      (err, data) => {
-        if (err) {
-          throw {
-            statusCode: 400,
-            customMessage: "Try again later",
-          };
-        }
-        res.status(200).json({
-          message: "certifictaes found",
-          data: data,
-        });
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
-
-// @route   POST api/v1/public/register
-// @desc    register a new user
-// @access  public
 
 module.exports = router;
