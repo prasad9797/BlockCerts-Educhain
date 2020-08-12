@@ -9,6 +9,8 @@ import FooterComp from "../Component/footer";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { LOGOUT } from "../actions/types";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class Admin extends React.Component {
   constructor(props) {
@@ -19,13 +21,15 @@ class Admin extends React.Component {
       csv: {},
       certAvailable: false,
       isAllowedToView: false,
+      isSendingData: false,
+      error: "",
     };
   }
 
   componentWillMount() {
     console.log(this.state.isAllowedToView);
     console.log(sessionStorage.getItem("state"));
-    if (localStorage.getItem("state") !== null) {
+    if (sessionStorage.getItem("state") !== null) {
       console.log(sessionStorage.getItem("state"));
       this.setState({ isAllowedToView: true });
     } else if (this.props.isAdmin) {
@@ -71,18 +75,32 @@ class Admin extends React.Component {
   };
 
   submit = () => {
-    //Send data to server
-    axios
-      .post("https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts", {
-        svg: this.state.svg,
-        cert: this.state.csv,
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.setState({ isSendingData: false });
+    if (this.state.svg == "" || this.state.csv == {}) {
+      this.setState({ error: "Please upload both files" });
+      return;
+    } else {
+      this.setState({ isSendingData: true });
+      //Send data to server
+      axios
+        .post(
+          "https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts",
+          {
+            svg: this.state.svg,
+            cert: this.state.csv,
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({
+            isSendingData: false,
+            error: "Error sending...Please try again!",
+          });
+        });
+    }
   };
 
   logout = () => {
@@ -98,7 +116,7 @@ class Admin extends React.Component {
       <section id="admin">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="dark">
-            <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+            <Navbar.Brand href="/">Educhain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
@@ -189,14 +207,27 @@ class Admin extends React.Component {
               </Card>
             </Col>
           </Row>
-          <Button
-            variant="primary"
-            className="swing-in-left-fwd"
-            style={{ animationDelay: "0.4s" }}
-            onClick={this.submit}
-          >
-            Upload Data
-          </Button>
+          <p align="center" className="error">
+            {this.state.error}
+          </p>
+          {this.state.isSendingData ? (
+            <Loader
+              type="ThreeDots"
+              color="white"
+              height={60}
+              width={60}
+              style={{ backgroundColor: "transparent" }}
+            />
+          ) : (
+            <Button
+              variant="primary"
+              className="swing-in-left-fwd"
+              style={{ animationDelay: "0.4s" }}
+              onClick={this.submit}
+            >
+              Upload Data
+            </Button>
+          )}
         </div>
         <FooterComp />
       </section>

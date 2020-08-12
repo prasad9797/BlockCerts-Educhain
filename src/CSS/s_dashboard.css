@@ -1,7 +1,30 @@
 .dashboard-header {
-    margin-left: 20px;
+  margin-right: 20px !important;
+  font-size: 20px !important;
+  align-items: center;
+}
+
+.dashboard-certificate-text {
+  margin-left: 15px;
+  margin-top: 20px;
+  font-size: 25px;
 }
 
 .certificate-holder {
-    margin: 2%;
+  margin: 1.5%;
+}
+
+#dropdown-basic {
+  overflow: hidden !important;
+  background-color: transparent !important;
+}
+
+.dropdown-menu {
+  width: 50px;
+  background-color: transparent !important;
+  overflow-x: hidden !important;
+}
+
+.dropdown-item:hover {
+  background-color: transparent !important;
 }

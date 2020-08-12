@@ -40,17 +40,17 @@ class Login extends React.Component {
       error: "",
     });
     let isValid = true;
-    if (this.state.email !== null) {
-      var pattern = new RegExp(
-        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-      );
-      if (!pattern.test(this.state.email)) {
-        isValid = false;
-        this.setState({
-          errors: "Please enter valid email address",
-        });
-      }
-    }
+    // if (this.state.email !== null) {
+    //   var pattern = new RegExp(
+    //     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    //   );
+    //   if (!pattern.test(this.state.email)) {
+    //     isValid = false;
+    //     this.setState({
+    //       errors: "Please enter valid email address",
+    //     });
+    //   }
+    // }
     if (this.state.password === "") {
       isValid = false;
       this.setState({
@@ -125,7 +125,7 @@ class Login extends React.Component {
       <section id="login">
         <div className="custom-nav slide-bottom">
           <Navbar variant="light">
-            <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+            <Navbar.Brand href="/">Educhain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           </Navbar>
         </div>

@@ -8,7 +8,7 @@ export default function Devs() {
     <section id="devs">
       <div className="custom-nav slide-bottom">
         <Navbar variant="light">
-          <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+          <Navbar.Brand href="/">Educhain</Navbar.Brand>
         </Navbar>
       </div>
       <div className="dev-details">

@@ -10,7 +10,7 @@ export default function Home() {
     <section id="home">
       <div className="custom-nav slide-bottom">
         <Navbar collapseOnSelect expand="lg" variant="dark">
-          <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+          <Navbar.Brand href="/">Educhain</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">

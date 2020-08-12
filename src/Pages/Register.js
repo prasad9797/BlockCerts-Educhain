@@ -119,7 +119,7 @@ class Register extends React.Component {
       <section id="login">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+            <Navbar.Brand href="/">Educhain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           </Navbar>
         </div>
