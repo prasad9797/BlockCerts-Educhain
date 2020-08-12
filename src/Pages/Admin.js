@@ -76,7 +76,7 @@ class Admin extends React.Component {
 
   submit = () => {
     this.setState({ isSendingData: false });
-    if (this.state.svg == "" || this.state.csv == {}) {
+    if (this.state.svg === "" || this.state.csv === {}) {
       this.setState({ error: "Please upload both files" });
       return;
     } else {

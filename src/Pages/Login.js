@@ -23,6 +23,10 @@ class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+    delete axios.defaults.headers.common["Authorization"];
+  }
+
   changeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
