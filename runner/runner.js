@@ -9,9 +9,7 @@ const send = require("../transaction-utils/certTransactions").send;
 
 async function runner() {
   try {
-    var result = await pgp.query(
-      "select * from certs where uploaded = false limit 100"
-    );
+    var result = await pgp.query("select * from certs where uploaded = false");
     console.log(result.length);
     for (var i = 0; i < result.length; i++) {
       var nonce = await getTransactionCount();

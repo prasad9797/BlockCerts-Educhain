@@ -11,7 +11,7 @@ const transport = nodemailer.createTransport({
 async function emailrunner() {
   try {
     var result = await pgp.query(
-      "select * from certs where uploaded = true and notify = true limit 100"
+      "select * from certs where uploaded = true and notify = true limit 500"
     );
 
     for (var i = 0; i < result.length; i++) {
