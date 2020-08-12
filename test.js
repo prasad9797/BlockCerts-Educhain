@@ -1,12 +1,11 @@
-const pgp = require("../dbInit/dbConn").pgp;
-const getTransactionCount = require("../transaction-utils/certTransactions")
+const getTransactionCount = require("./transaction-utils/certTransactions")
   .getTransactionCount;
-const getRawTransaction = require("../transaction-utils/certTransactions")
+const getRawTransaction = require("./transaction-utils/certTransactions")
   .getRawTransaction;
-const signTransaction = require("../transaction-utils/certTransactions")
+const signTransaction = require("./transaction-utils/certTransactions")
   .signTransaction;
-const send = require("../transaction-utils/certTransactions").send;
-
+const send = require("./transaction-utils/certTransactions").send;
+const pgp = require("./dbInit/dbConn").pgp;
 async function runner() {
   try {
     var result = await pgp.query(
@@ -33,10 +32,67 @@ async function runner() {
     console.log(err);
   }
 }
+runner();
 
-module.exports = runner;
+// const Tx = require("ethereumjs-tx").Transaction;
+// const Web3 = require("web3");
+// const config = require("config");
+// const infuraURL = config.get("infuraEndpoint");
+// const APIkey = config.get("infuraAPIkey");
+// const infura = `${infuraURL}/${APIkey}`;
+// let web3 = new Web3(new Web3.providers.HttpProvider(infura));
+// const addr = config.get("ethAddress");
+// // const abi = config.get("abi");
+// const abi = [
+//   {
+//     inputs: [
+//       {
+//         internalType: "string",
+//         name: "_keys",
+//         type: "string",
+//       },
+//       {
+//         internalType: "string",
+//         name: "_certs",
+//         type: "string",
+//       },
+//     ],
+//     name: "newCert",
+//     outputs: [],
+//     stateMutability: "nonpayable",
+//     type: "function",
+//   },
+//   {
+//     inputs: [],
+//     stateMutability: "nonpayable",
+//     type: "constructor",
+//   },
+//   {
+//     inputs: [
+//       {
+//         internalType: "string",
+//         name: "",
+//         type: "string",
+//       },
+//     ],
+//     name: "certificates",
+//     outputs: [
+//       {
+//         internalType: "string",
+//         name: "",
+//         type: "string",
+//       },
+//     ],
+//     stateMutability: "view",
+//     type: "function",
+//   },
+// ];
+// const pk = config.get("privateKey");
+// const contractAddr = config.get("contractAddr");
+// const chain = config.get("network");
+// const contract = new web3.eth.Contract(abi, contractAddr);
 
-//   }
+// async function runner() {
 //   var count = 0;
 //   await web3.eth.getTransactionCount(addr).then((result) => {
 //     count = result;
@@ -56,7 +112,7 @@ module.exports = runner;
 //     data: contract.methods
 //       .newCert(
 //         count.toString(),
-//         '{"email":"rutwik","Column 2":"2-Jan","Column 3":"3-Jan","Column 4":"4-Jan"}'
+//         '{"email":"email@email.com","key1":"val1","key2":"val2","key3":"val3"}'
 //       )
 //       .encodeABI(),
 //     nonce: web3.utils.toHex(count),
@@ -77,7 +133,6 @@ module.exports = runner;
 //     .catch((err) => {
 //       console.log(err);
 //     });
-// .on("transactionHash", console.log);
+// }
 
-//   console.log(rawTransaction);
-//   process.exit();
+// runner();

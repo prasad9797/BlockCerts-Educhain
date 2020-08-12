@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
-const pgp = require("../dbInit/dbConn").pgp;
+const pgp = require("./dbInit/dbConn").pgp;
 const config = require("config");
+const { con } = require("./dbInit/dbConn");
 const transport = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -29,8 +30,8 @@ async function emailrunner() {
       console.log(data);
     }
   } catch (err) {
-    console.log(err);
+    console.log("gfv", err);
   }
 }
 
-module.exports = emailrunner;
+emailrunner();

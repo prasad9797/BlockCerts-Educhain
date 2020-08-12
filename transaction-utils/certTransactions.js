@@ -56,8 +56,8 @@ const contractAddr = config.get("contractAddr");
 const chain = config.get("network");
 const contract = new web3.eth.Contract(abi, contractAddr);
 
-function getTransactionCount() {
-  web3.eth
+async function getTransactionCount() {
+  return await web3.eth
     .getTransactionCount(addr)
     .then((result) => {
       return result;
@@ -69,6 +69,7 @@ function getTransactionCount() {
 }
 
 function getRawTransaction(nonce, data, HashId) {
+  console.log(nonce, data, HashId);
   var rawTransaction = {
     from: addr,
     gasPrice: web3.utils.toHex(20 * 1e9),
@@ -81,18 +82,18 @@ function getRawTransaction(nonce, data, HashId) {
   return rawTransaction;
 }
 
-function signTransaction(rawTransaction) {
+async function signTransaction(rawTransaction) {
   var transaction = new Tx(rawTransaction, {
-    chain: chain,
+    chain: "ropsten",
     hardfork: "petersburg",
   });
   //signing transaction with private key
-  transaction.sign(Buffer.from(pk, "hex"));
+  await transaction.sign(Buffer.from(pk, "hex"));
   return transaction;
 }
 
-function send(transaction) {
-  web3.eth
+async function send(transaction) {
+  return await web3.eth
     .sendSignedTransaction("0x" + transaction.serialize().toString("hex"))
     .then((res) => {
       return res;
