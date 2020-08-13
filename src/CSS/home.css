@@ -116,8 +116,8 @@ body {
 
 @media only screen and (min-width: 1500px) {
   .title {
-    font-size: 60px;
-    padding-top: 10%;
+    font-size: 70px;
+    padding-top: 15rem;
   }
   .sub-title {
     font-size: 30px;
