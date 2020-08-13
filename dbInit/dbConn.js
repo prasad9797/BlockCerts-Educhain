@@ -1,24 +1,3 @@
-const config = require("config");
-const mysql = require("mysql");
-
-// Create connection
-const db = mysql.createConnection({
-  host: "127.0.0.1", //config.get("mysqlHost"),
-  user: "sdxds", //config.get("mysqlUser"),
-  password: "sdxds", //config.get("mysqlPassword"),
-  // database: config.get("mysqlDatabase"),
-  database: "dataa",
-});
-
-const mysql2 = require("mysql2");
-// create the connection
-const con = mysql2.createConnection({
-  host: "localhost",
-  user: "sdxds",
-  database: "dataa",
-  password: "sdxds",
-});
-
 const pg = require("pg-promise")();
 
 const pgp = pg(
@@ -34,4 +13,4 @@ const pgp = pg(
   // { rejectUnauthorized: false }
 );
 
-module.exports = { con, db, pgp };
+module.exports = { pgp };
