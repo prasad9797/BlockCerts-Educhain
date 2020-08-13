@@ -107,11 +107,11 @@ class Home extends React.Component {
                     </Link>
                   )}
                 </p>
+                <FooterComp />
               </div>
             </Col>
           </Row>
         </Container>
-        <FooterComp />
       </section>
     );
   }
