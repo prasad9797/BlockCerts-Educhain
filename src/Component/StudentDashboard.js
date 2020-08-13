@@ -22,40 +22,36 @@ class StudentDashboard extends React.Component {
 
     this.state = {
       isStudent: false,
-      username: "",
+      username: {},
     };
   }
 
   componentWillMount() {
-    // console.log(this.state.isStudent);
-    // console.log(sessionStorage.getItem("jwtToken"));
     if (sessionStorage.getItem("jwtToken") !== "null") {
       var sessionData = sessionStorage.getItem("jwtToken");
-      console.log("Session: ", sessionData);
-      // var decoded = jwt_decode(sessionData[1]);
-      console.log("SessionData: ", sessionData);
       var sessionData = sessionData.split(" ");
-      console.log("Split Data: ", sessionData);
       var decoded = jwt_decode(sessionData[1]);
-      console.log(decoded);
-      // console.log(sessionStorage.getItem("jwtToken"));
-      this.setState({ isStudent: true, username: decoded.name });
+      console.log("decoded: ", decoded);
+      this.setState({ isStudent: true, username: decoded });
+      console.log(this.state.username);
     } else if (!this.props.isAdmin && this.props.isAuthenticated) {
       this.setState({ isStudent: true });
     } else {
       this.setState({ isStudent: false });
       sessionStorage.removeItem("jwtToken");
-      console.log("Logout");
-      delete axios.defaults.headers.common["Authorization"];
       this.props.Logout();
       this.props.history.push("/login");
     }
-  }
 
-  componentDidMount() {
-    console.log(this.state.isStudent);
-    console.log(window.location.pathname);
-    // console.log(split(window.location.pathname, "/"));
+    console.log("Undef: ", this.state.username);
+
+    axios
+      .get(
+        `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.username.useremail}`
+      )
+      .then((res) => {
+        console.log("API call: ", res.data);
+      });
   }
 
   logout = () => {
@@ -77,7 +73,7 @@ class StudentDashboard extends React.Component {
                 <Dropdown>
                   <Dropdown.Toggle id="dropdown-basic">
                     {this.state.username
-                      ? this.state.username
+                      ? this.state.username.name
                       : this.props.username.name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -88,10 +84,6 @@ class StudentDashboard extends React.Component {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                {/* <h4 className="dashboard-header mt-auto">Welcome, Sujoy Dev</h4> */}
-                {/* <Button className="sign" onClick={this.logout}>
-                  Log Out
-                </Button> */}
               </Nav>
             </Navbar.Collapse>
           </Navbar>
@@ -105,7 +97,9 @@ class StudentDashboard extends React.Component {
               <Col>
                 <img
                   onClick={() => {
-                    this.props.history.push("/student/certificate/1");
+                    this.props.history.push(
+                      "/student/certificate/c45dffe204ad0bac1352874e8a71b22c"
+                    );
                   }}
                   style={{ maxHeight: "300px" }}
                   src={image}

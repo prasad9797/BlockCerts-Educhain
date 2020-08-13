@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/student/dashboard" component={StudentDashboard} />
         <Route
           exact
-          path="/student/certificate/1"
+          path="/student/certificate/:id"
           component={CertificateDisplay}
         />
         {/* <Switch>

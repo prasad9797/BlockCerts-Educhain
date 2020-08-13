@@ -26,6 +26,7 @@ class CertificateDisplay extends React.Component {
   }
 
   async componentWillMount() {
+    var id = this.props.match.params.id;
     await axios
       .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
       .then((res) => {
@@ -33,7 +34,7 @@ class CertificateDisplay extends React.Component {
       });
 
     await axios
-      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/single/26")
+      .get(`https://blockcerts-dapp.herokuapp.com/api/v1/public/single/${id}`)
       .then((res) => {
         this.setState({ cert: res.data.result });
         console.log(this.state.cert);
@@ -42,10 +43,16 @@ class CertificateDisplay extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      document.getElementById("name").textContent = this.state.cert.email;
-      document.getElementById("certID").textContent =
-        "0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65";
-    }, 1000);
+      var keys = Object.keys(this.state.cert);
+      console.log("Keys:", keys);
+      for (var i = 0; i < keys.length; i++) {
+        if (document.getElementById(keys[i]) !== null) {
+          document.getElementById(keys[i]).textContent = this.state.cert[
+            keys[i]
+          ];
+        }
+      }
+    }, 2000);
   }
 
   render() {
