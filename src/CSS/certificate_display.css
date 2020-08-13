@@ -5,8 +5,8 @@ body {
 
 #user-certificates {
   background-color: white;
+  height: auto;
   overflow: hidden;
-  height: 100vh;
 }
 
 .verified {
@@ -18,6 +18,11 @@ body {
 .cert-detail-title,
 .cert-detail-info {
   word-break: break-all;
+}
+
+.cert {
+  max-height: 20% !important;
+  margin: 8%;
 }
 
 @media only screen and (max-width: 700px) {

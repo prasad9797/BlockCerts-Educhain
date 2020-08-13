@@ -13,9 +13,43 @@ import "../CSS/certificate_display.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import Footer from "./footer";
+import axios from "axios";
 
 class CertificateDisplay extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      svg: null,
+      cert: null,
+    };
+  }
+
+  async componentWillMount() {
+    await axios
+      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
+      .then((res) => {
+        this.setState({ svg: res.data.data });
+      });
+
+    await axios
+      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/single/26")
+      .then((res) => {
+        this.setState({ cert: res.data.result });
+        console.log(this.state.cert);
+      });
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      document.getElementById("name").textContent = this.state.cert.email;
+      document.getElementById("certID").textContent =
+        "0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65";
+    }, 1000);
+  }
+
   render() {
+    const parse = require("html-react-parser");
     return (
       <section id="user-certificates">
         <div className="custom-nav slide-bottom">
@@ -51,7 +85,9 @@ class CertificateDisplay extends React.Component {
           </Row>
           <Row className="justify-content-center align-items-center">
             <Col sm={12} lg={6}>
-              <img src={img} alt="img" style={{ maxHeight: "400px" }} />
+              <div className="cert">
+                {parse(this.state.svg ? this.state.svg : "")}
+              </div>
             </Col>
             <Col sm={12} lg={4}>
               <h4 className="cert-detail-title">ISSUE DATE</h4>
@@ -67,6 +103,13 @@ class CertificateDisplay extends React.Component {
               </a>
             </Col>
           </Row>
+          {/* <Button
+            onClick={() => {
+              document.getElementById("name").textContent = "Tejas Raibagi";
+              document.getElementById("certID").textContent =
+                "0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65";
+            }}
+          /> */}
         </div>
         <Footer />
       </section>
