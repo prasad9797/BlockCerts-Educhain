@@ -105,7 +105,7 @@ class Admin extends React.Component {
 
   logout = () => {
     this.setState({ isAllowedToView: false });
-    axios.defaults.headers.common["Authorization"] = "";
+    delete axios.defaults.headers.common["Authorization"];
     sessionStorage.removeItem("state");
     this.props.Logout();
     this.props.history.push("/login");

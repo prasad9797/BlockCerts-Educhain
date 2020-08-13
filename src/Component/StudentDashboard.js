@@ -13,20 +13,21 @@ import "../CSS/s_dashboard.css";
 import { connect } from "react-redux";
 import { LOGOUT } from "../actions/types";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class StudentDashboard extends React.Component {
   logout = () => {
-    axios.defaults.headers.common["Authorization"] = "";
+    delete axios.defaults.headers.common["Authorization"];
     this.props.Logout();
     this.props.history.push("/login");
   };
 
   render() {
-    return (
+    return this.props.isAuthenticated ? (
       <section id="student_dashboard">
         <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="dark">
-            <Navbar.Brand href="/">APSIT Blockchain</Navbar.Brand>
+          <Navbar collapseOnSelect expand="lg" variant="light">
+            <Navbar.Brand href="/">EduChain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
@@ -77,9 +78,15 @@ class StudentDashboard extends React.Component {
           </div>
         </Container>
       </section>
+    ) : (
+      <Redirect to="/login" />
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.isAuthenticated,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -89,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(StudentDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard);

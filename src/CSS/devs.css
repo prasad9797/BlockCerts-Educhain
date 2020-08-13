@@ -1,3 +1,11 @@
 .dev-name {
     margin-top: 2rem;
 }
+
+.dev-title {
+    color: black;
+}
+
+h3, p {
+    color: black;
+}

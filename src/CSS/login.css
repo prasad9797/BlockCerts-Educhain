@@ -1,32 +1,46 @@
 * {
-  color: white;
+  color: black;
   font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.55)
+    ),
+    url("../images/certificate_portal_bg3.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #login {
   overflow-x: hidden;
-  color: white;
+  color: black;
   height: 100vh;
-  background-color: rgb(18, 29, 51);
 }
 
 .text-muted {
-  color: white !important;
+  color: black !important;
+  font-weight: bolder;
 }
 
 /* .login-form {
     margin-top: 12rem;
 } */
 
+label {
+  font-weight: bolder;
+}
+
 .header-title {
   padding-top: 2rem;
-  color: white;
+  color: black;
   font-size: 40px;
   font-weight: bolder;
 }
 
-header-title-reg {
-  color: white;
+.header-title-reg {
+  color: black;
   font-size: 40px;
   font-weight: bolder;
 }
@@ -53,19 +67,19 @@ header-title-reg {
 }
 
 .no-account {
-  color: white;
+  color: black;
 }
 
 .no-account:hover {
-  color: white;
+  color: black;
 }
 
 .already-account {
-  color: white;
+  color: black;
 }
 
 .already-account:hover {
-  color: white;
+  color: black;
 }
 
 .form-button {

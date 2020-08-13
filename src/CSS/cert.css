@@ -7,3 +7,17 @@
     height: 50% !important;
     width: 50% !important;
 }
+
+.center {
+    height: 100vh;
+    width: 100%;
+    background-color: #171614;
+}
+
+.text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #65AFFF;
+}

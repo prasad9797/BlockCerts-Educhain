@@ -110,17 +110,21 @@ class Login extends React.Component {
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/login", auth)
           .then((res) => {
             console.log(res.data);
+            this.props.auth(false);
             axios.defaults.headers.common["Authorization"] = res.data.data;
             console.log("User logged in!");
             this.props.history.push("/student/dashboard");
           })
           .catch(() => {
+            console.log(this.state.isAutheticating);
             this.setState({
               errors: "Incorrect Email or Password",
               isAutheticating: false,
             });
           });
       }
+    } else {
+      this.setState({ isAutheticating: false });
     }
   };
 
@@ -142,7 +146,10 @@ class Login extends React.Component {
             <h2 className="header-title swing-in-left-fwd" align="center">
               Login
             </h2>
-            <Form className="login-form login-fields">
+            <Form
+              className="login-form login-fields"
+              style={{ padding: "20px" }}
+            >
               <Form.Group controlId="formBasicEmail">
                 <Form.Label className="swing-in-left-fwd">
                   Email address
@@ -210,13 +217,15 @@ class Login extends React.Component {
                   // >
                   //   Checking...
                   // </a>
-                  <Loader
-                    type="ThreeDots"
-                    color="white"
-                    height={60}
-                    width={60}
-                    style={{ backgroundColor: "transparent" }}
-                  />
+                  <Button variant="primary" disabled>
+                    {" "}
+                    <a
+                      align="center"
+                      style={{ backgroundColor: "transparent", padding: "0" }}
+                    >
+                      Loading...
+                    </a>
+                  </Button>
                 ) : (
                   <Button variant="primary" onClick={this.onSubmit}>
                     {" "}

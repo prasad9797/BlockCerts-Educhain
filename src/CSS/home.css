@@ -6,7 +6,11 @@
 }
 
 body {
-  background-image: url('../images/certificate_bg.png');
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.25)
+    ),
+    url("../images/certificate_portal_bg4.png") !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -65,9 +69,10 @@ body {
   padding: 2% !important;
 }
 
-.navbar-dark .navbar-brand {
+.navbar-light .navbar-brand {
   color: black !important;
   font-weight: bolder !important;
+  font-size: 30px;
 }
 
 .navbar-brand {
@@ -79,11 +84,10 @@ body {
   margin: 5px !important;
   padding-left: 30px !important;
   padding-right: 30px !important;
-  background-color: rgba(170, 170, 170, 0.6) !important;
+  background-color: rgba(170, 170, 170, 0.8) !important;
   color: white !important;
   border-color: transparent !important;
   font-weight: bold !important;
-  /* box-shadow: 0px 0px 10px #00bcd4; */
 }
 
 .reg {
@@ -127,14 +131,5 @@ body {
   .title {
     /* font-size: 60px; */
     padding-top: 35%;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .center-div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 25%);
   }
 }

@@ -4,6 +4,7 @@ import "../CSS/home.css";
 import "../CSS/animation.css";
 import FooterComp from "./footer";
 import { Link } from "react-router-dom";
+import { Particles } from "react-particles-js";
 
 export default function Home() {
   return (
@@ -38,7 +39,7 @@ export default function Home() {
               <p
                 align="center"
                 className="sub-title swing-in-left-fwd"
-                style={{ animationDelay: "0.4s" }}
+                style={{ animationDelay: "0.4s", fontWeight: "500" }}
               >
                 Authenticate your Certificates with Ease!
               </p>

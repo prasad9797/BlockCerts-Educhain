@@ -1,43 +1,52 @@
+body {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0.55)
+    ),
+    url("../images/certificate_portal_bg3.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 #admin {
-    overflow: hidden !important;
-    background-color: rgb(18, 29, 51);
+  overflow: hidden !important;
 }
 
 .admin-dashboard {
-    padding: 2%;
+  padding: 2%;
 }
 
 .admin-title {
-    font-weight: bolder;
-    color: white;
-    padding-bottom: 2rem;
+  font-weight: bolder;
+  color: white;
+  padding-bottom: 2rem;
 }
 
 .upload-cert-template {
-    color: white;
+  color: white;
 }
 
 .admin-dashboard .card {
-    border: none !important;
-    padding: 20px;
-    background-color: transparent !important;
+  border: none !important;
+  padding: 20px;
+  background-color: transparent !important;
 }
 
 .fileInput {
-    color: white;
-    border: 0.5px solid white;
-    border-radius: 4px;
+  color: white;
+  border: 0.5px solid white;
+  border-radius: 4px;
 }
 
 .card-body {
-    flex: none !important;
+  flex: none !important;
 }
 
 .card-img-top {
-    width: 40% !important;
-    justify-content: center !important;
+  width: 40% !important;
+  justify-content: center !important;
 }
 
 .admin-dashboard .btn {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }

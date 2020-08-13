@@ -12,31 +12,31 @@ class CertTest extends React.Component {
     };
   }
 
-  async componentWillMount() {
-    console.log("ComponentWillMount");
-    var certJson = {
-      name: "Tejas",
-      certID: "asv67DG",
-      email: "tejas@gmail.com",
-    };
-    var svg = "http://sia.eventsapsit.org/certi.svg";
-    console.log(certJson, svg);
-    await this.setState({
-      svg: svg,
-      certData: certJson,
-    });
-    console.log(this.state.svg);
-    console.log(this.state.certData);
-  }
+  // async componentWillMount() {
+  //   console.log("ComponentWillMount");
+  //   var certJson = {
+  //     name: "Tejas",
+  //     certID: "asv67DG",
+  //     email: "tejas@gmail.com",
+  //   };
+  //   var svg = "http://sia.eventsapsit.org/certi.svg";
+  //   console.log(certJson, svg);
+  //   await this.setState({
+  //     svg: svg,
+  //     certData: certJson,
+  //   });
+  //   console.log(this.state.svg);
+  //   console.log(this.state.certData);
+  // }
 
-  componentDidMount() {
-    console.log("ComponentDidMount");
-    //Post method invoke
-    //res json
-    // window.addEventListener("load", this.findSVGElements, false);
-    document.getElementById("name").textContent = "Tejas";
-    document.getElementById("certID").textContent = "tgAg67a";
-  }
+  // componentDidMount() {
+  //   console.log("ComponentDidMount");
+  //   //Post method invoke
+  //   //res json
+  //   // window.addEventListener("load", this.findSVGElements, false);
+  //   document.getElementById("name").textContent = "Tejas";
+  //   document.getElementById("certID").textContent = "tgAg67a";
+  // }
 
   // getSubDocument = (embedding_element) => {
   //     console.log("getSub");
@@ -72,7 +72,10 @@ class CertTest extends React.Component {
     const parse = require("html-react-parser");
     return (
       <div className="center">
-        {parse(this.state.svg ? this.state.svg : "")}
+        {/* {parse(this.state.svg ? this.state.svg : "")} */}
+        <h1 align="center" className="text">
+          PHYERWAAL_DEV
+        </h1>
       </div>
     );
   }

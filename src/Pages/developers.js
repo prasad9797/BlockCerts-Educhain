@@ -25,7 +25,7 @@ export default function Devs() {
             >
               <Col className="swing-in-left-fwd">
                 <h3>Tejas Raibagi</h3>
-                <p>FrontEnd Developer</p>
+                <p>FrontEnd Lead</p>
               </Col>
               <Col className="swing-in-left-fwd">
                 <h3>Prasad Jadhav</h3>
@@ -37,11 +37,11 @@ export default function Devs() {
               </Col>
               <Col className="swing-in-left-fwd">
                 <h3>Rutwik Gaikwad</h3>
-                <p>Yet to be declared</p>
+                <p>Smart Contract Lead</p>
               </Col>
               <Col className="swing-in-left-fwd">
                 <h3>Sanjana Nalawade</h3>
-                <p>Yet to be declared</p>
+                <p>Documentation / Research Lead</p>
               </Col>
             </Row>
           </Col>
