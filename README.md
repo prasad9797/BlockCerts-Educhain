@@ -99,7 +99,7 @@
 }
 ```
 
-### https://blockcerts-dapp.herokuapp.com/api/v1/public/single/<id> GET PUBLIC
+### https://blockcerts-dapp.herokuapp.com/api/v1/public/single/id_of_cert GET PUBLIC
 
 - res:
 
