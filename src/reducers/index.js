@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: false,
   Admin: false,
   jwtToken: null,
+  username: null,
 };
 
 const rootReducer = (state = initialState, action) => {

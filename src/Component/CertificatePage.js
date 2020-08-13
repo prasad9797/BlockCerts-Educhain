@@ -14,6 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import Footer from "./footer";
 import axios from "axios";
+import { LOGOUT } from "../actions/types";
+import { connect } from "react-redux";
+import jwt_decode from "jwt-decode";
 
 class CertificateDisplay extends React.Component {
   constructor(props) {
@@ -22,11 +25,15 @@ class CertificateDisplay extends React.Component {
     this.state = {
       svg: null,
       cert: null,
+      username: "",
+      id: "",
     };
   }
 
   async componentWillMount() {
     var id = this.props.match.params.id;
+    this.setState({ id: id });
+    console.log(id);
     await axios
       .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
       .then((res) => {
@@ -39,7 +46,30 @@ class CertificateDisplay extends React.Component {
         this.setState({ cert: res.data.result });
         console.log(this.state.cert);
       });
+
+    if (sessionStorage.getItem("jwtToken") !== "null") {
+      var sessionData = sessionStorage.getItem("jwtToken");
+      var sessionData = sessionData.split(" ");
+      var decoded = jwt_decode(sessionData[1]);
+      console.log("decoded: ", decoded);
+      await this.setState({
+        username: decoded.name,
+      });
+      console.log(this.state.username);
+    } else {
+      this.setState({ isStudent: false });
+      sessionStorage.removeItem("jwtToken");
+      this.props.Logout();
+      this.props.history.push("/login");
+    }
   }
+
+  logout = () => {
+    delete axios.defaults.headers.common["Authorization"];
+    sessionStorage.removeItem("jwtToken");
+    this.props.Logout();
+    this.props.history.push("/login");
+  };
 
   componentDidMount() {
     setTimeout(() => {
@@ -61,13 +91,19 @@ class CertificateDisplay extends React.Component {
       <section id="user-certificates">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">EduChain</Navbar.Brand>
+            <Navbar.Brand
+              onClick={() => {
+                this.props.history.push("/");
+              }}
+            >
+              EduChain
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
                 <Dropdown>
                   <Dropdown.Toggle id="dropdown-basic">
-                    Sujoy Dev
+                    {this.state.username}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
@@ -97,8 +133,6 @@ class CertificateDisplay extends React.Component {
               </div>
             </Col>
             <Col sm={12} lg={4}>
-              <h4 className="cert-detail-title">ISSUE DATE</h4>
-              <p className="cert-detail-info">July 18, 2020</p>
               <h4 className="cert-detail-title">ISSUER</h4>
               <p className="cert-detail-info">APSIT</p>
               <h4 className="cert-detail-title">ISSUER's PUBLIC KEY</h4>
@@ -106,7 +140,7 @@ class CertificateDisplay extends React.Component {
                 href="https://ropsten.etherscan.io/tx/0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65"
                 className="cert-detail-info"
               >
-                0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65
+                {this.state.id}
               </a>
             </Col>
           </Row>
@@ -124,4 +158,16 @@ class CertificateDisplay extends React.Component {
   }
 }
 
-export default CertificateDisplay;
+const mapStateToProps = (state) => ({
+  username: state.username,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Logout: () => {
+      dispatch({ type: LOGOUT });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CertificateDisplay);

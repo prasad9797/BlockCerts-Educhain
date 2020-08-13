@@ -24,10 +24,14 @@ class StudentDashboard extends React.Component {
       isStudent: false,
       username: "",
       email: "",
+      svg: null,
+      cert: [],
+      isLoading: true,
     };
   }
 
   async componentWillMount() {
+    this.setState({ isLoading: true });
     if (sessionStorage.getItem("jwtToken") !== "null") {
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
@@ -48,14 +52,26 @@ class StudentDashboard extends React.Component {
       this.props.history.push("/login");
     }
 
-    console.log("Undef: ", this.state.email);
-
     axios
       .get(
         `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.email}`
       )
+      .then(async (res) => {
+        console.log("API call: ", res.data.data);
+        console.log("Data fetched...");
+        await this.setState({ cert: res.data.data, isLoading: false });
+        console.log(this.state.cert);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log("Undef: ", this.state.email);
+
+    await axios
+      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
       .then((res) => {
-        console.log("API call: ", res.data);
+        this.setState({ svg: res.data.data });
       });
   }
 
@@ -67,11 +83,18 @@ class StudentDashboard extends React.Component {
   };
 
   render() {
+    const parse = require("html-react-parser");
     return this.state.isStudent ? (
       <section id="student_dashboard">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">EduChain</Navbar.Brand>
+            <Navbar.Brand
+              onClick={() => {
+                this.props.history.push("/");
+              }}
+            >
+              EduChain
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
@@ -100,7 +123,25 @@ class StudentDashboard extends React.Component {
           <div className="certificate-holder">
             <Row xs={1} sm={1} md={4} style={{ textAlign: "center" }}>
               <Col>
-                <img
+                {this.state.isLoading ? (
+                  <h1>Loading...</h1>
+                ) : (
+                  <div>
+                    {this.state.cert.map((certs, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          this.props.history.push(
+                            `/student/certificate/${certs.id}`
+                          );
+                        }}
+                      >
+                        {parse(this.state.svg ? this.state.svg : "")}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* <img
                   onClick={() => {
                     this.props.history.push(
                       "/student/certificate/c45dffe204ad0bac1352874e8a71b22c"
@@ -108,20 +149,8 @@ class StudentDashboard extends React.Component {
                   }}
                   style={{ maxHeight: "300px" }}
                   src={image}
-                />
-                <h3 style={{ textAlign: "left" }}>Certificate Name</h3>
-              </Col>
-              <Col>
-                <img style={{ maxHeight: "300px" }} src={image} />
-                <h3 style={{ textAlign: "left" }}>Certificate Name</h3>
-              </Col>
-              <Col>
-                <img style={{ maxHeight: "300px" }} src={image} />
-                <h3 style={{ textAlign: "left" }}>Certificate Name</h3>
-              </Col>
-              <Col>
-                <img style={{ maxHeight: "300px" }} src={image} />
-                <h3 style={{ textAlign: "left" }}>Certificate Name</h3>
+                /> */}
+                {/* <h3 style={{ textAlign: "left" }}>Certificate Name</h3> */}
               </Col>
             </Row>
           </div>
