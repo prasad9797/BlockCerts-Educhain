@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const config = require("config");
-const bodyparser = require("body-parser");
 const logger = require("morgan");
 const app = express();
 const auth = require("./middlewares/auth");
@@ -9,7 +7,6 @@ const runner = require("./runner/runner");
 const emailrunner = require("./runner/emailrunner");
 const error = require("./middlewares/error");
 const cron = require("node-cron");
-const fs = require("fs");
 app.use(express.json({ extended: false, limit: "50mb" }));
 app.use(express.urlencoded({ extended: false }));
 
@@ -38,5 +35,5 @@ app.use("/api/v1/public", Public);
 app.use(error);
 
 app.listen(process.env.PORT || 5000, () =>
-  console.log(`Server is listening at http://localhost:5000`)
+  console.log(`Server is listening at ${}`)
 );
