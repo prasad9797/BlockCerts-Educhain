@@ -34,6 +34,4 @@ app.use("/api/v1/public", Public);
 
 app.use(error);
 
-app.listen(process.env.PORT || 5000, () =>
-  console.log(`Server is listening at ${}`)
-);
+app.listen(process.env.PORT || 5000, () => console.log(`Server is listening`));

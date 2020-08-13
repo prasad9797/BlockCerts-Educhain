@@ -1,14 +1,15 @@
+const fs = require("fs");
 const express = require("express");
 const router = express.Router();
 const config = require("config");
 const Web3 = require("web3");
 const bcrypt = require("bcrypt");
-
 const infuraURL = config.get("infuraEndpoint");
 const APIkey = config.get("infuraAPIkey");
 const infura = `${infuraURL}/${APIkey}`;
 const web3 = new Web3(new Web3.providers.HttpProvider(infura));
 // const abi = config.get("abi");
+// var data = require("../../temp-storage/sample.svg");
 const abi = [
   {
     inputs: [
@@ -113,5 +114,15 @@ async function runner() {
     next(err);
   }
 }
-
+router.get("/samplesvg", async (req, res, next) => {
+  try {
+    var data = await fs.readFileSync("./temp-storage/sample.svg", "utf8");
+    res.status(200).json({
+      status: 200,
+      data: data,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;
