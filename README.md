@@ -4,7 +4,7 @@
 
 ```
 {
-    "username":"admin@691#!",
+    "username":"admin@gmail.com",
     "password":"admin@691#!"
 }
 ```
