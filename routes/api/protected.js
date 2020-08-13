@@ -39,7 +39,7 @@ router.post("/addCerts", async (req, res, next) => {
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "select jsonstring from certs where email = ${email}",
+      "select id,svg from certs where email = ${email}",
       {
         email: req.params.email,
       }
