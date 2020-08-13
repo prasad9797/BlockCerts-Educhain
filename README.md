@@ -114,3 +114,13 @@
 	    }
 }
 ```
+
+### https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg GET PUBLIC
+
+- res:
+
+```
+{
+    "data": "<svg></svg>"
+}
+```
