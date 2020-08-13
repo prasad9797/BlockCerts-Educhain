@@ -1,6 +1,6 @@
 ### https://blockcerts-dapp.herokuapp.com/api/v1/auth POST PUBLIC
 
-- - req:
+- req:
 
 ```
 {
