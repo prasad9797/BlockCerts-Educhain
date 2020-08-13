@@ -19,7 +19,7 @@
 }
 ```
 
-https://blockcerts-dapp.herokuapp.com/api/v1/auth/login POST PUBLIC
+### https://blockcerts-dapp.herokuapp.com/api/v1/auth/login POST PUBLIC
 
 - req:
 
@@ -41,7 +41,7 @@ https://blockcerts-dapp.herokuapp.com/api/v1/auth/login POST PUBLIC
 }
 ```
 
-https://blockcerts-dapp.herokuapp.com/api/v1/auth/register POST PUBLIC
+### https://blockcerts-dapp.herokuapp.com/api/v1/auth/register POST PUBLIC
 
 - req:
 
@@ -64,7 +64,7 @@ https://blockcerts-dapp.herokuapp.com/api/v1/auth/register POST PUBLIC
 }
 ```
 
-https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts POST PRIVATE
+### https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts POST PRIVATE
 
 - req:
 
@@ -88,7 +88,7 @@ https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts POST PRIVATE
 }
 ```
 
-https://blockcerts-dapp.herokuapp.com/api/v1/protected/email@email.com GET PRIVATE
+### https://blockcerts-dapp.herokuapp.com/api/v1/protected/email@email.com GET PRIVATE
 
 - res:
 
@@ -99,7 +99,7 @@ https://blockcerts-dapp.herokuapp.com/api/v1/protected/email@email.com GET PRIVA
 }
 ```
 
-https://blockcerts-dapp.herokuapp.com/api/v1/public/single/<id> GET PUBLIC
+### https://blockcerts-dapp.herokuapp.com/api/v1/public/single/<id> GET PUBLIC
 
 - res:
 
