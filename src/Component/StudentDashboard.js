@@ -22,17 +22,22 @@ class StudentDashboard extends React.Component {
 
     this.state = {
       isStudent: false,
-      username: {},
+      username: "",
+      email: "",
     };
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     if (sessionStorage.getItem("jwtToken") !== "null") {
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
       console.log("decoded: ", decoded);
-      this.setState({ isStudent: true, username: decoded });
+      await this.setState({
+        isStudent: true,
+        username: decoded.name,
+        email: decoded.useremail,
+      });
       console.log(this.state.username);
     } else if (!this.props.isAdmin && this.props.isAuthenticated) {
       this.setState({ isStudent: true });
@@ -43,11 +48,11 @@ class StudentDashboard extends React.Component {
       this.props.history.push("/login");
     }
 
-    console.log("Undef: ", this.state.username);
+    console.log("Undef: ", this.state.email);
 
     axios
       .get(
-        `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.username.useremail}`
+        `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.email}`
       )
       .then((res) => {
         console.log("API call: ", res.data);
@@ -73,7 +78,7 @@ class StudentDashboard extends React.Component {
                 <Dropdown>
                   <Dropdown.Toggle id="dropdown-basic">
                     {this.state.username
-                      ? this.state.username.name
+                      ? this.state.username
                       : this.props.username.name}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
