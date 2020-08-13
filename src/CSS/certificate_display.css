@@ -1,0 +1,44 @@
+body {
+  background-color: white;
+  background-image: none;
+}
+
+#user-certificates {
+  background-color: white;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.verified {
+  color: #5efc8d;
+  font-weight: bold;
+  margin: 0;
+}
+
+.cert-detail-title,
+.cert-detail-info {
+  word-break: break-all;
+}
+
+@media only screen and (max-width: 700px) {
+  .verified {
+    margin: 10px;
+  }
+  img {
+    margin: 20px !important;
+  }
+  #user-certificates {
+    height: auto;
+  }
+  .cert-detail-title,
+  .cert-detail-info {
+    margin: 10px 10px;
+    word-break: break-all;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  img {
+    margin: 20px !important;
+  }
+}

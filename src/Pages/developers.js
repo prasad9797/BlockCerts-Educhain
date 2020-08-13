@@ -33,7 +33,7 @@ export default function Devs() {
               </Col>
               <Col className="swing-in-left-fwd">
                 <h3>Sujoy Dev</h3>
-                <p>BackEnd Developer</p>
+                <p>BackEnd Lead</p>
               </Col>
               <Col className="swing-in-left-fwd">
                 <h3>Rutwik Gaikwad</h3>

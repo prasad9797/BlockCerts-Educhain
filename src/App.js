@@ -8,6 +8,7 @@ import Devs from "./Pages/developers";
 import StudentDashboard from "./Component/StudentDashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./common/PrivateRoute";
+import CertificateDisplay from "./Component/CertificatePage";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
         <Route exact path="/dev" component={Devs} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/student/dashboard" component={StudentDashboard} />
+        <Route
+          exact
+          path="/student/certificate/1"
+          component={CertificateDisplay}
+        />
         {/* <Switch>
           <PrivateRoute exact path="/admin" component={Admin} />
         </Switch> */}

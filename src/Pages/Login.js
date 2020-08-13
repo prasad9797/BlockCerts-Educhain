@@ -6,8 +6,7 @@ import axios from "axios";
 import FooterComp from "../Component/footer";
 import { connect } from "react-redux";
 import { SET_USER, SET_ADMIN } from "../actions/types";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import jwt_decode from "jwt-decode";
 
 class Login extends React.Component {
   constructor(props) {
@@ -44,17 +43,17 @@ class Login extends React.Component {
       error: "",
     });
     let isValid = true;
-    // if (this.state.email !== null) {
-    //   var pattern = new RegExp(
-    //     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-    //   );
-    //   if (!pattern.test(this.state.email)) {
-    //     isValid = false;
-    //     this.setState({
-    //       errors: "Please enter valid email address",
-    //     });
-    //   }
-    // }
+    if (this.state.email !== null) {
+      var pattern = new RegExp(
+        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+      );
+      if (!pattern.test(this.state.email)) {
+        isValid = false;
+        this.setState({
+          errors: "Please enter valid email address",
+        });
+      }
+    }
     if (this.state.password === "") {
       isValid = false;
       this.setState({
@@ -110,7 +109,7 @@ class Login extends React.Component {
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/login", auth)
           .then((res) => {
             console.log(res.data);
-            this.props.auth(false);
+            this.props.auth(false, res.data.data);
             axios.defaults.headers.common["Authorization"] = res.data.data;
             console.log("User logged in!");
             this.props.history.push("/student/dashboard");

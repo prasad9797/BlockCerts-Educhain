@@ -11,8 +11,9 @@ export const loadState = () => {
 
 export const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify(state);
-    sessionStorage.setItem("state", serializedState);
+    const serializedState = state.jwtToken;
+    console.log(serializedState);
+    sessionStorage.setItem("jwtToken", serializedState);
   } catch (err) {
     console.log(err);
   }

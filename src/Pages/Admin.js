@@ -26,37 +26,25 @@ class Admin extends React.Component {
     };
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     console.log(this.state.isAllowedToView);
-    console.log(sessionStorage.getItem("state"));
-    if (sessionStorage.getItem("state") !== null) {
-      console.log(sessionStorage.getItem("state"));
-      this.setState({ isAllowedToView: true });
+    if (sessionStorage.getItem("jwtToken") !== "null") {
+      console.log(sessionStorage.getItem("jwtToken"));
+      console.log("Session Accessed Before", this.state.isAllowedToView);
+      await this.setState({ isAllowedToView: true });
+      console.log("Session Accessed After", this.state.isAllowedToView);
     } else if (this.props.isAdmin) {
-      console.log(this.props.isAdmin);
+      console.log("Else Accessed", this.state.isAllowedToView);
       this.setState({ isAllowedToView: true });
     } else {
+      this.setState({ isAllowedToView: false });
+      sessionStorage.removeItem("jwtToken");
       console.log("Logout");
       delete axios.defaults.headers.common["Authorization"];
       this.props.Logout();
       this.props.history.push("/login");
     }
   }
-
-  //   componentWillMount() {
-  //     if (this.props.isAuthenticated && this.props.isAdmin) {
-  //       this.setState({ isAllowedToView: true });
-  //     }
-  //     this.props.isAuthenticated
-  //       ? console.log(
-  //           "Auth: ",
-  //           this.props.isAuthenticated,
-  //           "isAdmin: ",
-  //           this.props.isAdmin
-  //         )
-  //       : console.log("Nothing");
-  //   }
-
   componentDidMount() {
     //Call get route to fetch Certificate Thumbnail
     // axios.get('fetchTemplateRoute').then(function (response) {
@@ -92,6 +80,8 @@ class Admin extends React.Component {
         )
         .then((res) => {
           console.log(res.data);
+          this.setState({ isSendingData: false });
+          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -115,7 +105,7 @@ class Admin extends React.Component {
     return this.state.isAllowedToView ? (
       <section id="admin">
         <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="dark">
+          <Navbar collapseOnSelect expand="lg" variant="light">
             <Navbar.Brand href="/">Educhain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -127,7 +117,7 @@ class Admin extends React.Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div className="admin-dashboard center" align="center">
+        <div className="admin-dashboard" align="center">
           <h3 className="admin-title swing-in-left-fwd">Admin Dashboard</h3>
           <Row
             xs={1}
@@ -138,10 +128,9 @@ class Admin extends React.Component {
           >
             <Col>
               <Card style={{ width: "60%" }} className="swing-in-left-fwd">
-                {this.state.certAvailable ? (
+                {this.state.svg ? (
                   <div>
-                    <h3 style={{ color: "white" }}>List will display here</h3>{" "}
-                    <span style={{ color: "white" }}> OR </span>{" "}
+                    <object data={this.state.svg} type="image/svg+xml" />
                   </div>
                 ) : (
                   <Card.Img className="mx-auto" variant="top" src={folder} />
@@ -158,6 +147,7 @@ class Admin extends React.Component {
                   className="fileInput"
                   accept=".svg"
                   onChange={this.handleFile}
+                  style={{ color: "black", align: "center" }}
                 />
               </Card>
             </Col>
@@ -199,7 +189,7 @@ class Admin extends React.Component {
                   addRemoveButton
                   onRemoveFile={this.handleOnRemoveFile}
                 >
-                  <span style={{ color: "white" }}>
+                  <span style={{ color: "black" }}>
                     {" "}
                     Click to upload (CSV only)
                   </span>

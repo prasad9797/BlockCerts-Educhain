@@ -18,7 +18,7 @@ body {
 
 .admin-title {
   font-weight: bolder;
-  color: white;
+  color: black;
   padding-bottom: 2rem;
 }
 
@@ -49,4 +49,8 @@ body {
 
 .admin-dashboard .btn {
   margin-top: 1rem;
+}
+
+.card-title {
+  color: black !important;
 }
