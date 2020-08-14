@@ -25,7 +25,7 @@ class StudentDashboard extends React.Component {
       username: "",
       email: "",
       svg: "",
-      cert: [],
+      cert: {},
       isLoading: true,
     };
   }
@@ -139,27 +139,18 @@ class StudentDashboard extends React.Component {
                           );
                         }}
                       >
-                        {/* <object
-                          type="image/svg+xml"
-                          data={`http://educhain.apsit.edu.in/api/v1/public/samplesvg/${certs.svg}`}
-                        /> */}
-                        {axios
+                        {/* {axios
                           .get(
                             `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${certs.svg}`
                           )
                           .then(async (res) => {
                             console.log(res.data.data);
                             await this.setState({ svg: res.data.data });
-                            // return (
-                            //   <div>
-                            //     {parse(res.data.data ? res.data.data : "")}
-                            //   </div>
-                            // );
                           })
                           .catch((err) => {
                             console.log(err);
-                          })}
-                        {parse(this.state.svg ? this.state.svg : "")}
+                          })} */}
+                        {/* <object data={this.state.svg} type="image/svg+xml" /> */}
                         {certs.svg}
                       </div>
                     ))}
