@@ -114,9 +114,12 @@ async function runner() {
     next(err);
   }
 }
-router.get("/samplesvg", async (req, res, next) => {
+router.get("/samplesvg/:svg", async (req, res, next) => {
   try {
-    var data = await fs.readFileSync("./temp-storage/sample.svg", "utf8");
+    var data = await fs.readFileSync(
+      `./public/uploads/${req.params.svg}`,
+      "utf8"
+    );
     res.status(200).json({
       status: 200,
       data: data,
