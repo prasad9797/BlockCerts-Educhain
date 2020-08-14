@@ -48,12 +48,12 @@ class Devs extends React.Component {
                   </h3>
                   <p align="center">BackEnd Lead</p>
                 </Col>
-                <Col className="swing-in-left-fwd">
+                {/* <Col className="swing-in-left-fwd">
                   <h3 align="center" className="dev-name">
                     Rutwik Gaikwad
                   </h3>
                   <p align="center">Smart Contract Lead</p>
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Container>
