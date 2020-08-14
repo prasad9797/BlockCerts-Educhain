@@ -96,7 +96,7 @@ const storage = multer.diskStorage({
   destination: "./public/uploads/",
   filename: function (req, file, cb) {
     console.log(req.body);
-    cb(null, req.body.svg + path.extname(file.originalname));
+    cb(null, file.originalname + path.extname(file.originalname));
   },
 });
 
