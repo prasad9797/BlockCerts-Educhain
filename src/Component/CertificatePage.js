@@ -146,7 +146,12 @@ class CertificateDisplay extends React.Component {
               <h4 className="cert-detail-title">ISSUER</h4>
               <p className="cert-detail-info">APSIT</p>
               <h4 className="cert-detail-title">TXN ID</h4>
-              <p className="cert-detail-info">{this.state.txHash}</p>
+              <a
+                href="https://ropsten.etherscan.io/tx/0xc33d3514a369b2c57f1ec29354855da376d2019a39615d72f27c4955d8aaec2c"
+                className="cert-detail-info"
+              >
+                {this.state.txHash}
+              </a>
               {/* <Link to="https://ropsten.etherscan.io/tx/${this.state.txHash}">
                 <p>{this.state.txHash}</p>
               </Link> */}
