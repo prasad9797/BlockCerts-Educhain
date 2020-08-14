@@ -1,7 +1,7 @@
 import React from "react";
 import "../CSS/footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <a href="/dev" style={{ top: "50%", color: "black" }}>
-          Made with <FontAwesomeIcon icon={faHeartBroken} /> by Phyerwaal Dev
+          Made with <FontAwesomeIcon icon={faHeart} /> by Phyerwaal Dev
           Team
         </a>
       </footer>
