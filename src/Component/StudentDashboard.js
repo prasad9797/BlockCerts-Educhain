@@ -145,23 +145,29 @@ class StudentDashboard extends React.Component {
                 <h1>Loading...</h1>
               ) : (
                 <div>
-                  {this.state.cert.map((certs, index) => (
-                    <Row xs={1} sm={1} md="12">
-                      <div
-                        className="cert-holder"
-                        key={index}
-                        onClick={() => {
-                          this.props.history.push(
-                            `/student/certificate/${certs.id}`
-                          );
-                        }}
-                      >
-                        {parse(
-                          this.state.svg[index] ? this.state.svg[index] : ""
-                        )}
-                      </div>
-                    </Row>
-                  ))}
+                  {this.state.cert.length === 0 ? (
+                    <h1>No Certificates</h1>
+                  ) : (
+                    <div>
+                      {this.state.cert.map((certs, index) => (
+                        <Row xs={1} sm={1} md="12">
+                          <div
+                            className="cert-holder"
+                            key={index}
+                            onClick={() => {
+                              this.props.history.push(
+                                `/student/certificate/${certs.id}`
+                              );
+                            }}
+                          >
+                            {parse(
+                              this.state.svg[index] ? this.state.svg[index] : ""
+                            )}
+                          </div>
+                        </Row>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </Col>
