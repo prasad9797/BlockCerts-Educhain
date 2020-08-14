@@ -3,7 +3,8 @@ const router = express.Router();
 const config = require("config");
 const pgp = require("../../dbInit/dbConn").pgp;
 const crypto = require("crypto");
-
+const multer = require("multer");
+const path = require("path");
 // @route   POST api/v1/addCert
 // @desc    add certs to blockchain network
 // @access  private
@@ -53,5 +54,73 @@ router.get("/:email", async (req, res, next) => {
     next(err);
   }
 });
+
+router.post("/uploadSVG", async (req, res, next) => {
+  try {
+    console.log(req.body);
+
+    if (req.user.role !== "admin") {
+      throw {
+        statusCode: 400,
+        customMessage: "not authorized!",
+      };
+    }
+    upload(req, res, (err) => {
+      if (err) {
+        throw {
+          statusCode: 400,
+          customMessage: "an error occured!",
+        };
+      } else {
+        if (req.file == undefined) {
+          throw {
+            statusCode: 400,
+            customMessage: "no file selected!",
+          };
+        } else {
+          res.status(200).json({
+            status: 200,
+            message: "file uploaded successfully",
+            filename: req.body.svg,
+          });
+        }
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
+const storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function (req, file, cb) {
+    console.log(req.body);
+    cb(null, req.body.svg + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10000000 },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+}).single("file");
+
+function checkFileType(file, cb) {
+  // Allowed ext
+  const filetypes = /svg/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}
 
 module.exports = router;
