@@ -70,13 +70,14 @@ router.get("/single/:id", async (req, res, next) => {
       .call()
       .then(async (result) => {
         var data = await pgp.query(
-          `select svg,transactionhash from certs where id = ${id}`
+          "select svg,transactionhash from certs where id = ${id}",
+          { id: id }
         );
         console.log(result);
         res.status(200).json({
           result: JSON.parse(result),
-          svg: data.svg,
-          transactionhash: data.transactionhash,
+          svg: data[0].svg,
+          transactionhash: data[0].transactionhash,
           issuerPk: config.get("privateKey"),
         });
       })
