@@ -19,11 +19,12 @@ router.post("/addCerts", async (req, res, next) => {
     var cert = req.body.cert;
     console.log(req.body);
     var svg = req.body.svg;
-    var query = "insert into certs(email,id,jsonstring) values";
+    var query = "insert into certs(email,id,jsonstring,svg) values";
     await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
-      i.svg = svg;
-      query = query + `('${i.data.email}','${token}','${JSON.stringify(i)}'),`;
+      query =
+        query +
+        `('${i.data.email}','${token}','${JSON.stringify(i)}','${svg}'),`;
     });
     query = query.substring(0, query.length - 1);
     await pgp.query(query);
@@ -40,7 +41,7 @@ router.post("/addCerts", async (req, res, next) => {
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "select id from certs where email = ${email}",
+      "select id,svg from certs where email = ${email}",
       {
         email: req.params.email,
       }

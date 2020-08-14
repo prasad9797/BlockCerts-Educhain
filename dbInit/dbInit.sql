@@ -63,7 +63,7 @@ COMMIT;
 
 -- postgres
 
-create table certs(email varchar(250) not null, id varchar(250) primary key not null,transactionHash varchar(250) default null, uploaded boolean default false not null, notify boolean default false not null, jsonString text not null);
+create table certs(email varchar(250) not null, id varchar(250) primary key not null,transactionHash varchar(250) default null, uploaded boolean default false not null, notify boolean default false not null, jsonString text not null, svg varchar(250) not null);
 
 create table users(email varchar(250) primary key not null , fname varchar(250) not null, lname varchar(250) not null, phone varchar(10) not null, password varchar(250) not null);
 
