@@ -5,6 +5,10 @@ const pgp = require("../../dbInit/dbConn").pgp;
 const crypto = require("crypto");
 const multer = require("multer");
 const path = require("path");
+const EventEmitter = require("events");
+
+const myEmitter = new EventEmitter();
+const runner = require("../../runner/runner");
 // @route   POST api/v1/addCert
 // @desc    add certs to blockchain network
 // @access  private
@@ -28,6 +32,8 @@ router.post("/addCerts", async (req, res, next) => {
     });
     query = query.substring(0, query.length - 1);
     await pgp.query(query);
+    myEmitter.emit("callRunner");
+
     res.status(200).json({
       message: "Data will be updated on the blockchain network shortly",
     });
@@ -123,5 +129,9 @@ function checkFileType(file, cb) {
     cb("Error: Images Only!");
   }
 }
+
+// myEmitter.on("callRunner", () => {
+//   runner();
+// });
 
 module.exports = router;
