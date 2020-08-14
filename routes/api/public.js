@@ -69,17 +69,15 @@ router.get("/single/:id", async (req, res, next) => {
       .call()
       .then((result) => {
         var data = pgp.query(
-          "select svg,transactionhash from certs where id = ${id}"
+          `select svg,transactionhash from certs where id = ${id}`
         );
         console.log(result);
-        res
-          .status(200)
-          .json({
-            result: JSON.parse(result),
-            svg: data.svg,
-            transactionhash: data.transactionhash,
-            issuerPk: config.get("pk"),
-          });
+        res.status(200).json({
+          result: JSON.parse(result),
+          svg: data.svg,
+          transactionhash: data.transactionhash,
+          issuerPk: config.get("pk"),
+        });
       })
       .catch((err) => {
         console.log(err);
