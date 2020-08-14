@@ -23,12 +23,17 @@ class Admin extends React.Component {
       isAllowedToView: false,
       isSendingData: false,
       error: "",
-      success: "",
+      success: null,
     };
   }
 
   componentDidUpdate() {
-    this.checkSVG();
+    if (this.state.success !== null) {
+      return;
+    } else {
+      console.log(this.state.success);
+      this.checkSVG();
+    }
   }
 
   checkSVG = () => {
@@ -36,7 +41,7 @@ class Admin extends React.Component {
     if (
       this.state.svg === null ||
       this.state.isSendingData ||
-      this.state.success !== ""
+      this.state.success !== null
     ) {
       return;
     } else if (
@@ -158,8 +163,6 @@ class Admin extends React.Component {
               this.setState({
                 isSendingData: false,
                 success: "Data has been added successfully!",
-                svg: "",
-                csv: {},
               });
             })
             .catch((err) => {
@@ -167,7 +170,7 @@ class Admin extends React.Component {
               this.setState({
                 isSendingData: false,
                 error: "Error sending...Please try again!",
-                success: "",
+                success: null,
               });
             })
             .catch((err) => {

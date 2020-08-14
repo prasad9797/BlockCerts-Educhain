@@ -24,8 +24,8 @@ class StudentDashboard extends React.Component {
       isStudent: false,
       username: "",
       email: "",
-      svg: "",
-      cert: {},
+      svg: [],
+      cert: [],
       isLoading: true,
     };
   }
@@ -52,7 +52,7 @@ class StudentDashboard extends React.Component {
       this.props.history.push("/login");
     }
 
-    axios
+    await axios
       .get(
         `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.email}`
       )
@@ -65,6 +65,23 @@ class StudentDashboard extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+    // await this.state.cert.map((i, ii) => {
+    for (var j = 0; j < this.state.cert.length; j++) {
+      var k = await axios.get(
+        `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${this.state.cert[j].svg}`
+      );
+      var l = this.state.svg;
+      l.push(k.data.data);
+      await this.setState({ svg: l });
+      // await console.log(this.state.svg.length);
+    }
+    // console.log(i);
+    // var k = axios.get(
+    //   `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${i.svg}`
+    // );
+    // console.log(k);
+    //
+    // });
 
     console.log("Undef: ", this.state.email);
 
@@ -123,13 +140,13 @@ class StudentDashboard extends React.Component {
             <h4 className="dashboard-certificate-text">Your Certificates</h4>
           </div>
           <div className="certificate-holder">
-            <Row xs={1} sm={1} md={4} style={{ textAlign: "center" }}>
-              <Col>
-                {this.state.isLoading ? (
-                  <h1>Loading...</h1>
-                ) : (
-                  <div>
-                    {this.state.cert.map((certs, index) => (
+            <Col lg="6" style={{ textAlign: "center" }}>
+              {this.state.isLoading ? (
+                <h1>Loading...</h1>
+              ) : (
+                <div>
+                  {this.state.cert.map((certs, index) => (
+                    <Row xs={1} sm={1} md="12">
                       <div
                         className="cert-holder"
                         key={index}
@@ -139,35 +156,15 @@ class StudentDashboard extends React.Component {
                           );
                         }}
                       >
-                        {/* {axios
-                          .get(
-                            `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${certs.svg}`
-                          )
-                          .then(async (res) => {
-                            console.log(res.data.data);
-                            await this.setState({ svg: res.data.data });
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          })} */}
-                        {/* <object data={this.state.svg} type="image/svg+xml" /> */}
-                        {certs.svg}
+                        {parse(
+                          this.state.svg[index] ? this.state.svg[index] : ""
+                        )}
                       </div>
-                    ))}
-                  </div>
-                )}
-                {/* <img
-                  onClick={() => {
-                    this.props.history.push(
-                      "/student/certificate/c45dffe204ad0bac1352874e8a71b22c"
-                    );
-                  }}
-                  style={{ maxHeight: "300px" }}
-                  src={image}
-                /> */}
-                {/* <h3 style={{ textAlign: "left" }}>Certificate Name</h3> */}
-              </Col>
-            </Row>
+                    </Row>
+                  ))}
+                </div>
+              )}
+            </Col>
           </div>
         </Container>
       </section>

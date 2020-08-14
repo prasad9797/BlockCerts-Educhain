@@ -17,6 +17,7 @@ import axios from "axios";
 import { LOGOUT } from "../actions/types";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
 
 class CertificateDisplay extends React.Component {
   constructor(props) {
@@ -24,9 +25,12 @@ class CertificateDisplay extends React.Component {
 
     this.state = {
       svg: null,
+      svgName: null,
       cert: null,
       username: "",
       id: "",
+      txHash: "",
+      issuerpk: "",
     };
   }
 
@@ -35,16 +39,22 @@ class CertificateDisplay extends React.Component {
     this.setState({ id: id });
     console.log(id);
     await axios
-      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
-      .then((res) => {
-        this.setState({ svg: res.data.data });
-      });
-
-    await axios
       .get(`https://blockcerts-dapp.herokuapp.com/api/v1/public/single/${id}`)
       .then((res) => {
-        this.setState({ cert: res.data.result });
+        this.setState({
+          cert: res.data.result.data,
+          svgName: res.data.svg,
+          txHash: res.data.transactionhash,
+          issuerpk: res.data.issuerPk,
+        });
         console.log(this.state.cert);
+      });
+    await axios
+      .get(
+        `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${this.state.svgName}`
+      )
+      .then((res) => {
+        this.setState({ svg: res.data.data });
       });
 
     if (sessionStorage.getItem("jwtToken") !== "null") {
@@ -135,13 +145,17 @@ class CertificateDisplay extends React.Component {
             <Col sm={12} lg={4}>
               <h4 className="cert-detail-title">ISSUER</h4>
               <p className="cert-detail-info">APSIT</p>
-              <h4 className="cert-detail-title">ISSUER's PUBLIC KEY</h4>
-              <a
-                href="https://ropsten.etherscan.io/tx/0x6ac3ffdaa18e9c83a914d7c9671bc258e6b8caf35f77dcb705b8cc0fd147ac65"
+              <h4 className="cert-detail-title">TXN ID</h4>
+              <p className="cert-detail-info">{this.state.txHash}</p>
+              {/* <Link to="https://ropsten.etherscan.io/tx/${this.state.txHash}">
+                <p>{this.state.txHash}</p>
+              </Link> */}
+              {/* <Link
+                to=`https://ropsten.etherscan.io/tx/${this.state.txnhash}`
                 className="cert-detail-info"
               >
-                {this.state.id}
-              </a>
+                {this.state.issuerpk}
+              </Link> */}
             </Col>
           </Row>
           {/* <Button
