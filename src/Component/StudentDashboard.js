@@ -24,7 +24,7 @@ class StudentDashboard extends React.Component {
       isStudent: false,
       username: "",
       email: "",
-      svg: null,
+      svg: "",
       cert: [],
       isLoading: true,
     };
@@ -68,11 +68,13 @@ class StudentDashboard extends React.Component {
 
     console.log("Undef: ", this.state.email);
 
-    await axios
-      .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
-      .then((res) => {
-        this.setState({ svg: res.data.data });
-      });
+    // for (var i = 0; i < this.state.cert.length; i++) {
+    // await axios
+    //   .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
+    //   .then((res) => {
+    //     this.setState({ svg: res.data.data });
+    //   });
+    // }
   }
 
   logout = () => {
@@ -137,7 +139,28 @@ class StudentDashboard extends React.Component {
                           );
                         }}
                       >
+                        {/* <object
+                          type="image/svg+xml"
+                          data={`http://educhain.apsit.edu.in/api/v1/public/samplesvg/${certs.svg}`}
+                        /> */}
+                        {axios
+                          .get(
+                            `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${certs.svg}`
+                          )
+                          .then(async (res) => {
+                            console.log(res.data.data);
+                            await this.setState({ svg: res.data.data });
+                            // return (
+                            //   <div>
+                            //     {parse(res.data.data ? res.data.data : "")}
+                            //   </div>
+                            // );
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          })}
                         {parse(this.state.svg ? this.state.svg : "")}
+                        {certs.svg}
                       </div>
                     ))}
                   </div>

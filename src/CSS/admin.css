@@ -34,6 +34,10 @@ body {
   border-radius: 4px;
 }
 
+.card {
+  width: 60% !important;
+}
+
 .card-body {
   flex: none !important;
 }
@@ -58,4 +62,10 @@ body {
 
 .log {
   font-weight: bold !important;
+}
+
+@media only screen and (max-width: 900px) {
+  .card {
+    width: 100% !important;
+  }
 }

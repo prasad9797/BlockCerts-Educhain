@@ -17,8 +17,8 @@ class Admin extends React.Component {
     super(props);
 
     this.state = {
-      svg: "",
-      csv: {},
+      svg: null,
+      csv: null,
       certAvailable: false,
       isAllowedToView: false,
       isSendingData: false,
@@ -26,6 +26,48 @@ class Admin extends React.Component {
       success: "",
     };
   }
+
+  componentDidUpdate() {
+    this.checkSVG();
+  }
+
+  checkSVG = () => {
+    console.log(this.state);
+    if (
+      this.state.svg === null ||
+      this.state.isSendingData ||
+      this.state.success !== ""
+    ) {
+      return;
+    } else if (
+      this.state.csv !== null &&
+      (this.state.svg !== null || this.state.svg !== undefined)
+    ) {
+      console.log("State: ", this.state);
+      console.log(this);
+      var displaySVG = document.getElementById("SVG");
+      var SVG;
+      displaySVG.addEventListener(
+        "load",
+        () => {
+          console.log("name: ", this.state.csv[0].data.name);
+          SVG = displaySVG.contentDocument;
+          console.log(this.state.csv);
+          setTimeout(() => {
+            SVG.getElementById(
+              "name"
+            ).textContent = this.state.csv[0].data.name;
+            SVG.getElementById(
+              "certID"
+            ).textContent = this.state.csv[0].data.certID;
+          }, 1000);
+        },
+        false
+      );
+    } else {
+      return;
+    }
+  };
 
   async componentWillMount() {
     console.log(this.state.isAllowedToView);
@@ -58,45 +100,85 @@ class Admin extends React.Component {
   handleFile = async (e) => {
     // console.log([e.target.name] + ":" + e.target.value);
     await this.setState({
-      [e.target.name]: e.target.files[0].name,
+      [e.target.name]: e.target.files[0],
     });
-    console.log(this.state.svg);
+    // console.log(this.state.svg);
   };
 
-  submit = () => {
-    this.setState({ isSendingData: false, error: "", success: "" });
-    if (this.state.svg === "" || this.state.csv === {}) {
-      this.setState({ error: "Please upload both files" });
+  submit = async () => {
+    await this.setState({
+      isSendingData: false,
+      error: "",
+      success: null,
+    });
+    console.log(this.state);
+    const crypto = require("crypto");
+    var randomString = crypto.randomBytes(8).toString("hex");
+    var fileName = this.state.svg.name;
+    var fileName = randomString + ".svg";
+    // this.setState({ svg: fileName });
+    console.log(fileName);
+    let data = new FormData();
+    data.append("file", this.state.svg, fileName);
+    data.append("name", randomString);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    if (
+      this.state.svg === null ||
+      this.state.svg === undefined ||
+      this.state.csv === null
+    ) {
+      this.setState({
+        error: "Please upload both files",
+      });
       return;
     } else {
       this.setState({ isSendingData: true });
       //Send data to server
       axios
         .post(
-          "https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts",
-          {
-            svg: this.state.svg,
-            cert: this.state.csv,
-          }
+          "http://educhain.apsit.edu.in/api/v1/protected/uploadSVG ",
+          data,
+          config
         )
         .then((res) => {
-          console.log(res.data);
-          this.setState({
-            isSendingData: false,
-            success: "Data has been added successfully!",
-            svg: "",
-            csv: {},
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({
-            isSendingData: false,
-            error: "Error sending...Please try again!",
-            success: "",
-          });
+          axios
+            .post(
+              "https://blockcerts-dapp.herokuapp.com/api/v1/protected/addCerts",
+              {
+                svg: randomString + ".svg.svg",
+                cert: this.state.csv,
+              }
+            )
+            .then((res) => {
+              console.log(res.data);
+              this.setState({
+                isSendingData: false,
+                success: "Data has been added successfully!",
+                svg: "",
+                csv: {},
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              this.setState({
+                isSendingData: false,
+                error: "Error sending...Please try again!",
+                success: "",
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
     }
+  };
+
+  handleOnRemoveFile = () => {
+    this.setState({ csv: null });
   };
 
   logout = () => {
@@ -125,6 +207,7 @@ class Admin extends React.Component {
         </div>
         <div className="admin-dashboard" align="center">
           <h3 className="admin-title swing-in-left-fwd">Admin Dashboard</h3>
+          <p>Please Upload both the files on every new entry!</p>
           <Row
             xs={1}
             sm={1}
@@ -133,8 +216,20 @@ class Admin extends React.Component {
             className="justify-content-md-center"
           >
             <Col>
-              <Card style={{ width: "60%" }} className="swing-in-left-fwd">
-                <Card.Img className="mx-auto" variant="top" src={folder} />
+              <Card className="swing-in-left-fwd">
+                {this.state.svg ? (
+                  <object
+                    id="SVG"
+                    data={URL.createObjectURL(this.state.svg)}
+                    type="image/svg+xml"
+                  />
+                ) : (
+                  // <img
+                  //   src={URL.createObjectURL(this.state.svg)}
+                  // />
+                  <Card.Img className="mx-auto" variant="top" src={folder} />
+                )}
+                {/* <Card.Img className="mx-auto" variant="top" src={folder} /> */}
                 <Card.Body>
                   <Card.Title className="upload-cert-template">
                     Upload Certificate Template

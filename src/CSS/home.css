@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: linear-gradient( rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url("../images/certificate_portal_bg4.png") !important;
+  background-image: linear-gradient( rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url("../images/certificate_portal_bg1.png") !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -73,7 +73,7 @@ body {
 }
 
 .navbar-light .navbar-brand {
-  color: black !important;
+  color: rgb(12, 108, 242) !important;
   font-weight: bolder !important;
   font-size: 30px;
   cursor: pointer !important;

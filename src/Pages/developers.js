@@ -23,36 +23,36 @@ class Devs extends React.Component {
           </Navbar>
         </div>
         <div className="dev-details">
-          <Container>
+          <Container fluid>
             <Col>
               <Row className="justify-content-md-center">
-                <h1 className="dev-title swing-in-left-fwd">Developers</h1>
+                <h1 align="center" className="dev-title swing-in-left-fwd">
+                  Developers
+                </h1>
               </Row>
               <Row
                 xs="1"
-                sm="2"
+                sm="1"
                 md="3"
-                className="justify-content-start dev-name ml-auto"
+                className="justify-content-md-center align-items-center dev-name ml-auto"
               >
                 <Col className="swing-in-left-fwd">
-                  <h3>Tejas Raibagi</h3>
-                  <p>FrontEnd Lead</p>
+                  <h3 align="center" className="dev-name">
+                    Tejas Raibagi
+                  </h3>
+                  <p align="center">FrontEnd Lead</p>
                 </Col>
                 <Col className="swing-in-left-fwd">
-                  <h3>Prasad Jadhav</h3>
-                  <p>FrontEnd Developer</p>
+                  <h3 align="center" className="dev-name">
+                    Sujoy Dev
+                  </h3>
+                  <p align="center">BackEnd Lead</p>
                 </Col>
                 <Col className="swing-in-left-fwd">
-                  <h3>Sujoy Dev</h3>
-                  <p>BackEnd Lead</p>
-                </Col>
-                <Col className="swing-in-left-fwd">
-                  <h3>Rutwik Gaikwad</h3>
-                  <p>Smart Contract Lead</p>
-                </Col>
-                <Col className="swing-in-left-fwd">
-                  <h3>Sanjana Nalawade</h3>
-                  <p>Documentation / Research Lead</p>
+                  <h3 align="center" className="dev-name">
+                    Rutwik Gaikwad
+                  </h3>
+                  <p align="center">Smart Contract Lead</p>
                 </Col>
               </Row>
             </Col>
@@ -61,6 +61,29 @@ class Devs extends React.Component {
       </section>
     );
   }
+}
+
+{
+  /* <Col className="swing-in-left-fwd">
+  <h3>Tejas Raibagi</h3>
+  <p>FrontEnd Lead</p>
+</Col>
+  <Col className="swing-in-left-fwd">
+    <h3>Prasad Jadhav</h3>
+    <p>FrontEnd Developer</p>
+  </Col>
+  <Col className="swing-in-left-fwd">
+    <h3>Sujoy Dev</h3>
+    <p>BackEnd Lead</p>
+  </Col>
+  <Col className="swing-in-left-fwd">
+    <h3>Rutwik Gaikwad</h3>
+    <p>Smart Contract Lead</p>
+  </Col>
+  <Col className="swing-in-left-fwd">
+    <h3>Sanjana Nalawade</h3>
+    <p>Documentation / Research Lead</p>
+  </Col> */
 }
 
 export default Devs;
