@@ -21,6 +21,7 @@ router.post("/addCerts", async (req, res, next) => {
     var svg = req.body.svg;
     var query = "insert into certs(email,id,jsonstring) values";
     await cert.map((i, index) => {
+      console.log(i.email);
       var token = crypto.randomBytes(16).toString("hex");
       i.svg = svg;
       query = query + `('${i.email}','${token}','${JSON.stringify(i)}'),`;
