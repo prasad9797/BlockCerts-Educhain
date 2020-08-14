@@ -129,6 +129,7 @@ class StudentDashboard extends React.Component {
                   <div>
                     {this.state.cert.map((certs, index) => (
                       <div
+                        className="cert-holder"
                         key={index}
                         onClick={() => {
                           this.props.history.push(

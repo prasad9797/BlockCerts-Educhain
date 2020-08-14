@@ -23,6 +23,7 @@ class Admin extends React.Component {
       isAllowedToView: false,
       isSendingData: false,
       error: "",
+      success: "",
     };
   }
 
@@ -63,7 +64,7 @@ class Admin extends React.Component {
   };
 
   submit = () => {
-    this.setState({ isSendingData: false });
+    this.setState({ isSendingData: false, error: "", success: "" });
     if (this.state.svg === "" || this.state.csv === {}) {
       this.setState({ error: "Please upload both files" });
       return;
@@ -80,14 +81,19 @@ class Admin extends React.Component {
         )
         .then((res) => {
           console.log(res.data);
-          this.setState({ isSendingData: false });
-          window.location.reload();
+          this.setState({
+            isSendingData: false,
+            success: "Data has been added successfully!",
+            svg: "",
+            csv: {},
+          });
         })
         .catch((err) => {
           console.log(err);
           this.setState({
             isSendingData: false,
             error: "Error sending...Please try again!",
+            success: "",
           });
         });
     }
@@ -128,13 +134,7 @@ class Admin extends React.Component {
           >
             <Col>
               <Card style={{ width: "60%" }} className="swing-in-left-fwd">
-                {this.state.svg ? (
-                  <div>
-                    <object data={this.state.svg} type="image/svg+xml" />
-                  </div>
-                ) : (
-                  <Card.Img className="mx-auto" variant="top" src={folder} />
-                )}
+                <Card.Img className="mx-auto" variant="top" src={folder} />
                 <Card.Body>
                   <Card.Title className="upload-cert-template">
                     Upload Certificate Template
@@ -197,9 +197,15 @@ class Admin extends React.Component {
               </Card>
             </Col>
           </Row>
-          <p align="center" className="error">
-            {this.state.error}
-          </p>
+          {this.state.error ? (
+            <p align="center" className="error">
+              {this.state.error}
+            </p>
+          ) : (
+            <p align="center" className="success">
+              {this.state.success}
+            </p>
+          )}
           {this.state.isSendingData ? (
             <Loader
               type="ThreeDots"

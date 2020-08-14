@@ -23,6 +23,10 @@ body {
   margin: 1.5%;
 }
 
+.cert-holder {
+  cursor: pointer !important;
+}
+
 .navbar-brand {
   color: black !important;
 }

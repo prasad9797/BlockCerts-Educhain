@@ -1,9 +1,5 @@
 body {
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0.55)
-    ),
-    url("../images/certificate_portal_bg3.png");
+  background-image: linear-gradient( rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url("../images/certificate_portal_bg3.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -53,4 +49,13 @@ body {
 
 .card-title {
   color: black !important;
+}
+
+.success {
+  color: #28a745;
+  font-weight: bolder;
+}
+
+.log {
+  font-weight: bold !important;
 }

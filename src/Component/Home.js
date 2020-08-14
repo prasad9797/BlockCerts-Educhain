@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { LOGOUT } from "../actions/types";
 import axios from "axios";
+import ListItem from "rsuite/lib/List/ListItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,19 +19,17 @@ class Home extends React.Component {
   }
 
   async componentWillMount() {
-    if (sessionStorage.getItem("jwtToken") !== "null") {
-      // var sessionData = sessionStorage.getItem("jwtToken");
-      // var sessionData = sessionData.split(" ");
-      // var decoded = jwt_decode(sessionData[1]);
-      // console.log("decoded: ", decoded);
-      await this.setState({
-        isLoggedIn: true,
-      });
-    } else if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated) {
+      console.log("Auth");
       await this.setState({
         isLoggedIn: true,
       });
     }
+  }
+
+  componentDidMount() {
+    console.log("Home Page");
+    console.log(this.state.isLoggedIn);
   }
 
   logout = () => {
@@ -45,7 +44,7 @@ class Home extends React.Component {
       <section id="home">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">Educhain</Navbar.Brand>
+            <Navbar.Brand>Educhain</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
@@ -55,12 +54,12 @@ class Home extends React.Component {
                   </Button>
                 ) : (
                   <div>
-                    <Button className="sign" href="/login">
-                      Log In
-                    </Button>
-                    <Button className="reg" href="/signup">
-                      Sign Up
-                    </Button>
+                    <Link to="/login">
+                      <Button className="sign">Log In</Button>
+                    </Link>
+                    <Link to="/signup">
+                      <Button className="reg">Sign Up</Button>
+                    </Link>
                   </div>
                 )}
               </Nav>
