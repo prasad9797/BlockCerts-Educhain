@@ -69,7 +69,7 @@ router.post("/uploadSVG", async (req, res, next) => {
       if (err) {
         throw {
           statusCode: 400,
-          customMessage: "an error occured!",
+          customMessage: err,
         };
       } else {
         if (req.file == undefined) {
