@@ -1,4 +1,5 @@
 const fs = require("fs");
+const pgp = require("../../dbInit/dbConn").pgp;
 const express = require("express");
 const router = express.Router();
 const config = require("config");
@@ -67,8 +68,8 @@ router.get("/single/:id", async (req, res, next) => {
     contract.methods
       .certificates(id)
       .call()
-      .then((result) => {
-        var data = pgp.query(
+      .then(async (result) => {
+        var data = await pgp.query(
           `select svg,transactionhash from certs where id = ${id}`
         );
         console.log(result);
