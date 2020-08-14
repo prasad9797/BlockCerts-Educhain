@@ -6,7 +6,11 @@
 }
 
 body {
-  background-image: linear-gradient( rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url("../images/certificate_portal_bg1.png") !important;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.25)
+    ),
+    url("../images/certificate_portal_bg1.png") !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -118,7 +122,7 @@ body {
 @media only screen and (min-width: 1500px) {
   .title {
     font-size: 70px;
-    padding-top: 15rem;
+    padding-top: 8rem;
   }
   .sub-title {
     font-size: 30px;
