@@ -1,5 +1,13 @@
 import React from "react";
-import { Container, Row, Col, Button, Nav, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Nav,
+  Navbar,
+  Form,
+} from "react-bootstrap";
 import "../CSS/home.css";
 import "../CSS/animation.css";
 import FooterComp from "./footer";
@@ -85,7 +93,26 @@ class Home extends React.Component {
                 >
                   Authenticate your Certificates with Ease!
                 </p>
-                <p align="center">
+                <Form>
+                  <Form.Row className=" justify-content-center align-items-center">
+                    <Col xs="auto">
+                      <Form.Label htmlFor="inlineFormInput" srOnly>
+                        Cert
+                      </Form.Label>
+                      <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder="Search Certificate..."
+                      />
+                    </Col>
+                    <Col xs="auto">
+                      <Button type="submit" className="mb-2">
+                        Search
+                      </Button>
+                    </Col>
+                  </Form.Row>
+                </Form>
+                {/* <p align="center">
                   {this.state.isLoggedIn ? (
                     <Link to="/student/dashboard">
                       <Button
@@ -105,7 +132,7 @@ class Home extends React.Component {
                       </Button>
                     </Link>
                   )}
-                </p>
+                </p> */}
                 <FooterComp />
               </div>
             </Col>
