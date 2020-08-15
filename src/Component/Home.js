@@ -94,7 +94,12 @@ class Home extends React.Component {
                   Authenticate your Certificates with Ease!
                 </p>
                 <Form>
-                  <Form.Row className=" justify-content-center align-items-center">
+                  <Form.Row
+                    className=" justify-content-center align-items-center swing-in-left-fwd"
+                    style={{
+                      animationDelay: "0.4s",
+                    }}
+                  >
                     <Col xs="auto">
                       <Form.Label htmlFor="inlineFormInput" srOnly>
                         Cert
@@ -106,9 +111,7 @@ class Home extends React.Component {
                       />
                     </Col>
                     <Col xs="auto">
-                      <Button type="submit" className="mb-2">
-                        Search
-                      </Button>
+                      <Button className="mb-2">Search</Button>
                     </Col>
                   </Form.Row>
                 </Form>
