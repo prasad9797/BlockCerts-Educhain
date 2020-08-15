@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const config = require("config");
 const Web3 = require("web3");
-const bcrypt = require("bcrypt");
 const infuraURL = config.get("infuraEndpoint");
 const APIkey = config.get("infuraAPIkey");
 const infura = `${infuraURL}/${APIkey}`;

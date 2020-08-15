@@ -31,8 +31,8 @@ const Public = require("./routes/api/public");
 app.use("/api/v1/auth", Auth);
 app.use("/api/v1/protected", auth, Protected);
 app.use("/api/v1/public", Public);
-app.use("/static/public", express.static("public"));
-
+app.use("/api/static/public", express.static(__dirname + "/public/uploads"));
+console.log(__dirname);
 app.use(error);
 
 app.listen(process.env.PORT || 8080, () => console.log(`Server is listening`));
