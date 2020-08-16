@@ -7,6 +7,7 @@ import {
   Col,
   Row,
   Dropdown,
+  Card,
 } from "react-bootstrap";
 import image from "../images/cert.svg";
 import "../CSS/s_dashboard.css";
@@ -69,15 +70,15 @@ class StudentDashboard extends React.Component {
         console.log(err);
       });
     // await this.state.cert.map((i, ii) => {
-    for (var j = 0; j < this.state.cert.length; j++) {
-      var k = await axios.get(
-        `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${this.state.cert[j].svg}`
-      );
-      var l = this.state.svg;
-      l.push(k.data.data);
-      await this.setState({ svg: l });
-      // await console.log(this.state.svg.length);
-    }
+    // for (var j = 0; j < this.state.cert.length; j++) {
+    //   var k = await axios.get(
+    //     `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${this.state.cert[j].svg}`
+    //   );
+    //   var l = this.state.svg;
+    //   l.push(k.data.data);
+    //   await this.setState({ svg: l });
+    //   // await console.log(this.state.svg.length);
+    // }
     // console.log(i);
     // var k = axios.get(
     //   `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${i.svg}`
@@ -143,37 +144,45 @@ class StudentDashboard extends React.Component {
             <h4 className="dashboard-certificate-text">Your Certificates</h4>
           </div>
           <div className="certificate-holder">
-            <Col lg="6" style={{ textAlign: "center" }}>
-              {this.state.isLoading ? (
-                <h1>Loading...</h1>
-              ) : (
-                <div>
-                  {this.state.cert.length === 0 ? (
-                    <h1>No Certificates</h1>
-                  ) : (
-                    <div>
-                      {this.state.cert.map((certs, index) => (
-                        <Row xs={1} sm={1} md="12">
-                          <div
-                            className="cert-holder"
-                            key={index}
-                            onClick={() => {
-                              this.props.history.push(
-                                `/student/certificate/${certs.id}`
-                              );
-                            }}
-                          >
-                            {parse(
+            {this.state.isLoading ? (
+              <h1>Loading...</h1>
+            ) : (
+              <div>
+                {this.state.cert.length === 0 ? (
+                  <h1>No Certificates</h1>
+                ) : (
+                  // <div>
+                  <Row
+                    style={{ textAlign: "center" }}
+                    className="align-items-center"
+                  >
+                    {this.state.cert.map((certs, index) => (
+                      <Col sm={12} md={3} key={index}>
+                        <div
+                          className="cert-holder"
+                          key={index}
+                          onClick={() => {
+                            this.props.history.push(
+                              `/student/certificate/${certs.id}`
+                            );
+                          }}
+                        >
+                          {/* {parse(
                               this.state.svg[index] ? this.state.svg[index] : ""
-                            )}
-                          </div>
-                        </Row>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </Col>
+                            )} */}
+                          <img
+                            className="cert-card"
+                            src="https://educhain.apsit.edu.in/api/static/media/1.svg"
+                            alt="Cert_Thumb"
+                          />
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
+                  // </div>
+                )}
+              </div>
+            )}
           </div>
         </Container>
       </section>
