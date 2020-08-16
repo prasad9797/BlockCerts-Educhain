@@ -68,11 +68,18 @@ router.get("/single/:id", async (req, res, next) => {
       .certificates(id)
       .call()
       .then(async (result) => {
+        if (!result) {
+          throw {
+            statusCode: 404,
+            customMessage:
+              "No such certificate found on the blockchain network",
+          };
+        }
         var data = await pgp.query(
           "select svg,transactionhash from certs where id = ${id}",
           { id: id }
         );
-        console.log(result);
+        console.log("res", result);
         res.status(200).json({
           result: JSON.parse(result),
           svg: data[0].svg,
