@@ -40,13 +40,13 @@ class StudentDashboard extends React.Component {
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
-      console.log("decoded: ", decoded);
+      //console.log("decoded: ", decoded);
       await this.setState({
         isStudent: true,
         username: decoded.name,
         email: decoded.useremail,
       });
-      console.log(this.state.username);
+      //console.log(this.state.username);
     } else if (!this.props.isAdmin && this.props.isAuthenticated) {
       this.setState({ isStudent: true });
     } else {
@@ -61,13 +61,13 @@ class StudentDashboard extends React.Component {
         `https://blockcerts-dapp.herokuapp.com/api/v1/protected/${this.state.email}`
       )
       .then(async (res) => {
-        console.log("API call: ", res.data.data);
-        console.log("Data fetched...");
+        //console.log("API call: ", res.data.data);
+        //console.log("Data fetched...");
         await this.setState({ cert: res.data.data, isLoading: false });
-        console.log(this.state.cert);
+        //console.log(this.state.cert);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
     // await this.state.cert.map((i, ii) => {
     // for (var j = 0; j < this.state.cert.length; j++) {
@@ -77,7 +77,7 @@ class StudentDashboard extends React.Component {
     //   var l = this.state.svg;
     //   l.push(k.data.data);
     //   await this.setState({ svg: l });
-    //   // await console.log(this.state.svg.length);
+    //   // await //console.log(this.state.svg.length);
     // }
     // console.log(i);
     // var k = axios.get(
@@ -87,15 +87,7 @@ class StudentDashboard extends React.Component {
     //
     // });
 
-    console.log("Undef: ", this.state.email);
-
-    // for (var i = 0; i < this.state.cert.length; i++) {
-    // await axios
-    //   .get("https://blockcerts-dapp.herokuapp.com/api/v1/public/samplesvg")
-    //   .then((res) => {
-    //     this.setState({ svg: res.data.data });
-    //   });
-    // }
+    //console.log("Undef: ", this.state.email);
   }
 
   logout = () => {

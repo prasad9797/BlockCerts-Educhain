@@ -31,13 +31,13 @@ class Admin extends React.Component {
     if (this.state.success !== null) {
       return;
     } else {
-      console.log(this.state.success);
+      //console.log(this.state.success);
       this.checkSVG();
     }
   }
 
   checkSVG = () => {
-    console.log(this.state);
+    //console.log(this.state);
     if (
       this.state.svg === null ||
       this.state.isSendingData ||
@@ -48,16 +48,16 @@ class Admin extends React.Component {
       this.state.csv !== null &&
       (this.state.svg !== null || this.state.svg !== undefined)
     ) {
-      console.log("State: ", this.state);
-      console.log(this);
+      //console.log("State: ", this.state);
+      //console.log(this);
       var displaySVG = document.getElementById("SVG");
       var SVG;
       displaySVG.addEventListener(
         "load",
         () => {
-          console.log("name: ", this.state.csv[0].data.name);
+          //console.log("name: ", this.state.csv[0].data.name);
           SVG = displaySVG.contentDocument;
-          console.log(this.state.csv);
+          //console.log(this.state.csv);
           setTimeout(() => {
             SVG.getElementById(
               "name"
@@ -75,22 +75,22 @@ class Admin extends React.Component {
   };
 
   async componentWillMount() {
-    console.log(this.state.isAllowedToView);
+    //console.log(this.state.isAllowedToView);
     if (sessionStorage.getItem("jwtToken") !== "null") {
-      console.log(sessionStorage.getItem("jwtToken"));
+      //console.log(sessionStorage.getItem("jwtToken"));
       axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
         "jwtToken"
       );
-      console.log("Session Accessed Before", this.state.isAllowedToView);
+      //console.log("Session Accessed Before", this.state.isAllowedToView);
       await this.setState({ isAllowedToView: true });
-      console.log("Session Accessed After", this.state.isAllowedToView);
+      //console.log("Session Accessed After", this.state.isAllowedToView);
     } else if (this.props.isAdmin) {
-      console.log("Else Accessed", this.state.isAllowedToView);
+      //console.log("Else Accessed", this.state.isAllowedToView);
       this.setState({ isAllowedToView: true });
     } else {
       this.setState({ isAllowedToView: false });
       sessionStorage.removeItem("jwtToken");
-      console.log("Logout");
+      //console.log("Logout");
       delete axios.defaults.headers.common["Authorization"];
       this.props.Logout();
       this.props.history.push("/login");
@@ -99,18 +99,18 @@ class Admin extends React.Component {
   componentDidMount() {
     //Call get route to fetch Certificate Thumbnail
     // axios.get('fetchTemplateRoute').then(function (response) {
-    //     console.log(response);
+    //     //console.log(response);
     //      this.setState({cert: true})
     // })
-    console.log(this.state.isAllowedToView);
+    //console.log(this.state.isAllowedToView);
   }
 
   handleFile = async (e) => {
-    // console.log([e.target.name] + ":" + e.target.value);
+    // //console.log([e.target.name] + ":" + e.target.value);
     await this.setState({
       [e.target.name]: e.target.files[0],
     });
-    // console.log(this.state.svg);
+    // //console.log(this.state.svg);
   };
 
   submit = async () => {
@@ -119,13 +119,13 @@ class Admin extends React.Component {
       error: "",
       success: null,
     });
-    console.log(this.state);
+    //console.log(this.state);
     const crypto = require("crypto");
     var randomString = crypto.randomBytes(8).toString("hex");
     var fileName = this.state.svg.name;
     var fileName = randomString + ".svg";
     // this.setState({ svg: fileName });
-    console.log(fileName);
+    //console.log(fileName);
     let data = new FormData();
     data.append("file", this.state.svg, fileName);
     data.append("name", randomString);
@@ -162,14 +162,14 @@ class Admin extends React.Component {
               }
             )
             .then((res) => {
-              console.log(res.data);
+              //console.log(res.data);
               this.setState({
                 isSendingData: false,
                 success: "Data has been added successfully!",
               });
             })
             .catch((err) => {
-              console.log(err);
+              //console.log(err);
               this.setState({
                 isSendingData: false,
                 error: "Error sending...Please try again!",
@@ -177,7 +177,7 @@ class Admin extends React.Component {
               });
             })
             .catch((err) => {
-              console.log(err);
+              //console.log(err);
             });
         });
     }
@@ -278,11 +278,11 @@ class Admin extends React.Component {
                       delete data[i]["errors"];
                       delete data[i]["meta"];
                     }
-                    console.log("Data : ", dataTemp);
+                    //console.log("Data : ", dataTemp);
                     this.setState({
                       csv: dataTemp,
                     });
-                    console.log("State Updated : ", this.state.csv);
+                    //console.log("State Updated : ", this.state.csv);
                   }}
                   config={{ header: true }}
                   onError={this.handleOnError}

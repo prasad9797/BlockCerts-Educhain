@@ -73,20 +73,20 @@ class Login extends React.Component {
     });
     await this.validate();
     if (this.state.isValid) {
-      console.log("validated");
+      //console.log("validated");
       if (this.state.isAdmin) {
         //Call Admin route
         let auth = {
           username: this.state.email,
           password: this.state.password,
         };
-        console.log(this.state.isAdmin);
+        //console.log(this.state.isAdmin);
         axios
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth", auth)
           .then(async (res) => {
             await this.props.auth(true, res.data.data);
-            console.log(this.props.Admin);
-            console.log(res.data);
+            //console.log(this.props.Admin);
+            //console.log(res.data);
             axios.defaults.headers.common["Authorization"] = res.data.data;
             this.props.history.push("/admin");
           })
@@ -108,14 +108,14 @@ class Login extends React.Component {
         axios
           .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/login", auth)
           .then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             this.props.auth(false, res.data.data);
             axios.defaults.headers.common["Authorization"] = res.data.data;
-            console.log("User logged in!");
+            //console.log("User logged in!");
             this.props.history.push("/student/dashboard");
           })
           .catch(() => {
-            console.log(this.state.isAutheticating);
+            //console.log(this.state.isAutheticating);
             this.setState({
               errors: "Incorrect Email or Password",
               isAutheticating: false,

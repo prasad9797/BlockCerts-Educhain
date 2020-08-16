@@ -37,47 +37,47 @@ class Register extends React.Component {
         });
       }
       errorCount += 1;
-      console.log("Email");
+      //console.log("Email");
     }
     if (this.state.firstname === "") {
       this.setState({ error: "Please Enter Name" });
       errorCount += 1;
-      console.log("Fname");
+      //console.log("Fname");
     }
     if (this.state.lastname === "") {
       this.setState({ error: "Please Enter Name" });
       errorCount += 1;
-      console.log("Lname");
+      //console.log("Lname");
     }
     if (this.state.phone === "") {
       this.setState({ error: "Enter Phone Number" });
       errorCount += 1;
-      console.log("Phone");
+      //console.log("Phone");
     }
     if (this.state.phone.length !== 10) {
       this.setState({ error: "Enter a valid Phone Number" });
       errorCount += 1;
-      console.log("PhoneLen");
+      //console.log("PhoneLen");
     }
     if (this.state.password === "") {
       this.setState({ error: "Password field cannot be empty" });
       errorCount += 1;
-      console.log("Pass");
+      //console.log("Pass");
     }
     if (this.state.password === "") {
       this.setState({ error: "Repeat Password field cannot be empty" });
       errorCount += 1;
-      console.log("RePhone");
+      //console.log("RePhone");
     }
     if (this.state.password.length < 6) {
       this.setState({ error: "Password must be more than 6 letters" });
       errorCount += 1;
-      console.log("PassNotNull/len");
+      //console.log("PassNotNull/len");
     }
     if (this.state.password !== this.state.repeat_password) {
       this.setState({ error: "Password does not match" });
       errorCount += 1;
-      console.log("PassMatch");
+      //console.log("PassMatch");
     }
     if (errorCount > 1) {
       this.setState({ error: "Check all fields again" });
@@ -100,7 +100,7 @@ class Register extends React.Component {
     axios
       .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/register", user)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         this.props.history.push("/login");
       })
       .catch(() => {
@@ -111,7 +111,7 @@ class Register extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.state.admin);
+    //console.log(this.state.admin);
   }
 
   render() {
@@ -245,7 +245,7 @@ class Register extends React.Component {
                   await this.setState({
                     admin: !this.state.admin,
                   });
-                  console.log(this.state.admin);
+                  //console.log(this.state.admin);
                 }}
                 checked={this.state.admin}
                 id="custom-switch"

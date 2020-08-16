@@ -37,7 +37,7 @@ class CertificateDisplay extends React.Component {
   async componentWillMount() {
     var id = this.props.match.params.id;
     this.setState({ id: id });
-    console.log(id);
+    //console.log(id);
     await axios
       .get(`https://blockcerts-dapp.herokuapp.com/api/v1/public/single/${id}`)
       .then((res) => {
@@ -47,7 +47,7 @@ class CertificateDisplay extends React.Component {
           txHash: res.data.transactionhash,
           issuerpk: res.data.issuerPk,
         });
-        console.log(this.state.cert);
+        ////console.log(this.state.cert);
       });
     await axios
       .get(
@@ -61,11 +61,11 @@ class CertificateDisplay extends React.Component {
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
-      console.log("decoded: ", decoded);
+      ////console.log("decoded: ", decoded);
       await this.setState({
         username: decoded.name,
       });
-      console.log(this.state.username);
+      ////console.log(this.state.username);
     } else {
       this.setState({ isStudent: false });
       sessionStorage.removeItem("jwtToken");
@@ -84,7 +84,7 @@ class CertificateDisplay extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       var keys = Object.keys(this.state.cert);
-      console.log("Keys:", keys);
+      //console.log("Keys:", keys);
       for (var i = 0; i < keys.length; i++) {
         if (document.getElementById(keys[i]) !== null) {
           document.getElementById(keys[i]).textContent = this.state.cert[
