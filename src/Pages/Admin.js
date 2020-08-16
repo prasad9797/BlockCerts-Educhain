@@ -78,6 +78,9 @@ class Admin extends React.Component {
     console.log(this.state.isAllowedToView);
     if (sessionStorage.getItem("jwtToken") !== "null") {
       console.log(sessionStorage.getItem("jwtToken"));
+      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
+        "jwtToken"
+      );
       console.log("Session Accessed Before", this.state.isAllowedToView);
       await this.setState({ isAllowedToView: true });
       console.log("Session Accessed After", this.state.isAllowedToView);
@@ -145,7 +148,7 @@ class Admin extends React.Component {
       //Send data to server
       axios
         .post(
-          "http://educhain.apsit.edu.in/api/v1/protected/uploadSVG ",
+          "https://educhain.apsit.edu.in/api/v1/protected/uploadSVG ",
           data,
           config
         )

@@ -33,6 +33,9 @@ class StudentDashboard extends React.Component {
   async componentWillMount() {
     this.setState({ isLoading: true });
     if (sessionStorage.getItem("jwtToken") !== "null") {
+      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
+        "jwtToken"
+      );
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
