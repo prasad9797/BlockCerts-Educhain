@@ -31,7 +31,7 @@ const Public = require("./routes/api/public");
 app.use("/api/v1/auth", Auth);
 app.use("/api/v1/protected", auth, Protected);
 app.use("/api/v1/public", Public);
-app.use("/api/static/public", express.static(__dirname + "/public/uploads"));
+app.use("/api/static/media", express.static("public/uploads"));
 console.log(__dirname);
 app.use(error);
 
