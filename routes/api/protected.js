@@ -47,7 +47,7 @@ router.post("/addCerts", async (req, res, next) => {
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "select id,svg from certs where email = ${email} where uploaded=true",
+      "select id,svg from certs where email = ${email} and uploaded=true",
       {
         email: req.params.email,
       }
