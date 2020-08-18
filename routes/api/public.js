@@ -84,7 +84,6 @@ router.get("/single/:id", async (req, res, next) => {
           result: JSON.parse(result),
           svg: data[0].svg,
           transactionhash: data[0].transactionhash,
-          // issuerPk: config.get("privateKey"),
         });
       })
       .catch((err) => {

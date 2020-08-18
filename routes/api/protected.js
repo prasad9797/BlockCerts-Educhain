@@ -5,10 +5,10 @@ const pgp = require("../../dbInit/dbConn").pgp;
 const crypto = require("crypto");
 const multer = require("multer");
 const path = require("path");
-const EventEmitter = require("events");
+// const EventEmitter = require("events");
 
-const myEmitter = new EventEmitter();
-const runner = require("../../runner/runner");
+// const myEmitter = new EventEmitter();
+// const runner = require("../../runner/runner");
 // @route   POST api/v1/addCert
 // @desc    add certs to blockchain network
 // @access  private
@@ -21,7 +21,6 @@ router.post("/addCerts", async (req, res, next) => {
       };
     }
     var cert = req.body.cert;
-    console.log(req.body);
     var svg = req.body.svg;
     var query = "insert into certs(email,id,jsonstring,svg) values";
     await cert.map((i, index) => {
@@ -32,7 +31,7 @@ router.post("/addCerts", async (req, res, next) => {
     });
     query = query.substring(0, query.length - 1);
     await pgp.query(query);
-    myEmitter.emit("callRunner");
+    // myEmitter.emit("callRunner");
 
     res.status(200).json({
       message: "Data will be updated on the blockchain network shortly",
@@ -62,10 +61,26 @@ router.get("/:email", async (req, res, next) => {
   }
 });
 
+router.get("/uploadedSVG", (req, res, next) => {
+  try {
+    if (req.user.role !== "admin") {
+      throw {
+        statusCode: 400,
+        customMessage: "not authorized!",
+      };
+    }
+   var result  = await pgp.query("select svg from svg_templates where uploader = ${uploader}",{uploader:req.user.username})
+        res.status(200).json({ 
+          message: `found ${result.length} templates`, 
+          data: result 
+        });
+  }catch(err){
+    next(err)
+  }
+});
+
 router.post("/uploadSVG", async (req, res, next) => {
   try {
-    console.log(req.body);
-
     if (req.user.role !== "admin") {
       throw {
         statusCode: 400,
@@ -85,6 +100,8 @@ router.post("/uploadSVG", async (req, res, next) => {
             customMessage: "no file selected!",
           };
         } else {
+          // save svg name, uploader name in table
+          await pgp.query(`inser into svg_templates(svg,uploader) values(${svg},${uploader})`,{svg:req.body.svg,uploader:req.user.username})
           res.status(200).json({
             status: 200,
             message: "file uploaded successfully",
@@ -94,7 +111,6 @@ router.post("/uploadSVG", async (req, res, next) => {
       }
     });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });

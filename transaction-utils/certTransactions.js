@@ -99,8 +99,7 @@ async function send(transaction) {
       return res;
     })
     .catch((err) => {
-      console.log(err);
-      next(err);
+      return err;
     });
 }
 
