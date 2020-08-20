@@ -5,10 +5,8 @@ const pgp = require("../../dbInit/dbConn").pgp;
 const crypto = require("crypto");
 const multer = require("multer");
 const path = require("path");
-// const EventEmitter = require("events");
+const slugify = require("slugify");
 
-// const myEmitter = new EventEmitter();
-// const runner = require("../../runner/runner");
 // @route   POST api/v1/addCert
 // @desc    add certs to blockchain network
 // @access  private
@@ -20,8 +18,8 @@ router.post("/addCerts", async (req, res, next) => {
         customMessage: "not authorized!",
       };
     }
-    var cert = req.body.cert;
-    var svg = req.body.svg;
+    var cert = req.body.cert; // json
+    var svg = req.body.svg; // cert name/id.svg
     var query = "insert into certs(email,id,jsonstring,svg) values";
     await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
@@ -31,7 +29,6 @@ router.post("/addCerts", async (req, res, next) => {
     });
     query = query.substring(0, query.length - 1);
     await pgp.query(query);
-    // myEmitter.emit("callRunner");
 
     res.status(200).json({
       message: "Data will be updated on the blockchain network shortly",
@@ -61,7 +58,7 @@ router.get("/:email", async (req, res, next) => {
   }
 });
 
-router.get("/uploadedSVG", (req, res, next) => {
+router.get("/uploadedSVG", async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {
       throw {
@@ -69,13 +66,16 @@ router.get("/uploadedSVG", (req, res, next) => {
         customMessage: "not authorized!",
       };
     }
-   var result  = await pgp.query("select svg from svg_templates where uploader = ${uploader}",{uploader:req.user.username})
-        res.status(200).json({ 
-          message: `found ${result.length} templates`, 
-          data: result 
-        });
-  }catch(err){
-    next(err)
+    var result = await pgp.query(
+      "select * from svg_templates where uploader = ${uploader}",
+      { uploader: req.user.username }
+    );
+    res.status(200).json({
+      message: `found ${result.length} templates`,
+      data: result,
+    });
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -101,12 +101,25 @@ router.post("/uploadSVG", async (req, res, next) => {
           };
         } else {
           // save svg name, uploader name in table
-          await pgp.query(`inser into svg_templates(svg,uploader) values(${svg},${uploader})`,{svg:req.body.svg,uploader:req.user.username})
-          res.status(200).json({
-            status: 200,
-            message: "file uploaded successfully",
-            filename: req.body.svg,
-          });
+          pgp
+            .query(
+              `insert into svg_templates(svg_id,svg_slug,uploader) values(${svg},${uploader})`,
+              {
+                svg_id: req.body.name,
+                svg_slug: req.body.slug,
+                uploader: req.user.username,
+              }
+            )
+            .then((result) => {
+              res.status(200).json({
+                status: 200,
+                message: "file uploaded successfully",
+                slug: slugify(req.body.name),
+              });
+            })
+            .catch((err1) => {
+              next(err1);
+            });
         }
       }
     });
@@ -145,9 +158,5 @@ function checkFileType(file, cb) {
     cb("Error: Images Only!");
   }
 }
-
-// myEmitter.on("callRunner", () => {
-//   runner();
-// });
 
 module.exports = router;

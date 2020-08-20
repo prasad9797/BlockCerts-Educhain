@@ -7,11 +7,16 @@ const pgp = require("../../dbInit/dbConn").pgp;
 
 router.post("/", async (req, res, next) => {
   try {
-    // add joi validation
-    if (
-      req.body.username !== config.get("defaultUsername") ||
-      !bcrypt.compareSync(req.body.password, config.get("defaultPassword"))
-    ) {
+    var result = await pgp.query(
+      "SELECT * FROM admins WHERE email = ${email} OR phone = ${email}",
+      { email: req.body.email }
+    );
+    if (result.length == 0) {
+      throw {
+        statusCode: 404,
+        customMessage: "User does not exist",
+      };
+    } else if (!bcrypt.compareSync(req.body.password, result[0].password)) {
       throw {
         statusCode: 401,
         customMessage: "Invalid credentials",
@@ -39,7 +44,7 @@ router.post("/login", async (req, res, next) => {
   try {
     var result = await pgp.query(
       "SELECT * FROM users WHERE email = ${email} OR phone = ${email}",
-      { email: req.body.username }
+      { email: req.body.email }
     );
 
     if (result.length == 0) {
@@ -55,8 +60,8 @@ router.post("/login", async (req, res, next) => {
     }
     const token = generateToken(
       {
-        useremail: req.body.username,
-        name: result[0].fname + " " + result[0].lname,
+        useremail: req.body.email,
+        username: result[0].fname + " " + result[0].lname,
       },
       3600
     );

@@ -40,5 +40,5 @@ CREATE TABLE svg_templates
 
 ALTER TABLE svg_templates ADD CONSTRAINT svg_templates_fk0 FOREIGN KEY ("uploader") REFERENCES admins ("email");
 ALTER TABLE certs ADD CONSTRAINT certs_fk0 FOREIGN KEY ("uploader") REFERENCES admins ("email");
-ALTER TABLE certs ADD CONSTRAINT certs_fk1 FOREIGN KEY ("email") REFERENCES users ("email");
+-- ALTER TABLE certs ADD CONSTRAINT certs_fk1 FOREIGN KEY ("email") REFERENCES users ("email");
 ALTER TABLE certs ADD CONSTRAINT certs_fk2 FOREIGN KEY ("svg") REFERENCES svg_templates ("svg_id");
