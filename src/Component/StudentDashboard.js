@@ -7,9 +7,7 @@ import {
   Col,
   Row,
   Dropdown,
-  Card,
 } from "react-bootstrap";
-import image from "../images/cert.svg";
 import "../CSS/s_dashboard.css";
 import { connect } from "react-redux";
 import { LOGOUT } from "../actions/types";
@@ -43,7 +41,7 @@ class StudentDashboard extends React.Component {
       //console.log("decoded: ", decoded);
       await this.setState({
         isStudent: true,
-        username: decoded.name,
+        username: decoded.username,
         email: decoded.useremail,
       });
       //console.log(this.state.username);

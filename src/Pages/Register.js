@@ -4,6 +4,9 @@ import FooterComp from "../Component/footer";
 import axios from "axios";
 import "../CSS/login.css";
 import "../CSS/animation.css";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { LOGOUT } from "../actions/types";
 
 class Register extends React.Component {
   state = {
@@ -15,7 +18,26 @@ class Register extends React.Component {
     password: "",
     repeat_password: "",
     error: "",
+    isLoggedIn: false,
   };
+
+  async componentWillMount() {
+    console.log(sessionStorage.getItem("jwtToken"));
+    if (sessionStorage.getItem("jwtToken") !== null) {
+      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
+        "jwtToken"
+      );
+      await this.setState({ isLoggedIn: true });
+    } else if (this.props.isAdmin) {
+      this.setState({ isLoggedIn: true });
+    } else {
+      this.setState({ isAllowedToView: false });
+      sessionStorage.removeItem("jwtToken");
+      delete axios.defaults.headers.common["Authorization"];
+      this.props.Logout();
+      this.props.history.push("/login");
+    }
+  }
 
   //Set values of each textfield into individual state values.
   changeHandler = (e) => {
@@ -98,7 +120,7 @@ class Register extends React.Component {
     };
     //axios
     axios
-      .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/register", user)
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/register`, user)
       .then((res) => {
         //console.log(res.data);
         this.props.history.push("/login");
@@ -115,7 +137,7 @@ class Register extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.isLoggedIn ? (
       <section id="login">
         <div className="custom-nav slide-bottom">
           <Navbar collapseOnSelect expand="lg" variant="light">
@@ -286,8 +308,18 @@ class Register extends React.Component {
         </Row>
         <FooterComp />
       </section>
+    ) : (
+      <Redirect to="/" />
     );
   }
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Logout: () => {
+      dispatch({ type: LOGOUT });
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Register);

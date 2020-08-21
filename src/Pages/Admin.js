@@ -96,17 +96,9 @@ class Admin extends React.Component {
       this.props.history.push("/login");
     }
   }
-  componentDidMount() {
-    //Call get route to fetch Certificate Thumbnail
-    // axios.get('fetchTemplateRoute').then(function (response) {
-    //     //console.log(response);
-    //      this.setState({cert: true})
-    // })
-    //console.log(this.state.isAllowedToView);
-  }
 
   handleFile = async (e) => {
-    // //console.log([e.target.name] + ":" + e.target.value);
+    //console.log([e.target.name] + ":" + e.target.value);
     await this.setState({
       [e.target.name]: e.target.files[0],
     });

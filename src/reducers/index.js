@@ -1,11 +1,18 @@
-import { SET_USER, LOGOUT } from "../actions/types";
-import { SET_ADMIN } from "../actions/types";
+import {
+  SET_USER,
+  SET_ADMIN,
+  LOGOUT,
+  UPLOAD_SVG,
+  UPLOAD_CSV,
+} from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
   Admin: false,
   jwtToken: null,
   username: null,
+  svg: {},
+  csv: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -30,6 +37,17 @@ const rootReducer = (state = initialState, action) => {
         isAuthenticated: false,
         Admin: false,
         jwtToken: null,
+      };
+    case UPLOAD_SVG:
+      console.log(action.svgPayload);
+      return {
+        ...state,
+        svg: URL.createObjectURL(action.svgPayload),
+      };
+    case UPLOAD_CSV:
+      return {
+        ...state,
+        csv: action.csvPayload,
       };
     default:
       return state;

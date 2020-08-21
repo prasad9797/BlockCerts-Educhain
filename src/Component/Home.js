@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { LOGOUT } from "../actions/types";
 import axios from "axios";
-import ListItem from "rsuite/lib/List/ListItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,6 +22,7 @@ class Home extends React.Component {
 
     this.state = {
       isLoggedIn: false,
+      searchQuery: null,
     };
   }
 
@@ -36,9 +36,18 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Home Page");
-    console.log(this.state.isLoggedIn);
+    console.log(this);
   }
+
+  handleSearch = (e) => {
+    this.setState({ searchQuery: e.target.value });
+  };
+
+  // onSearch = () => {
+  //   if (this.state.searchQuery !== null) {
+  //     this.props.history.push(`/student/certificate/${this.state.searchQuery}`);
+  //   }
+  // };
 
   logout = () => {
     delete axios.defaults.headers.common["Authorization"];
@@ -107,11 +116,14 @@ class Home extends React.Component {
                       <Form.Control
                         className="mb-2"
                         id="inlineFormInput"
-                        placeholder="Search Certificate..."
+                        placeholder="Search via Certificate ID..."
+                        onChange={this.handleSearch}
                       />
                     </Col>
                     <Col xs="auto">
-                      <Button className="mb-2">Search</Button>
+                      <Button className="mb-2" onClick={this.onSearch}>
+                        Search
+                      </Button>
                     </Col>
                   </Form.Row>
                 </Form>

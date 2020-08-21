@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Button,
-  Container,
-  Col,
-  Row,
-  Dropdown,
-} from "react-bootstrap";
-import img from "../images/cert.svg";
+import { Navbar, Nav, Button, Col, Row, Dropdown } from "react-bootstrap";
 import "../CSS/certificate_display.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +8,7 @@ import axios from "axios";
 import { LOGOUT } from "../actions/types";
 import { connect } from "react-redux";
 import jwt_decode from "jwt-decode";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class CertificateDisplay extends React.Component {
   constructor(props) {
@@ -61,7 +52,6 @@ class CertificateDisplay extends React.Component {
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
-      ////console.log("decoded: ", decoded);
       await this.setState({
         username: decoded.name,
       });
@@ -97,8 +87,6 @@ class CertificateDisplay extends React.Component {
 
   render() {
     const parse = require("html-react-parser");
-    const URL =
-      "0xc33d3514a369b2c57f1ec29354855da376d2019a39615d72f27c4955d8aaec2c";
     return (
       <section id="user-certificates">
         <div className="custom-nav slide-bottom">
@@ -191,4 +179,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CertificateDisplay);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CertificateDisplay)
+);

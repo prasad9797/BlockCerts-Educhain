@@ -5,8 +5,8 @@ import "../CSS/animation.css";
 import axios from "axios";
 import FooterComp from "../Component/footer";
 import { connect } from "react-redux";
-import { SET_USER, SET_ADMIN } from "../actions/types";
-import jwt_decode from "jwt-decode";
+import { SET_USER, SET_ADMIN, LOGOUT } from "../actions/types";
+import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,7 +19,22 @@ class Login extends React.Component {
       errors: "",
       isValid: false,
       isAutheticating: false,
+      isLoggedIn: false,
     };
+  }
+
+  async componentWillMount() {
+    console.log(sessionStorage.getItem("jwtToken"));
+    if (sessionStorage.getItem("jwtToken") !== "null") {
+      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
+        "jwtToken"
+      );
+      await this.setState({ isLoggedIn: true });
+    } else if (this.props.isAuthenticated) {
+      this.setState({ isLoggedIn: true });
+    } else {
+      this.setState({ isLoggedIn: false });
+    }
   }
 
   componentDidMount() {
@@ -77,22 +92,23 @@ class Login extends React.Component {
       if (this.state.isAdmin) {
         //Call Admin route
         let auth = {
-          username: this.state.email,
+          email: this.state.email,
           password: this.state.password,
         };
         //console.log(this.state.isAdmin);
         axios
-          .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth", auth)
+          .post(`${process.env.REACT_APP_BACKEND_URL}api/v1/auth`, auth)
           .then(async (res) => {
             await this.props.auth(true, res.data.data);
             //console.log(this.props.Admin);
             //console.log(res.data);
             axios.defaults.headers.common["Authorization"] = res.data.data;
-            this.props.history.push("/admin");
+            this.props.history.push("/admin/upload/svg");
+            this.setState({});
           })
-          .catch(() => {
+          .catch((err) => {
             this.setState({
-              errors: "Incorrect Email or Password",
+              errors: err.data.message,
               isAutheticating: false,
             });
           });
@@ -102,11 +118,11 @@ class Login extends React.Component {
           errors: "",
         });
         let auth = {
-          username: this.state.email,
+          email: this.state.email,
           password: this.state.password,
         };
         axios
-          .post("https://blockcerts-dapp.herokuapp.com/api/v1/auth/login", auth)
+          .post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/login`, auth)
           .then((res) => {
             //console.log(res.data);
             this.props.auth(false, res.data.data);
@@ -114,10 +130,11 @@ class Login extends React.Component {
             //console.log("User logged in!");
             this.props.history.push("/student/dashboard");
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err.response);
             //console.log(this.state.isAutheticating);
             this.setState({
-              errors: "Incorrect Email or Password",
+              errors: err.response.data.message,
               isAutheticating: false,
             });
           });
@@ -128,7 +145,7 @@ class Login extends React.Component {
   };
 
   render() {
-    return (
+    return this.state.isLoggedIn === false ? (
       <section id="login">
         <div className="custom-nav slide-bottom">
           <Navbar variant="light">
@@ -242,6 +259,8 @@ class Login extends React.Component {
         </Row>
         <FooterComp />
       </section>
+    ) : (
+      <Redirect to="/" />
     );
   }
 }
@@ -261,6 +280,9 @@ const mapDispatchToProps = (dispatch) => {
       } else {
         dispatch({ type: SET_USER, token: jwtToken });
       }
+    },
+    Logout: () => {
+      dispatch({ type: LOGOUT });
     },
   };
 };
