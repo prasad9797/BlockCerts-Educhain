@@ -25,12 +25,7 @@ class Login extends React.Component {
 
   async componentWillMount() {
     console.log(sessionStorage.getItem("jwtToken"));
-    if (sessionStorage.getItem("jwtToken") !== "null") {
-      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
-        "jwtToken"
-      );
-      await this.setState({ isLoggedIn: true });
-    } else if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated) {
       this.setState({ isLoggedIn: true });
     } else {
       this.setState({ isLoggedIn: false });
@@ -108,7 +103,7 @@ class Login extends React.Component {
           })
           .catch((err) => {
             this.setState({
-              errors: err.data.message,
+              // errors: err.data.message,
               isAutheticating: false,
             });
           });
