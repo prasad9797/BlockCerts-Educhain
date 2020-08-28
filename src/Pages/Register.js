@@ -120,7 +120,7 @@ class Register extends React.Component {
     };
     //axios
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/auth/register`, user)
+      .post(`${process.env.REACT_APP_BACKEND_URL}api/v1/auth/register`, user)
       .then((res) => {
         //console.log(res.data);
         this.props.history.push("/login");

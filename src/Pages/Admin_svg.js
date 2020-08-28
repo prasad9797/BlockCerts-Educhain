@@ -69,7 +69,7 @@ class Admin_SVGUpload extends React.Component {
       };
       axios
         .post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/v1/protected/uploadSVG`,
+          `${process.env.REACT_APP_BACKEND_URL}api/v1/protected/uploadSVG`,
           data,
           config
         )
