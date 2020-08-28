@@ -22,7 +22,7 @@ async function runner() {
       var transaction = await signTransaction(rawTransaction);
       var done = await send(transaction);
       await pgp.query(
-        "update certs set transactionhash = ${transactionhash},notify=true,uploaded=true where id = ${id}",
+        "update certs set transactionhash = ${transactionhash},notify=true,uploaded=true,jsonstring=NULL where id = ${id}",
         { transactionhash: done.transactionHash, id: result[i].id }
       );
       console.log(done.transactionHash);

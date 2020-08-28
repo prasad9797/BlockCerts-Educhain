@@ -8,7 +8,7 @@ const pgp = require("../../dbInit/dbConn").pgp;
 router.post("/", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "SELECT * FROM admins WHERE email = ${email} OR phone = ${email}",
+      "SELECT * FROM admins WHERE email = ${email}",
       { email: req.body.email }
     );
     if (result.length == 0) {

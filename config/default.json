@@ -1,10 +1,10 @@
 {
-  "jwtPrivateKey": "my-secret-123#@%",
+  "jwtPrivateKey": "$2a$10$k90RTu3.dVGj4nXr22VQ4ezOGjnZ.o.zB54P6PLS0FAQx5yyLBsg2",
 
-  "mysqlHost": "remotemysql.com",
-  "mysqlUser": "P2yLmrfPAy",
-  "mysqlPassword": "cKIR7WXNSe",
-  "mysqlDatabase": "P2yLmrfPAy",
+  "pgHost": "localhost",
+  "pgUser": "postgres",
+  "pgPassword": "cocobean@417",
+  "pgDatabase": "blockchain-certs",
 
   "PORT": "5000",
 

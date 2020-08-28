@@ -74,7 +74,7 @@ router.get("/single/:id", async (req, res, next) => {
           };
         }
         var data = await pgp.query(
-          "select svg,transactionhash from certs where id = ${id}",
+          "select svg,transactionhash from certs where id = ${id} or cert_id = ${id}",
           { id: id }
         );
         console.log("res", result);

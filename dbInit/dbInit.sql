@@ -7,6 +7,7 @@ create table certs
   uploaded boolean default false not null,
   notify boolean default false not null,
   jsonString text not null,
+  cert_id VARCHAR(250) not null UNIQUE,
   svg varchar(250) not null
 );
 
@@ -40,5 +41,5 @@ CREATE TABLE svg_templates
 
 ALTER TABLE svg_templates ADD CONSTRAINT svg_templates_fk0 FOREIGN KEY ("uploader") REFERENCES admins ("email");
 ALTER TABLE certs ADD CONSTRAINT certs_fk0 FOREIGN KEY ("uploader") REFERENCES admins ("email");
--- ALTER TABLE certs ADD CONSTRAINT certs_fk1 FOREIGN KEY ("email") REFERENCES users ("email");
 ALTER TABLE certs ADD CONSTRAINT certs_fk2 FOREIGN KEY ("svg") REFERENCES svg_templates ("svg_id");
+-- ALTER TABLE certs ADD CONSTRAINT certs_fk1 FOREIGN KEY ("email") REFERENCES users ("email");

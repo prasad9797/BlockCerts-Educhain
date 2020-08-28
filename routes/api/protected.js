@@ -20,12 +20,14 @@ router.post("/addCerts", async (req, res, next) => {
     }
     var cert = req.body.cert; // json
     var svg = req.body.svg; // cert name/id.svg
-    var query = "insert into certs(email,id,jsonstring,svg) values";
+    var query = "insert into certs(email,id,jsonstring,svg,cert_id) values";
     await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
       query =
         query +
-        `('${i.data.email}','${token}','${JSON.stringify(i)}','${svg}'),`;
+        `('${i.data.email}','${token}','${JSON.stringify(i)}','${svg}','${
+          i.data.cert_id
+        }'),`;
     });
     query = query.substring(0, query.length - 1);
     await pgp.query(query);
