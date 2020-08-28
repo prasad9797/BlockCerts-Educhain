@@ -55,7 +55,9 @@ class StudentDashboard extends React.Component {
     }
 
     await axios
-      .get(`${process.env.BACKEND_URL}/api/v1/protected/${this.state.email}`)
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/protected/${this.state.email}`
+      )
       .then(async (res) => {
         //console.log("API call: ", res.data.data);
         //console.log("Data fetched...");

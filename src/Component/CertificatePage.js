@@ -42,7 +42,7 @@ class CertificateDisplay extends React.Component {
       });
     await axios
       .get(
-        `${process.env.BACKEND_URL}/api/v1/public/samplesvg/${this.state.svgName}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/v1/public/samplesvg/${this.state.svgName}`
       )
       .then((res) => {
         this.setState({ svg: res.data.data });
