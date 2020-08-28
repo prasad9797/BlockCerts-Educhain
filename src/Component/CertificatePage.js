@@ -30,7 +30,7 @@ class CertificateDisplay extends React.Component {
     this.setState({ id: id });
     //console.log(id);
     await axios
-      .get(`${process.env.BACKEND_URL}/api/v1/public/single/${id}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/public/single/${id}`)
       .then((res) => {
         this.setState({
           cert: res.data.result.data,
