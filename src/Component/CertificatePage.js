@@ -30,7 +30,7 @@ class CertificateDisplay extends React.Component {
     this.setState({ id: id });
     //console.log(id);
     await axios
-      .get(`https://blockcerts-dapp.herokuapp.com/api/v1/public/single/${id}`)
+      .get(`${process.env.BACKEND_URL}/api/v1/public/single/${id}`)
       .then((res) => {
         this.setState({
           cert: res.data.result.data,
@@ -42,7 +42,7 @@ class CertificateDisplay extends React.Component {
       });
     await axios
       .get(
-        `http://educhain.apsit.edu.in/api/v1/public/samplesvg/${this.state.svgName}`
+        `${process.env.BACKEND_URL}/api/v1/public/samplesvg/${this.state.svgName}`
       )
       .then((res) => {
         this.setState({ svg: res.data.data });
