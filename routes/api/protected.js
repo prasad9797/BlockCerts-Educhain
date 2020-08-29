@@ -103,12 +103,13 @@ router.post("/uploadSVG", async (req, res, next) => {
           };
         } else {
           // save svg name, uploader name in table
+          console.log(req.body);
           pgp
             .query(
-              `insert into svg_templates(svg_id,svg_slug,uploader) values(${svg},${uploader})`,
+              "insert into svg_templates(svg_id,svg_slug,uploader) values(${svg_id},${svg_slug},${uploader})",
               {
                 svg_id: req.body.name,
-                svg_slug: req.body.slug,
+                svg_slug: slugify(req.body.name),
                 uploader: req.user.username,
               }
             )
