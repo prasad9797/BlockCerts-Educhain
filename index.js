@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
   });
 });
 
-cron.schedule("0 0 * * *", runner);
-cron.schedule("0 12 * * *", emailrunner);
+cron.schedule("40 5 * * *", runner);
+cron.schedule("30 17 * * *", emailrunner);
 
 const Auth = require("./routes/api/auth");
 const Protected = require("./routes/api/protected");
@@ -35,4 +35,4 @@ app.use("/api/static/media", express.static("public/uploads"));
 console.log(__dirname);
 app.use(error);
 
-app.listen(process.env.PORT || 8080, () => console.log(`Server is listening`));
+app.listen(8080, () => console.log(`Server is listening`));

@@ -18,18 +18,20 @@ router.post("/addCerts", async (req, res, next) => {
         customMessage: "not authorized!",
       };
     }
+    console.log(req.user);
     var cert = req.body.cert; // json
     var svg = req.body.svg; // cert name/id.svg
-    var query = "insert into certs(email,id,jsonstring,svg,cert_id) values";
+    var query = "insert into certs(uploader,email,id,jsonstring,svg,cert_id) values";
     await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
       query =
         query +
-        `('${i.data.email}','${token}','${JSON.stringify(i)}','${svg}','${
+        `('${req.user.username}','${i.data.email}','${token}','${JSON.stringify(i)}','${svg}','${
           i.data.cert_id
         }'),`;
     });
     query = query.substring(0, query.length - 1);
+    console.log(query);
     await pgp.query(query);
 
     res.status(200).json({
@@ -109,7 +111,7 @@ router.post("/uploadSVG", async (req, res, next) => {
               "insert into svg_templates(svg_id,svg_slug,uploader) values(${svg_id},${svg_slug},${uploader})",
               {
                 svg_id: req.body.name,
-                svg_slug: slugify(req.body.name),
+                svg_slug: slugify(req.body.slug),
                 uploader: req.user.username,
               }
             )

@@ -24,7 +24,7 @@ router.post("/", async (req, res, next) => {
     }
     const token = generateToken(
       {
-        username: req.body.username,
+        username: req.body.email,
         role: "admin",
       },
       600
