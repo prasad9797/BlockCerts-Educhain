@@ -59,7 +59,7 @@ class Admin_SVGUpload extends React.Component {
       var fileName = this.state.svg.name;
       var fileName = randomString + ".svg";
       let data = new FormData();
-      data.append("svg", this.state.svg, fileName);
+      data.append("file", this.state.svg, fileName);
       data.append("name", randomString);
       data.append("slug", this.state.slug);
       const config = {
