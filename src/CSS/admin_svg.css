@@ -1,60 +1,66 @@
 #svg-upload {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .card {
-    background-color: transparent !important;
-    border: none !important;
-    justify-content: center !important;
-    align-content: center !important;
-    text-align: center;
+  background-color: transparent !important;
+  border: none !important;
+  justify-content: center !important;
+  align-content: center !important;
+  text-align: center;
 }
 
 .card .card-img-top {
-    width: 200px !important;
+  width: 200px !important;
+}
+.cert-card {
+  width: inherit;
 }
 
 .center-btn {
-    width: 25%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
 .fileInput {
-    justify-content: center;
-    margin: auto;
-    max-width: 50%;
-    border: 1px solid black !important;
+  justify-content: center;
+  margin: auto;
+  max-width: 50%;
+  border: 1px solid black !important;
+}
+.cert-wrapper {
+  width: inherit;
 }
 
 .info {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .footer {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 @media only screen and (min-width: 1500px) {
-    .card {
-        padding-top: 10rem;
-    }
-    .card-title {
-        font-size: 40px !important;
-    }
-    .fileInput {
-        font-size: 25px;
-        width: 100%;
-    }
-    .footer {
-        font-size: 25px;
-        margin-bottom: 20rem !important;
-    }
+  .card {
+    padding-top: 10rem;
+  }
+  .card-title {
+    font-size: 40px !important;
+  }
+  .fileInput {
+    font-size: 25px;
+    width: 100%;
+  }
+  .footer {
+    font-size: 25px;
+    margin-bottom: 20rem !important;
+  }
 }
 
-@media only screen and (max-width:700px) {
-    .card {
-        left: 0 !important;
-    }
+@media only screen and (max-width: 700px) {
+  .card {
+    left: 0 !important;
+  }
 }

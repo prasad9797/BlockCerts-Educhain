@@ -189,56 +189,56 @@ class Admin extends React.Component {
 
   render() {
     return this.state.isAllowedToView ? (
-      <section id="admin">
-        <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="ml-auto">
-                <Button className="sign" onClick={this.logout}>
+      <section id='admin'>
+        <div className='custom-nav slide-bottom'>
+          <Navbar collapseOnSelect expand='lg' variant='light'>
+            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
+            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+            <Navbar.Collapse id='responsive-navbar-nav'>
+              <Nav className='ml-auto'>
+                <Button className='sign' onClick={this.logout}>
                   Log Out
                 </Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div className="admin-dashboard" align="center">
-          <h3 className="admin-title swing-in-left-fwd">Admin Dashboard</h3>
+        <div className='admin-dashboard' align='center'>
+          <h3 className='admin-title swing-in-left-fwd'>Admin Dashboard</h3>
           <p>Please Upload both the files on every new entry!</p>
           <Row
             xs={1}
             sm={1}
             md={2}
             lg={2}
-            className="justify-content-md-center"
+            className='justify-content-md-center'
           >
             <Col>
-              <Card className="swing-in-left-fwd">
+              <Card className='swing-in-left-fwd'>
                 {this.state.svg ? (
                   <object
-                    id="SVG"
+                    id='SVG'
                     data={URL.createObjectURL(this.state.svg)}
-                    type="image/svg+xml"
+                    type='image/svg+xml'
                   />
                 ) : (
                   // <img
                   //   src={URL.createObjectURL(this.state.svg)}
                   // />
-                  <Card.Img className="mx-auto" variant="top" src={folder} />
+                  <Card.Img className='mx-auto' variant='top' src={folder} />
                 )}
                 {/* <Card.Img className="mx-auto" variant="top" src={folder} /> */}
                 <Card.Body>
-                  <Card.Title className="upload-cert-template">
+                  <Card.Title className='upload-cert-template'>
                     Upload Certificate Template
                   </Card.Title>
                 </Card.Body>
                 <input
-                  type="file"
-                  name="svg"
-                  id="svg"
-                  className="fileInput"
-                  accept=".svg"
+                  type='file'
+                  name='svg'
+                  id='svg'
+                  className='fileInput'
+                  accept='.svg'
                   onChange={this.handleFile}
                   style={{ color: "black", align: "center" }}
                 />
@@ -247,16 +247,16 @@ class Admin extends React.Component {
             <Col>
               <Card
                 style={{ width: "60%", animationDelay: ".2s" }}
-                className="swing-in-left-fwd"
+                className='swing-in-left-fwd'
               >
-                <Card.Img className=" mx-auto" variant="top" src={folder} />
+                <Card.Img className=' mx-auto' variant='top' src={folder} />
                 <Card.Body>
-                  <Card.Title className="upload-cert-template">
+                  <Card.Title className='upload-cert-template'>
                     Upload Certificate Data
                   </Card.Title>
                 </Card.Body>
                 <CSVReader
-                  type=".csv"
+                  type='.csv'
                   noDrag
                   onDrop={(data) => {
                     var dataTemp = [];
@@ -291,26 +291,26 @@ class Admin extends React.Component {
             </Col>
           </Row>
           {this.state.error ? (
-            <p align="center" className="error">
+            <p align='center' className='error'>
               {this.state.error}
             </p>
           ) : (
-            <p align="center" className="success">
+            <p align='center' className='success'>
               {this.state.success}
             </p>
           )}
           {this.state.isSendingData ? (
             <Loader
-              type="ThreeDots"
-              color="white"
+              type='ThreeDots'
+              color='white'
               height={60}
               width={60}
               style={{ backgroundColor: "transparent" }}
             />
           ) : (
             <Button
-              variant="primary"
-              className="swing-in-left-fwd"
+              variant='primary'
+              className='swing-in-left-fwd'
               style={{ animationDelay: "0.4s" }}
               onClick={this.submit}
             >
@@ -321,7 +321,7 @@ class Admin extends React.Component {
         <FooterComp />
       </section>
     ) : (
-      <Redirect to="/login" />
+      <Redirect to='/login' />
     );
   }
 }

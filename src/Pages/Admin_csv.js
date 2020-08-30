@@ -39,19 +39,20 @@ class Admin_SVGUpload extends React.Component {
   }
 
   updateSVG() {
-    console.log(this.state.csv[0].data["student-name"]);
+    console.log(this.state.csv);
+    // console.log(this.state.csv[0].data["student-name"]);
     var keys = Object.keys(this.state.csv[0].data);
     console.log(keys);
     var displaySVG = document.getElementById("SVG");
     var SVG = displaySVG.contentDocument;
     console.log(SVG);
-    console.log(SVG.getElementById("student-name").textContent);
+    // console.log(SVG.getElementById("student-name").textContent);
     var keys = Object.keys(this.state.csv[0].data);
     console.log("Keys:", keys);
     for (var i = 0; i < keys.length; i++) {
-      if (document.getElementById(keys[i]) !== null) {
+      if (SVG.getElementById(keys[i]) !== null) {
         console.log("Done: ", keys[i]);
-        document.getElementById(keys[i]).textContent = this.state.csv[i].data[
+        SVG.getElementById(keys[i]).textContent = this.state.csv[i].data[
           keys[i]
         ];
       }
@@ -71,45 +72,61 @@ class Admin_SVGUpload extends React.Component {
     this.props.history.push("/login");
   };
 
+  onSend = () => {
+    console.log(this.props.svgName);
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}api/v1/protected/addCerts`, {
+        cert: this.state.csv,
+        svg: this.props.svgName,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   render() {
     return this.state.isAllowedToView ? (
-      <section id="csv-upload">
-        <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="ml-auto">
-                <Button className="sign" onClick={this.logout}>
+      <section id='csv-upload'>
+        <div className='custom-nav slide-bottom'>
+          <Navbar collapseOnSelect expand='lg' variant='light'>
+            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
+            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+            <Navbar.Collapse id='responsive-navbar-nav'>
+              <Nav className='ml-auto'>
+                <Button className='sign' onClick={this.logout}>
                   Log Out
                 </Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div className="cardTemplate">
-          <Row md={4} className="justify-content-center align-items-center">
+        <div className='cardTemplate'>
+          <Row md={4} className='justify-content-center align-items-center'>
             <Col sm={12} md={12} lg={6}>
               <Card
                 style={{ width: "60%", animationDelay: ".2s" }}
-                className="swing-in-left-fwd"
+                className='swing-in-left-fwd'
               >
-                <Card.Img className=" mx-auto" variant="top" src={folder} />
+                <Card.Img className=' mx-auto' variant='top' src={folder} />
                 <Card.Body>
-                  <Card.Title className="upload-cert-template">
+                  <Card.Title className='upload-cert-template'>
                     Upload Certificate Data
                   </Card.Title>
                 </Card.Body>
                 <CSVReader
-                  type=".csv"
+                  type='.csv'
                   noDrag
                   onDrop={(data) => {
                     var dataTemp = [];
                     for (var i = 0; i < data.length; i++) {
                       if (
-                        data[i]["data"]["certID"] !== "" &&
-                        data[i]["data"]["student-name"]
+                        data[i]["data"]["cert_id"] !== "" &&
+                        data[i]["data"]["Student_copy"]
                       ) {
+                        data[i]["data"]["slug"] = this.props.svgSlug;
                         dataTemp.push(data[i]);
                       }
                       delete data[i]["errors"];
@@ -136,10 +153,11 @@ class Admin_SVGUpload extends React.Component {
                 </CSVReader>
                 {this.state.isCSVUploaded ? (
                   <Button
-                    align="center"
-                    variant="primary"
-                    className="swing-in-left-fwd "
+                    align='center'
+                    variant='primary'
+                    className='swing-in-left-fwd '
                     style={{ animationDelay: "0.4s", marginTop: "20px" }}
+                    onClick={this.onSend}
                   >
                     Next
                   </Button>
@@ -147,12 +165,15 @@ class Admin_SVGUpload extends React.Component {
               </Card>
             </Col>
             <Col>
-              <h5 align="center">Preview</h5>
-              <object id="SVG" data={this.props.svg} type="image/svg+xml" />
+              <h5 align='center'>
+                {" "}
+                {this.props.svgSlug ? this.props.svgSlug : "Preview"}{" "}
+              </h5>
+              <object id='SVG' data={this.props.svg} type='image/svg+xml' />
               <Button
-                align="center"
-                variant="primary"
-                className="swing-in-left-fwd "
+                align='center'
+                variant='primary'
+                className='swing-in-left-fwd '
                 style={{ animationDelay: "0.4s", marginTop: "20px" }}
                 onClick={() => this.updateSVG()}
               >
@@ -164,7 +185,7 @@ class Admin_SVGUpload extends React.Component {
         <Footer />
       </section>
     ) : (
-      <Redirect to="/login" />
+      <Redirect to='/login' />
     );
   }
 }
@@ -173,6 +194,8 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.isAuthenticated,
   isAdmin: state.Admin,
   svg: state.svg,
+  svgName: state.svgName,
+  svgSlug: state.svgSlug,
 });
 
 const mapDispatchToProps = (dispatch) => {

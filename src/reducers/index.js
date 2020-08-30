@@ -11,6 +11,8 @@ const initialState = {
   Admin: false,
   jwtToken: null,
   username: null,
+  svgName: null,
+  svgSlug: null,
   svg: {},
   csv: null,
 };
@@ -42,7 +44,12 @@ const rootReducer = (state = initialState, action) => {
       console.log(action.svgPayload);
       return {
         ...state,
-        svg: URL.createObjectURL(action.svgPayload),
+        svgName: action.svgName,
+        svgSlug: action.svgSlug,
+        svg:
+          action.isSvgUploaded == true
+            ? URL.createObjectURL(action.svgPayload)
+            : action.svgPayload,
       };
     case UPLOAD_CSV:
       return {
