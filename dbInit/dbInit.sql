@@ -6,7 +6,7 @@ create table certs
   transactionHash varchar(250) default null,
   uploaded boolean default false not null,
   notify boolean default false not null,
-  jsonString text not null,
+  jsonString text,
   cert_id VARCHAR(250) not null UNIQUE,
   svg varchar(250) not null
 );

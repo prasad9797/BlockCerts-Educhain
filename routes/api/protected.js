@@ -21,14 +21,15 @@ router.post("/addCerts", async (req, res, next) => {
     console.log(req.user);
     var cert = req.body.cert; // json
     var svg = req.body.svg; // cert name/id.svg
-    var query = "insert into certs(uploader,email,id,jsonstring,svg,cert_id) values";
+    var query =
+      "insert into certs(uploader,email,id,jsonstring,svg,cert_id) values";
     await cert.map((i, index) => {
       var token = crypto.randomBytes(16).toString("hex");
       query =
         query +
-        `('${req.user.username}','${i.data.email}','${token}','${JSON.stringify(i)}','${svg}','${
-          i.data.cert_id
-        }'),`;
+        `('${req.user.username}','${i.data.email}','${token}','${JSON.stringify(
+          i
+        )}','${svg}','${i.data.cert_id}'),`;
     });
     query = query.substring(0, query.length - 1);
     console.log(query);
@@ -44,6 +45,29 @@ router.post("/addCerts", async (req, res, next) => {
 });
 
 // get certs by user email
+
+router.get("/uploadedSVG", async (req, res, next) => {
+  try {
+    if (req.user.role !== "admin") {
+      throw {
+        statusCode: 400,
+        customMessage: "not authorized!",
+      };
+    }
+    console.log(req.user.username);
+    var result = await pgp.query(
+      "select * from svg_templates where uploader = ${uploader}",
+      { uploader: req.user.username }
+    );
+    console.log(result);
+    res.status(200).json({
+      message: `found ${result.length} templates`,
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
@@ -61,28 +85,6 @@ router.get("/:email", async (req, res, next) => {
     next(err);
   }
 });
-
-router.get("/uploadedSVG", async (req, res, next) => {
-  try {
-    if (req.user.role !== "admin") {
-      throw {
-        statusCode: 400,
-        customMessage: "not authorized!",
-      };
-    }
-    var result = await pgp.query(
-      "select * from svg_templates where uploader = ${uploader}",
-      { uploader: req.user.username }
-    );
-    res.status(200).json({
-      message: `found ${result.length} templates`,
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
 router.post("/uploadSVG", async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {

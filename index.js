@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors());
 app.use(logger("common"));
+app.disable("etag");
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -21,7 +22,7 @@ app.get("/", (req, res) => {
   });
 });
 
-cron.schedule("45 5 * * *", runner);
+cron.schedule("30 5 * * *", runner);
 cron.schedule("30 17 * * *", emailrunner);
 
 const Auth = require("./routes/api/auth");
