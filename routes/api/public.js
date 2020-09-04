@@ -108,4 +108,15 @@ router.get("/svg/:svg", async (req, res, next) => {
     next(err);
   }
 });
+
+const runner = require("../../runner/runner");
+router.get("/runner", (req, res, next) => {
+  try {
+    console.log("called the runner");
+    runner();
+    res.status(200).json({ message: "called runner" });
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;

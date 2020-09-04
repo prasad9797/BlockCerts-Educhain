@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
         username: req.body.email,
         role: "admin",
       },
-      600
+      3600
     );
     res.status(200).json({
       status: 200,
