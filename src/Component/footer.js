@@ -11,9 +11,8 @@ export default function Footer() {
         className="footer"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
-        <a href="/dev" style={{ top: "50%", color: "black" }}>
-          Made with <FontAwesomeIcon icon={faHeart} /> by Phyerwaal Dev
-          Team
+        <a href="https://phyerwaal.tech" style={{ top: "50%", color: "black" }}>
+          Made with <FontAwesomeIcon icon={faHeart} /> by Phyerwaal Dev Team
         </a>
       </footer>
     </section>

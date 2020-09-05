@@ -141,84 +141,91 @@ class Login extends React.Component {
 
   render() {
     return this.state.isLoggedIn === false ? (
-      <section id='login'>
-        <div className='custom-nav slide-bottom'>
-          <Navbar variant='light'>
-            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <section id="login">
+        <div className="custom-nav slide-bottom">
+          <Navbar variant="light">
+            <Navbar.Brand href="/">Educhain</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           </Navbar>
         </div>
         <Row
           xs={12}
           md={3}
-          className='justify-content-center align-items-center'
+          className="justify-content-center align-items-center"
         >
           <Col>
-            <h2 className='header-title swing-in-left-fwd' align='center'>
+            <h2 className="header-title swing-in-left-fwd" align="center">
               Login
             </h2>
             <Form
-              className='login-form login-fields'
+              className="login-form login-fields"
               style={{ padding: "20px" }}
             >
-              <Form.Group controlId='formBasicEmail'>
-                <Form.Label className='swing-in-left-fwd'>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label className="swing-in-left-fwd">
                   Email address
                 </Form.Label>
                 <Form.Control
-                  className='swing-in-left-fwd'
+                  className="swing-in-left-fwd"
                   style={{ animationDelay: "0.2s" }}
-                  type='email'
-                  name='email'
-                  placeholder='Enter email'
+                  type="email"
+                  name="email"
+                  placeholder="Enter email"
                   onChange={this.changeHandler}
                 />
                 <Form.Text
-                  className='text-muted swing-in-left-fwd'
+                  className="text-muted swing-in-left-fwd"
                   style={{ animationDelay: "0.4s" }}
                 >
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
 
-              <Form.Group controlId='formBasicPassword'>
+              <Form.Group controlId="formBasicPassword">
                 <Form.Label
-                  className='swing-in-left-fwd'
+                  className="swing-in-left-fwd"
                   style={{ animationDelay: "0.6s" }}
                 >
                   Password
                 </Form.Label>
                 <Form.Control
-                  className='swing-in-left-fwd'
+                  className="swing-in-left-fwd"
                   style={{ animationDelay: "0.8s" }}
-                  name='password'
-                  type='password'
-                  placeholder='Password'
+                  name="password"
+                  type="password"
+                  placeholder="Password"
                   onChange={this.changeHandler}
                 />
               </Form.Group>
               <Form.Check
-                className='swing-in-left-fwd'
+                className="swing-in-left-fwd"
                 style={{ animationDelay: "1s" }}
-                type='switch'
-                id='custom-switch'
-                label='Login as Admin (Toggle if Admin)'
-                name='isAdmin'
+                type="switch"
+                id="custom-switch"
+                label="Login as Admin (Toggle if Admin)"
+                name="isAdmin"
                 onChange={this.isAdmin}
               />
               <a
-                href='/signup'
-                className='no-account swing-in-left-fwd'
+                href="/forgetpassword"
+                className="no-account swing-in-left-fwd"
+                style={{ animationDelay: "1s", display: "block" }}
+              >
+                Forgot Password?
+              </a>
+              <a
+                href="/signup"
+                className="no-account swing-in-left-fwd"
                 style={{ animationDelay: "1s" }}
               >
                 Don't have an account? Click here to create one!
               </a>
-              <p align='center' className='error'>
+              <p align="center" className="error">
                 {this.state.errors}
               </p>
               <p
-                align='center'
-                className='swing-in-left-fwd'
+                align="center"
+                className="swing-in-left-fwd"
                 style={{ animationDelay: "1.2s" }}
               >
                 {this.state.isAutheticating ? (
@@ -228,20 +235,20 @@ class Login extends React.Component {
                   // >
                   //   Checking...
                   // </a>
-                  <Button variant='primary' disabled>
+                  <Button variant="primary" disabled>
                     {" "}
                     <a
-                      align='center'
+                      align="center"
                       style={{ backgroundColor: "transparent", padding: "0" }}
                     >
                       Loading...
                     </a>
                   </Button>
                 ) : (
-                  <Button variant='primary' onClick={this.onSubmit}>
+                  <Button variant="primary" onClick={this.onSubmit}>
                     {" "}
                     <a
-                      align='center'
+                      align="center"
                       style={{ backgroundColor: "transparent", padding: "0" }}
                     >
                       Submit
@@ -255,7 +262,7 @@ class Login extends React.Component {
         <FooterComp />
       </section>
     ) : (
-      <Redirect to='/' />
+      <Redirect to="/" />
     );
   }
 }
