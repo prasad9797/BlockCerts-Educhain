@@ -1,7 +1,15 @@
 #svg-upload {
   overflow-x: hidden;
 }
+.card-title {
+  font-size: s0px !important;
+}
 
+/* .cardTemplate {
+  max-width: 500px;
+  /* display: flex;
+  justify-content: center; */
+/* }  */
 .card {
   background-color: transparent !important;
   border: none !important;
@@ -24,12 +32,12 @@
   margin-top: 20px;
 }
 
-.fileInput {
+/* .fileInput {
   justify-content: center;
   margin: auto;
   max-width: 50%;
   border: 1px solid black !important;
-}
+} */
 .cert-wrapper {
   width: inherit;
 }
@@ -37,30 +45,35 @@
 .info {
   margin-top: 20px;
 }
-
+/* 
 .footer {
   font-size: 15px;
-}
+} */
 
 @media only screen and (min-width: 1500px) {
   .card {
     padding-top: 10rem;
   }
-  .card-title {
-    font-size: 40px !important;
-  }
-  .fileInput {
+  /* .fileInput {
     font-size: 25px;
     width: 100%;
-  }
-  .footer {
+  } */
+  /* .footer {
     font-size: 25px;
     margin-bottom: 20rem !important;
-  }
+  } */
 }
+/* .form-group {
+  display: flex;
+  justify-content: center;
+} */
 
 @media only screen and (max-width: 700px) {
   .card {
     left: 0 !important;
   }
+}
+
+.row {
+  justify-content: center;
 }

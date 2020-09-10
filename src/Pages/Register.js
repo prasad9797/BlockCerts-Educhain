@@ -138,124 +138,124 @@ class Register extends React.Component {
 
   render() {
     return this.state.isLoggedIn ? (
-      <section id="login">
-        <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="light">
-            <Navbar.Brand href="/">Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <section id='login'>
+        <div className='custom-nav slide-bottom'>
+          <Navbar collapseOnSelect expand='lg' variant='light'>
+            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
+            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           </Navbar>
         </div>
         <Row
           xs={1}
           md={3}
-          className="justify-content-center align-items-center"
+          className='justify-content-center align-items-center'
         >
           <Col>
-            <h2 className="header-title-reg swing-in-left-fwd" align="center">
+            <h2 className='header-title-reg swing-in-left-fwd' align='center'>
               Sign Up
             </h2>
-            <Form className="login-form">
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label className="swing-in-left-fwd">
+            <Form className='login-form'>
+              <Form.Group controlId='formBasicEmail'>
+                <Form.Label className='swing-in-left-fwd'>
                   Email address
                 </Form.Label>
                 <Form.Control
                   required
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
-                  type="email"
-                  placeholder="Enter email"
-                  name="email"
+                  type='email'
+                  placeholder='Enter email'
+                  name='email'
                   onChange={this.changeHandler}
                 />
                 <Form.Text
-                  className="text-muted swing-in-left-fwd"
+                  className='text-muted swing-in-left-fwd'
                   style={{ animationDelay: "0.4s" }}
                 >
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
-              <Form.Group controlId="formBasicPhone">
-                <Form.Label className="swing-in-left-fwd">
+              <Form.Group controlId='formBasicPhone'>
+                <Form.Label className='swing-in-left-fwd'>
                   Phone Number
                 </Form.Label>
                 <Form.Control
                   required
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
-                  type="number"
-                  min="0"
-                  placeholder="+91..."
-                  name="phone"
+                  type='number'
+                  min='0'
+                  placeholder='+91...'
+                  name='phone'
                   onChange={this.changeHandler}
                 />
               </Form.Group>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridFname">
+                <Form.Group as={Col} controlId='formGridFname'>
                   <Form.Label
-                    className="swing-in-left-fwd"
+                    className='swing-in-left-fwd'
                     style={{ animationDelay: "0.2s" }}
                   >
                     First Name
                   </Form.Label>
                   <Form.Control
-                    type="text"
-                    className="swing-in-left-fwd"
+                    type='text'
+                    className='swing-in-left-fwd'
                     style={{ animationDelay: "0.3s" }}
-                    placeholder="First Name"
-                    name="firstname"
+                    placeholder='First Name'
+                    name='firstname'
                     onChange={this.changeHandler}
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridLname">
+                <Form.Group as={Col} controlId='formGridLname'>
                   <Form.Label
-                    className="swing-in-left-fwd"
+                    className='swing-in-left-fwd'
                     style={{ animationDelay: "0.2s" }}
                   >
                     Last Name
                   </Form.Label>
                   <Form.Control
-                    type="text"
-                    placeholder="Last Name"
-                    className="swing-in-left-fwd"
+                    type='text'
+                    placeholder='Last Name'
+                    className='swing-in-left-fwd'
                     style={{ animationDelay: "0.3s" }}
-                    name="lastname"
+                    name='lastname'
                     onChange={this.changeHandler}
                   />
                 </Form.Group>
               </Form.Row>
 
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group controlId='formBasicPassword'>
                 <Form.Label
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
                 >
                   Password
                 </Form.Label>
                 <Form.Control
                   required
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
-                  type="password"
-                  placeholder="Password"
-                  name="password"
+                  type='password'
+                  placeholder='Password'
+                  name='password'
                   onChange={this.changeHandler}
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group controlId='formBasicPassword'>
                 <Form.Label
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
                 >
                   Repeat Password
                 </Form.Label>
                 <Form.Control
-                  className="swing-in-left-fwd"
+                  className='swing-in-left-fwd'
                   style={{ animationDelay: "0.2s" }}
-                  type="password"
-                  placeholder="Repeat Password"
-                  name="repeat_password"
+                  type='password'
+                  placeholder='Repeat Password'
+                  name='repeat_password'
                   onChange={this.changeHandler}
                 />
               </Form.Group>
@@ -277,15 +277,15 @@ class Register extends React.Component {
                                 <Form.Check type="checkbox" label="Check me out" />
                             </Form.Group> */}
               <a
-                href="/login"
-                className="already-account swing-in-left-fwd"
+                href='/login'
+                className='already-account swing-in-left-fwd'
                 style={{ animationDelay: "0.2s" }}
               >
                 Already have an Account?Click here to Sign In!
               </a>
               <p
-                align="center"
-                className="swing-in-left-fwd"
+                align='center'
+                className='swing-in-left-fwd'
                 style={{
                   animationDelay: "0.2s",
                   color: "red",
@@ -295,21 +295,20 @@ class Register extends React.Component {
                 {this.state.error}
               </p>
               <p
-                align="center"
-                className="swing-in-left-fwd"
+                align='center'
+                className='swing-in-left-fwd'
                 style={{ animationDelay: "0.2s" }}
               >
-                <Button className="form-button" onClick={this.submitHandler}>
+                <Button className='form-button' onClick={this.submitHandler}>
                   Submit
                 </Button>
               </p>
             </Form>
           </Col>
         </Row>
-        <FooterComp />
       </section>
     ) : (
-      <Redirect to="/" />
+      <Redirect to='/' />
     );
   }
 }

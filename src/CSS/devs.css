@@ -1,38 +1,40 @@
 .dev-details {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: transparent !important;
+  width: 100%;
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  background-color: transparent !important;
+  height: 80vh;
 }
 
 .dev-title {
-    color: black;
-    margin-bottom: 5%;
-    align-content: center;
-    font-weight: bolder;
+  color: black;
+  margin-bottom: 5%;
+  align-content: center;
+  font-weight: bolder;
 }
 
 .dev-name {
-    color: rgb(12, 108, 242);
-    font-weight: bold;
+  color: rgb(12, 108, 242);
+  font-weight: bold;
 }
 
 .row {
-    display: flex !important;
+  display: flex !important;
 }
 
-h3, p {
-    color: black;
+h3,
+p {
+  color: black;
 }
 
 @media only screen and (max-width: 900px) {
-    body {
-        background-color: white !important;
-        background-image: none !important;
-    }
-    .row {
-        display: inline !important;
-    }
+  body {
+    background-color: white !important;
+    background-image: none !important;
+  }
+  /* .row {
+    display: inline !important;
+  } */
 }

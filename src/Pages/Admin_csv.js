@@ -17,6 +17,7 @@ class Admin_SVGUpload extends React.Component {
       csv: null,
       isAllowedToView: false,
       isCSVUploaded: false,
+      svg: null,
     };
   }
 
@@ -36,6 +37,18 @@ class Admin_SVGUpload extends React.Component {
       this.logout();
       this.props.history.push("/login");
     }
+    await axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}api/static/media/${this.props.match.params.svg}`,
+        { responseType: "blob" }
+      )
+      .then((res) => {
+        // console.log(res.data);
+        this.setState({ svg: URL.createObjectURL(res.data) });
+      });
+    // this.setState({
+    //   svg: `${process.env.REACT_APP_BACKEND_URL}api/static/media/${this.props.match.params.svg}`,
+    // });
   }
 
   updateSVG() {
@@ -49,6 +62,14 @@ class Admin_SVGUpload extends React.Component {
     // console.log(SVG.getElementById("student-name").textContent);
     var keys = Object.keys(this.state.csv[0].data);
     console.log("Keys:", keys);
+
+    // for (var i = 0; i < keys.length; i++) {
+    //   if (document.getElementById(keys[i]) !== null) {
+    //     document.getElementById(keys[i]).textContent = this.state.csv[i].data[
+    //       keys[i]
+    //     ];
+    //   }
+    // }
     for (var i = 0; i < keys.length; i++) {
       if (SVG.getElementById(keys[i]) !== null) {
         console.log("Done: ", keys[i]);
@@ -88,102 +109,110 @@ class Admin_SVGUpload extends React.Component {
   };
 
   render() {
+    const parse = require("html-react-parser");
+
     return this.state.isAllowedToView ? (
-      <section id='csv-upload'>
-        <div className='custom-nav slide-bottom'>
-          <Navbar collapseOnSelect expand='lg' variant='light'>
-            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-            <Navbar.Collapse id='responsive-navbar-nav'>
-              <Nav className='ml-auto'>
-                <Button className='sign' onClick={this.logout}>
-                  Log Out
-                </Button>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-        </div>
-        <div className='cardTemplate'>
-          <Row md={4} className='justify-content-center align-items-center'>
-            <Col sm={12} md={12} lg={6}>
-              <Card
-                style={{ width: "60%", animationDelay: ".2s" }}
-                className='swing-in-left-fwd'
-              >
-                <Card.Img className=' mx-auto' variant='top' src={folder} />
-                <Card.Body>
-                  <Card.Title className='upload-cert-template'>
-                    Upload Certificate Data
-                  </Card.Title>
-                </Card.Body>
-                <CSVReader
-                  type='.csv'
-                  noDrag
-                  onDrop={(data) => {
-                    var dataTemp = [];
-                    for (var i = 0; i < data.length; i++) {
-                      if (
-                        data[i]["data"]["cert_id"] !== "" &&
-                        data[i]["data"]["Student_copy"]
-                      ) {
-                        data[i]["data"]["slug"] = this.props.svgSlug;
-                        dataTemp.push(data[i]);
-                      }
-                      delete data[i]["errors"];
-                      delete data[i]["meta"];
-                    }
-                    console.log("Data : ", dataTemp);
-                    this.setState({
-                      csv: dataTemp,
-                      isCSVUploaded: true,
-                    });
-                    console.log("StateCSV: ", this.state.csv);
-                    this.props.SaveCSV(this.state.csv); //console.log("State Updated : ", this.state.csv);
-                  }}
-                  config={{ header: true }}
-                  onError={this.handleOnError}
-                  style={{ padding: "0" }}
-                  addRemoveButton
-                  onRemoveFile={this.handleOnRemoveFile}
-                >
-                  <span style={{ color: "black" }}>
-                    {" "}
-                    Click to upload (CSV only)
-                  </span>
-                </CSVReader>
-                {this.state.isCSVUploaded ? (
-                  <Button
-                    align='center'
-                    variant='primary'
-                    className='swing-in-left-fwd '
-                    style={{ animationDelay: "0.4s", marginTop: "20px" }}
-                    onClick={this.onSend}
-                  >
-                    Next
+      <div>
+        <section id='csv-upload'>
+          <div className='custom-nav slide-bottom'>
+            <Navbar collapseOnSelect expand='lg' variant='light'>
+              <Navbar.Brand href='/'>Educhain</Navbar.Brand>
+              <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+              <Navbar.Collapse id='responsive-navbar-nav'>
+                <Nav className='ml-auto'>
+                  <Button className='sign' onClick={this.logout}>
+                    Log Out
                   </Button>
-                ) : null}
-              </Card>
-            </Col>
-            <Col>
-              <h5 align='center'>
-                {" "}
-                {this.props.svgSlug ? this.props.svgSlug : "Preview"}{" "}
-              </h5>
-              <object id='SVG' data={this.props.svg} type='image/svg+xml' />
-              <Button
-                align='center'
-                variant='primary'
-                className='swing-in-left-fwd '
-                style={{ animationDelay: "0.4s", marginTop: "20px" }}
-                onClick={() => this.updateSVG()}
-              >
-                Preview
-              </Button>
-            </Col>
-          </Row>
-        </div>
-        <Footer />
-      </section>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+          </div>
+          <div className='cardTemplate'>
+            <Row md={4} className='justify-content-center align-items-center'>
+              <Col sm={12} md={12} lg={6} className='centerCol'>
+                <Card
+                  style={{ animationDelay: ".2s" }}
+                  className='swing-in-left-fwd'
+                >
+                  <Card.Img className=' mx-auto' variant='top' src={folder} />
+                  <Card.Body>
+                    <Card.Title className='upload-cert-template'>
+                      Upload Certificate Data
+                    </Card.Title>
+                  </Card.Body>
+                  <CSVReader
+                    type='.csv'
+                    noDrag
+                    onDrop={(data) => {
+                      var dataTemp = [];
+                      for (var i = 0; i < data.length; i++) {
+                        if (
+                          data[i]["data"]["cert_id"] !== "" &&
+                          data[i]["data"]["Student_copy"]
+                        ) {
+                          data[i]["data"]["slug"] = this.props.svgSlug;
+                          dataTemp.push(data[i]);
+                        }
+                        delete data[i]["errors"];
+                        delete data[i]["meta"];
+                      }
+                      console.log("Data : ", dataTemp);
+                      this.setState({
+                        csv: dataTemp,
+                        isCSVUploaded: true,
+                      });
+                      console.log("StateCSV: ", this.state.csv);
+                      this.props.SaveCSV(this.state.csv); //console.log("State Updated : ", this.state.csv);
+                    }}
+                    config={{ header: true }}
+                    onError={this.handleOnError}
+                    style={{ padding: "0" }}
+                    addRemoveButton
+                    onRemoveFile={() => {
+                      this.setState({ isCSVUploaded: false });
+                    }}
+                  >
+                    <span style={{ color: "black" }}>
+                      {" "}
+                      Click to upload (CSV only)
+                    </span>
+                  </CSVReader>
+                </Card>
+              </Col>
+              <Col sm={12} md={12} lg={6}>
+                <h5 align='center'> {this.props.match.params.slug} </h5>
+                <div className='svgPrev'>
+                  {/* {parse(this.state.svg ? this.state.svg : "")} */}
+                </div>
+                <object id='SVG' data={this.state.svg} type='image/svg+xml' />
+              </Col>
+            </Row>
+
+            {this.state.isCSVUploaded ? (
+              <React.Fragment>
+                <Button
+                  align='center'
+                  variant='success'
+                  className='swing-in-left-fwd '
+                  style={{ animationDelay: "0.4s", marginTop: "20px" }}
+                  onClick={() => this.updateSVG()}
+                >
+                  Preview
+                </Button>
+                <Button
+                  align='center'
+                  variant='primary'
+                  className='swing-in-left-fwd '
+                  style={{ animationDelay: "0.4s", marginTop: "20px" }}
+                  onClick={this.onSend}
+                >
+                  Upload
+                </Button>
+              </React.Fragment>
+            ) : null}
+          </div>
+        </section>
+      </div>
     ) : (
       <Redirect to='/login' />
     );

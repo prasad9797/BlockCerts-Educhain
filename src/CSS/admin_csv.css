@@ -11,7 +11,7 @@
 }
 
 .card .card-img-top {
-  width: 200px !important;
+  width: 100px !important;
 }
 
 .center-btn {
@@ -20,7 +20,9 @@
   margin-right: auto;
   margin-top: 20px;
 }
-
+.cardTemplate {
+  text-align: center;
+}
 .fileInput {
   justify-content: center;
   margin: auto;
@@ -31,12 +33,14 @@
 .info {
   margin-top: 20px;
 }
-
-.footer {
-  font-size: 15px;
+.svgPrev {
+  width: 300px;
 }
+/* .footer {
+  font-size: 15px;
+} */
 #SVG {
-  width: 500px;
+  width: 300px;
 }
 @media only screen and (min-width: 1500px) {
   .card {
@@ -49,16 +53,20 @@
     font-size: 25px;
     width: 100%;
   }
-  .footer {
+  /* .footer {
     font-size: 25px;
     margin-bottom: 20rem !important;
-  }
+  } */
 }
 
 @media only screen and (max-width: 700px) {
   #csv-upload .card {
-    left: 25% !important;
-    transform: translateX(40%);
+    /* left: 25% !important;
+      transform: translateX(40%); */
     margin-bottom: 20px;
   }
+}
+.centerCol {
+  display: flex;
+  justify-content: center;
 }

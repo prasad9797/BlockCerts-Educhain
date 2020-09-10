@@ -148,111 +148,114 @@ class Login extends React.Component {
             <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           </Navbar>
         </div>
-        <Row
-          xs={12}
-          md={3}
-          className='justify-content-center align-items-center'
-        >
-          <Col>
-            <h2 className='header-title swing-in-left-fwd' align='center'>
-              Login
-            </h2>
-            <Form
-              className='login-form login-fields'
-              style={{ padding: "20px" }}
-            >
-              <Form.Group controlId='formBasicEmail'>
-                <Form.Label className='swing-in-left-fwd'>
-                  Email address
-                </Form.Label>
-                <Form.Control
-                  className='swing-in-left-fwd'
-                  style={{ animationDelay: "0.2s" }}
-                  type='email'
-                  name='email'
-                  placeholder='Enter email'
-                  onChange={this.changeHandler}
-                />
-                <Form.Text
-                  className='text-muted swing-in-left-fwd'
-                  style={{ animationDelay: "0.4s" }}
-                >
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
+        <div className='rowWrapper'>
+          <Row
+            sm={1}
+            md={1}
+            lg={1}
+            xs={1}
+            className='rowwa justify-content-center align-items-center'
+          >
+            <Col>
+              <h2 className='header-title swing-in-left-fwd' align='center'>
+                Login
+              </h2>
+              <Form
+                className='login-form login-fields'
+                style={{ padding: "20px" }}
+              >
+                <Form.Group controlId='formBasicEmail'>
+                  <Form.Label className='swing-in-left-fwd'>
+                    Email address
+                  </Form.Label>
+                  <Form.Control
+                    className='swing-in-left-fwd'
+                    style={{ animationDelay: "0.2s" }}
+                    type='email'
+                    name='email'
+                    placeholder='Enter email'
+                    onChange={this.changeHandler}
+                  />
+                  <Form.Text
+                    className='text-muted swing-in-left-fwd'
+                    style={{ animationDelay: "0.4s" }}
+                  >
+                    We'll never share your email with anyone else.
+                  </Form.Text>
+                </Form.Group>
 
-              <Form.Group controlId='formBasicPassword'>
-                <Form.Label
+                <Form.Group controlId='formBasicPassword'>
+                  <Form.Label
+                    className='swing-in-left-fwd'
+                    style={{ animationDelay: "0.6s" }}
+                  >
+                    Password
+                  </Form.Label>
+                  <Form.Control
+                    className='swing-in-left-fwd'
+                    style={{ animationDelay: "0.8s" }}
+                    name='password'
+                    type='password'
+                    placeholder='Password'
+                    onChange={this.changeHandler}
+                  />
+                </Form.Group>
+                <Form.Check
                   className='swing-in-left-fwd'
-                  style={{ animationDelay: "0.6s" }}
-                >
-                  Password
-                </Form.Label>
-                <Form.Control
-                  className='swing-in-left-fwd'
-                  style={{ animationDelay: "0.8s" }}
-                  name='password'
-                  type='password'
-                  placeholder='Password'
-                  onChange={this.changeHandler}
+                  style={{ animationDelay: "1s" }}
+                  type='switch'
+                  id='custom-switch'
+                  label='Login as Admin (Toggle if Admin)'
+                  name='isAdmin'
+                  onChange={this.isAdmin}
                 />
-              </Form.Group>
-              <Form.Check
-                className='swing-in-left-fwd'
-                style={{ animationDelay: "1s" }}
-                type='switch'
-                id='custom-switch'
-                label='Login as Admin (Toggle if Admin)'
-                name='isAdmin'
-                onChange={this.isAdmin}
-              />
-              <a
-                href='/signup'
-                className='no-account swing-in-left-fwd'
-                style={{ animationDelay: "1s" }}
-              >
-                Don't have an account? Click here to create one!
-              </a>
-              <p align='center' className='error'>
-                {this.state.errors}
-              </p>
-              <p
-                align='center'
-                className='swing-in-left-fwd'
-                style={{ animationDelay: "1.2s" }}
-              >
-                {this.state.isAutheticating ? (
-                  // <a
-                  //   align="center"
-                  //   style={{ backgroundColor: "transparent", padding: "0" }}
-                  // >
-                  //   Checking...
-                  // </a>
-                  <Button variant='primary' disabled>
-                    {" "}
-                    <a
-                      align='center'
-                      style={{ backgroundColor: "transparent", padding: "0" }}
-                    >
-                      Loading...
-                    </a>
-                  </Button>
-                ) : (
-                  <Button variant='primary' onClick={this.onSubmit}>
-                    {" "}
-                    <a
-                      align='center'
-                      style={{ backgroundColor: "transparent", padding: "0" }}
-                    >
-                      Submit
-                    </a>
-                  </Button>
-                )}
-              </p>
-            </Form>
-          </Col>
-        </Row>
-        <FooterComp />
+                <a
+                  href='/signup'
+                  className='no-account swing-in-left-fwd'
+                  style={{ animationDelay: "1s" }}
+                >
+                  Don't have an account? Click here to create one!
+                </a>
+                <p align='center' className='error'>
+                  {this.state.errors}
+                </p>
+                <p
+                  align='center'
+                  className='swing-in-left-fwd'
+                  style={{ animationDelay: "1.2s" }}
+                >
+                  {this.state.isAutheticating ? (
+                    // <a
+                    //   align="center"
+                    //   style={{ backgroundColor: "transparent", padding: "0" }}
+                    // >
+                    //   Checking...
+                    // </a>
+                    <Button variant='primary' disabled>
+                      {" "}
+                      <a
+                        align='center'
+                        style={{ backgroundColor: "transparent", padding: "0" }}
+                      >
+                        Loading...
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button variant='primary' onClick={this.onSubmit}>
+                      {" "}
+                      <a
+                        align='center'
+                        style={{ backgroundColor: "transparent", padding: "0" }}
+                      >
+                        Submit
+                      </a>
+                    </Button>
+                  )}
+                </p>
+              </Form>
+            </Col>
+          </Row>
+        </div>
       </section>
     ) : (
       <Redirect to='/' />

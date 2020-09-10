@@ -58,24 +58,24 @@ class Home extends React.Component {
 
   render() {
     return (
-      <section id="home">
-        <div className="custom-nav slide-bottom">
-          <Navbar collapseOnSelect expand="lg" variant="light">
+      <section id='home'>
+        <div className='custom-nav slide-bottom'>
+          <Navbar collapseOnSelect expand='lg' variant='light'>
             <Navbar.Brand>Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="ml-auto">
+            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+            <Navbar.Collapse id='responsive-navbar-nav'>
+              <Nav className='ml-auto'>
                 {this.state.isLoggedIn ? (
-                  <Button className="sign" onClick={this.logout}>
+                  <Button className='sign' onClick={this.logout}>
                     LogOut
                   </Button>
                 ) : (
                   <div>
-                    <Link to="/login">
-                      <Button className="sign">Log In</Button>
+                    <Link to='/login'>
+                      <Button className='sign'>Log In</Button>
                     </Link>
-                    <Link to="/signup">
-                      <Button className="reg">Sign Up</Button>
+                    <Link to='/signup'>
+                      <Button className='reg'>Sign Up</Button>
                     </Link>
                   </div>
                 )}
@@ -84,50 +84,51 @@ class Home extends React.Component {
           </Navbar>
         </div>
         <Container fluid>
-          <Row sm={12} md={1}>
-            <Col>
-              <div className="center-div">
-                <h1
-                  align="center"
-                  className="title swing-in-left-fwd"
-                  style={{ animationDelay: "0.2s" }}
-                >
-                  Secure your{" "}
-                  <span className="decorated-text">Certificate</span>
-                </h1>
-                <p
-                  align="center"
-                  className="sub-title swing-in-left-fwd"
-                  style={{ animationDelay: "0.4s", fontWeight: "500" }}
-                >
-                  Authenticate your Certificates with Ease!
-                </p>
-                <Form>
-                  <Form.Row
-                    className=" justify-content-center align-items-center swing-in-left-fwd"
-                    style={{
-                      animationDelay: "0.4s",
-                    }}
+          <div className='rowWrappera'>
+            <Row sm={1} md={1} lg={1} xs={1} className='roww'>
+              <Col>
+                <div className='center-div'>
+                  <h1
+                    align='center'
+                    className='title swing-in-left-fwd'
+                    style={{ animationDelay: "0.2s" }}
                   >
-                    <Col xs="auto">
-                      <Form.Label htmlFor="inlineFormInput" srOnly>
-                        Cert
-                      </Form.Label>
-                      <Form.Control
-                        className="mb-2"
-                        id="inlineFormInput"
-                        placeholder="Search via Certificate ID..."
-                        onChange={this.handleSearch}
-                      />
-                    </Col>
-                    <Col xs="auto">
-                      <Button className="mb-2" onClick={this.onSearch}>
-                        Search
-                      </Button>
-                    </Col>
-                  </Form.Row>
-                </Form>
-                {/* <p align="center">
+                    Secure your{" "}
+                    <span className='decorated-text'>Certificate</span>
+                  </h1>
+                  <p
+                    align='center'
+                    className='sub-title swing-in-left-fwd'
+                    style={{ animationDelay: "0.4s", fontWeight: "500" }}
+                  >
+                    Authenticate your Certificates with Ease!
+                  </p>
+                  <Form>
+                    <Form.Row
+                      className=' justify-content-center align-items-center swing-in-left-fwd'
+                      style={{
+                        animationDelay: "0.4s",
+                      }}
+                    >
+                      <Col xs='auto'>
+                        <Form.Label htmlFor='inlineFormInput' srOnly>
+                          Cert
+                        </Form.Label>
+                        <Form.Control
+                          className='mb-2'
+                          id='inlineFormInput'
+                          placeholder='Search via Certificate ID...'
+                          onChange={this.handleSearch}
+                        />
+                      </Col>
+                      <Col xs='auto'>
+                        <Button className='mb-2' onClick={this.onSearch}>
+                          Search
+                        </Button>
+                      </Col>
+                    </Form.Row>
+                  </Form>
+                  {/* <p align="center">
                   {this.state.isLoggedIn ? (
                     <Link to="/student/dashboard">
                       <Button
@@ -148,10 +149,10 @@ class Home extends React.Component {
                     </Link>
                   )}
                 </p> */}
-                <FooterComp />
-              </div>
-            </Col>
-          </Row>
+                </div>
+              </Col>
+            </Row>
+          </div>
         </Container>
       </section>
     );

@@ -1,7 +1,6 @@
 * {
   font-family: "Montserrat", sans-serif;
 }
-
 body {
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.55),
@@ -121,4 +120,15 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+.rowWrappera {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.rowWrapper {
+  display: flex;
+  justify-content: center;
+  /* margin-top: 15%; */
 }
