@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   });
 });
 
-cron.schedule("30 5 * * *", runner);
+cron.schedule("24 11 * * *", runner);
 cron.schedule("30 17 * * *", emailrunner);
 
 const Auth = require("./routes/api/auth");
