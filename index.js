@@ -14,7 +14,7 @@ app.use(cors());
 app.use(logger("common"));
 app.disable("etag");
 
-app.get("/", (req, res) => {
+ app.get("/api", (req, res) => {
   res.status(200).json({
     status: 200,
     message: "Health check successful",
