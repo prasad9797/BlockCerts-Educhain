@@ -7,6 +7,16 @@ const signTransaction = require("../transaction-utils/certTransactions")
   .signTransaction;
 const send = require("../transaction-utils/certTransactions").send;
 
+const nodemailer = require("nodemailer");
+const config = require("config");
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: config.get("SMTPmail"),
+    pass: config.get("SMTPpassword"),
+  },
+});
+
 
 
 const runner = require("./runner.js");
