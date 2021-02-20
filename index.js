@@ -14,7 +14,7 @@ app.use(cors());
 app.use(logger("common"));
 app.disable("etag");
 
- app.get("/api", (req, res) => {
+app.get("/api", (req, res) => {
   res.status(200).json({
     status: 200,
     message: "Health check successful",
@@ -36,4 +36,6 @@ app.use("/api/static/media", express.static("public/uploads"));
 console.log(__dirname);
 app.use(error);
 
-app.listen(8080, () => console.log(`Server is listening`));
+const port = process.env.PORT || 5100;
+
+app.listen(port, () => console.log(`Server is listening on ${port}`));

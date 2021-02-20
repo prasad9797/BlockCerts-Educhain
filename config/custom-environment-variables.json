@@ -1,10 +1,10 @@
 {
   "jwtPrivateKey": "jwtPrivateKey",
 
-  "pgHost": "pgHost",
-  "pgUser": "pgUser",
-  "pgPassword": "pgPassword",
-  "pgDatabase": "pgDatabase",
+  "pgHost": "server",
+  "pgUser": "postgres",
+  "pgPassword": "root",
+  "pgDatabase": "postgres",
 
   "PORT": "PORT",
 

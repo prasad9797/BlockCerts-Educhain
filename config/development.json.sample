@@ -6,5 +6,9 @@
   "abi": "abi",
   "defaultUserame": "defaultUserame",
   "defaultPassword": "defaultPassword",
-  "cryptoSecret":"cryptoSecret"
+  "cryptoSecret":"cryptoSecret",
+  "pgHost": "ec2-3-220-98-137.compute-1.amazonaws.com",
+"pgUser": "bzrvydhcokowli",
+"pgPassword": "98cf00d3dfc1b7a7c4f593b1a290c15e0c79c1c93de85a3e64feaf524c34f3a1",
+"pgDatabase": "d9rcjkp6tqng8m",
 }
