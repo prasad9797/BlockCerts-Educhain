@@ -71,15 +71,23 @@ router.get("/uploadedSVG", async (req, res, next) => {
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "select id,svg from certs where email = ${email} and uploaded=true",
+      "select svg from certs where email = ${email}",
       {
         email: req.params.email,
       }
     );
-    res.status(200).json({
-      message: "certifictaes found",
-      data: result,
-    });
+    console.log(result);
+    if (result.length == 0) {
+      res.status(400).json({
+        message: "certifictaes not found",
+        data: result,
+      });
+    } else {
+      res.status(200).json({
+        message: "certifictaes found",
+        data: result,
+      });
+    }
   } catch (err) {
     console.log(err);
     next(err);

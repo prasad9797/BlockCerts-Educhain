@@ -29,6 +29,10 @@ CREATE TABLE svg_templates (
   svg_slug varchar(250) not null,
   uploader varchar(250) not null
 );
+CREATE TABLE userscert (
+  email varchar(250) not null,
+  cert_id VARCHAR(250) not null
+);
 ALTER TABLE svg_templates
 ADD CONSTRAINT svg_templates_fk0 FOREIGN KEY ("uploader") REFERENCES admins ("email");
 ALTER TABLE certs

@@ -8,7 +8,7 @@
     "start": "node index.js",
     "test": "jest --watch-all"
   },
-  "author": "Sujoy Dev",
+  "author": "Prasad Jadhav",
   "license": "ISC",
   "devDependencies": {
     "jest": "^26.0.1",
