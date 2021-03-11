@@ -23,13 +23,13 @@ body {
   margin: 1.5%;
 }
 
-.cert-card {
+/* .cert-card {
   margin: 2%;
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
   border-radius: 6px;
-}
+} */
 
 .cert-holder {
   cursor: pointer !important;
@@ -56,4 +56,89 @@ body {
 
 .dropdown-item:hover {
   background-color: transparent !important;
+}
+
+.card-title {
+  font-size: s0px !important;
+}
+
+/* .cardTemplate {
+  max-width: 500px;
+  /* display: flex;
+  justify-content: center; */
+/* }  */
+.card {
+  background-color: transparent !important;
+  border: none !important;
+  justify-content: center !important;
+  align-content: center !important;
+  text-align: center;
+}
+
+.card .card-img-top {
+  width: 200px !important;
+}
+.cert-card1 {
+  width: 300px;
+}
+
+/* .center-btn {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+} */
+
+/* .fileInput {
+  justify-content: center;
+  margin: auto;
+  max-width: 50%;
+  border: 1px solid black !important;
+} */
+/* .cert-wrapper {
+  width: inherit;
+} */
+
+.info {
+  margin-top: 20px;
+}
+/* 
+.footer {
+  font-size: 15px;
+} */
+
+@media only screen and (min-width: 1500px) {
+  .card {
+    padding-top: 10rem;
+  }
+
+  .cert-card1 {
+    width: 300px;
+  }
+  /* .fileInput {
+    font-size: 25px;
+    width: 100%;
+  } */
+  /* .footer {
+    font-size: 25px;
+    margin-bottom: 20rem !important;
+  } */
+}
+/* .form-group {
+  display: flex;
+  justify-content: center;
+} */
+
+@media only screen and (max-width: 700px) {
+  .card {
+    left: 0 !important;
+  }
+
+  .cert-card1 {
+    width: 100px;
+  }
+}
+
+.row {
+  justify-content: center;
 }

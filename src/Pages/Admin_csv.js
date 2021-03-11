@@ -12,7 +12,6 @@ import { CSVReader } from "react-papaparse";
 class Admin_SVGUpload extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       csv: null,
       isAllowedToView: false,
@@ -22,6 +21,7 @@ class Admin_SVGUpload extends React.Component {
   }
 
   async componentWillMount() {
+    const Data = this.props.location;
     console.log(sessionStorage.getItem("jwtToken"));
     if (sessionStorage.getItem("jwtToken") !== "null") {
       axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
@@ -37,13 +37,16 @@ class Admin_SVGUpload extends React.Component {
       this.logout();
       this.props.history.push("/login");
     }
+    console.log(Data.SVGN);
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}api/static/media/${this.props.match.params.svg}`,
-        { responseType: "blob" }
+        `${process.env.REACT_APP_BACKEND_URL}api/static/media/${this.props.svgName}`,
+        {
+          responseType: "blob",
+        }
       )
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({ svg: URL.createObjectURL(res.data) });
       });
     // this.setState({
@@ -113,46 +116,48 @@ class Admin_SVGUpload extends React.Component {
 
     return this.state.isAllowedToView ? (
       <div>
-        <section id='csv-upload'>
-          <div className='custom-nav slide-bottom'>
-            <Navbar collapseOnSelect expand='lg' variant='light'>
-              <Navbar.Brand href='/'>Educhain</Navbar.Brand>
-              <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-              <Navbar.Collapse id='responsive-navbar-nav'>
-                <Nav className='ml-auto'>
-                  <Button className='sign' onClick={this.logout}>
+        <section id="csv-upload">
+          <div className="custom-nav slide-bottom">
+            <Navbar collapseOnSelect expand="lg" variant="light">
+              <Navbar.Brand href="/">Educhain</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="ml-auto">
+                  <Button className="sign" onClick={this.logout}>
                     Log Out
                   </Button>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
           </div>
-          <div className='cardTemplate'>
-            <Row md={4} className='justify-content-center align-items-center'>
-              <Col sm={12} md={12} lg={6} className='centerCol'>
+          <div className="cardTemplate">
+            <Row md={4} className="justify-content-center align-items-center">
+              <Col sm={12} md={12} lg={6} className="centerCol">
                 <Card
                   style={{ animationDelay: ".2s" }}
-                  className='swing-in-left-fwd'
+                  className="swing-in-left-fwd"
                 >
-                  <Card.Img className=' mx-auto' variant='top' src={folder} />
+                  <Card.Img className=" mx-auto" variant="top" src={folder} />
                   <Card.Body>
-                    <Card.Title className='upload-cert-template'>
+                    <Card.Title className="upload-cert-template">
                       Upload Certificate Data
                     </Card.Title>
                   </Card.Body>
                   <CSVReader
-                    type='.csv'
+                    type=".csv"
                     noDrag
                     onDrop={(data) => {
+                      console.log(data);
+                      console.log(data[0]["data"]["Student_copy"]);
                       var dataTemp = [];
                       for (var i = 0; i < data.length; i++) {
-                        if (
-                          data[i]["data"]["cert_id"] !== "" &&
-                          data[i]["data"]["Student_copy"]
-                        ) {
-                          data[i]["data"]["slug"] = this.props.svgSlug;
-                          dataTemp.push(data[i]);
-                        }
+                        // if (
+                        //data[i]["data"]["cert_id"] !== "" &&
+                        //  data[i]["data"]["Student_copy"];
+                        // ) {
+                        data[i]["data"]["slug"] = this.props.svgSlug;
+                        dataTemp.push(data[i]);
+                        // }
                         delete data[i]["errors"];
                         delete data[i]["meta"];
                       }
@@ -180,29 +185,29 @@ class Admin_SVGUpload extends React.Component {
                 </Card>
               </Col>
               <Col sm={12} md={12} lg={6}>
-                <h5 align='center'> {this.props.match.params.slug} </h5>
-                <div className='svgPrev'>
+                <h5 align="center"> {this.props.match.params.slug} </h5>
+                <div className="svgPrev">
                   {/* {parse(this.state.svg ? this.state.svg : "")} */}
                 </div>
-                <object id='SVG' data={this.state.svg} type='image/svg+xml' />
+                <object id="SVG" data={this.state.svg} type="image/svg+xml" />
               </Col>
             </Row>
 
             {this.state.isCSVUploaded ? (
               <React.Fragment>
                 <Button
-                  align='center'
-                  variant='success'
-                  className='swing-in-left-fwd '
+                  align="center"
+                  variant="success"
+                  className="swing-in-left-fwd "
                   style={{ animationDelay: "0.4s", marginTop: "20px" }}
                   onClick={() => this.updateSVG()}
                 >
                   Preview
                 </Button>
                 <Button
-                  align='center'
-                  variant='primary'
-                  className='swing-in-left-fwd '
+                  align="center"
+                  variant="primary"
+                  className="swing-in-left-fwd "
                   style={{ animationDelay: "0.4s", marginTop: "20px" }}
                   onClick={this.onSend}
                 >
@@ -214,7 +219,7 @@ class Admin_SVGUpload extends React.Component {
         </section>
       </div>
     ) : (
-      <Redirect to='/login' />
+      <Redirect to="/login" />
     );
   }
 }

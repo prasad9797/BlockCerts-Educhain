@@ -7,9 +7,9 @@ class Devs extends React.Component {
   render() {
     return (
       <div>
-        <section id='devs'>
-          <div className='custom-nav slide-bottom'>
-            <Navbar variant='light'>
+        <section id="devs">
+          <div className="custom-nav slide-bottom">
+            <Navbar variant="light">
               <Navbar.Brand
                 onClick={() => {
                   this.props.history.push("/");
@@ -19,31 +19,37 @@ class Devs extends React.Component {
               </Navbar.Brand>
             </Navbar>
           </div>
-          <div className='dev-details'>
+          <div className="dev-details">
             <Container fluid>
               <Col>
-                <Row className='justify-content-md-center'>
-                  <h1 align='center' className='dev-title swing-in-left-fwd'>
+                <Row className="justify-content-md-center">
+                  <h1 align="center" className="dev-title swing-in-left-fwd">
                     Developers
                   </h1>
                 </Row>
                 <Row
-                  xs='1'
-                  sm='1'
-                  md='3'
-                  className='justify-content-md-center align-items-center dev-name ml-auto'
+                  xs="1"
+                  sm="1"
+                  md="3"
+                  className="justify-content-md-center align-items-center dev-name ml-auto"
                 >
-                  <Col className='swing-in-left-fwd'>
-                    <h3 align='center' className='dev-name'>
-                      Tejas Raibagi
+                  <Col className="swing-in-left-fwd">
+                    <h3 align="center" className="dev-name">
+                      Prasad Jadhav
                     </h3>
-                    <p align='center'>FrontEnd Lead</p>
+                    <p align="center">BackEnd Lead</p>
                   </Col>
-                  <Col className='swing-in-left-fwd'>
-                    <h3 align='center' className='dev-name'>
-                      Sujoy Dev
+                  <Col className="swing-in-left-fwd">
+                    <h3 align="center" className="dev-name">
+                      Rutwik Gaikwad
                     </h3>
-                    <p align='center'>BackEnd Lead</p>
+                    <p align="center">Blockchain network</p>
+                  </Col>
+                  <Col className="swing-in-left-fwd">
+                    <h3 align="center" className="dev-name">
+                      Aseem Godambe
+                    </h3>
+                    <p align="center">FrontEnd Lead</p>
                   </Col>
                   {/* <Col className="swing-in-left-fwd">
                   <h3 align="center" className="dev-name">

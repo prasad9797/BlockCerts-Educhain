@@ -41,7 +41,8 @@ const rootReducer = (state = initialState, action) => {
         jwtToken: null,
       };
     case UPLOAD_SVG:
-      console.log(action.svgPayload);
+      console.log("Payload", action.svgPayload);
+      console.log("Name", action.svgName);
       return {
         ...state,
         svgName: action.svgName,

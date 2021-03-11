@@ -59,10 +59,10 @@ class StudentDashboard extends React.Component {
         `${process.env.REACT_APP_BACKEND_URL}api/v1/protected/${this.state.email}`
       )
       .then(async (res) => {
-        //console.log("API call: ", res.data.data);
+        console.log("API call: ", res.data.data[0].svg);
         //console.log("Data fetched...");
         await this.setState({ cert: res.data.data, isLoading: false });
-        //console.log(this.state.cert);
+        console.log(this.state.cert);
       })
       .catch((err) => {
         //console.log(err);
@@ -147,7 +147,7 @@ class StudentDashboard extends React.Component {
                     className="align-items-center"
                   >
                     {this.state.cert.map((certs, index) => (
-                      <Col sm={12} md={3} key={index}>
+                      <Col md={3} lg={4} xs={6} sm={4} key={index}>
                         <div
                           className="cert-holder"
                           key={index}
@@ -160,10 +160,19 @@ class StudentDashboard extends React.Component {
                           {/* {parse(
                               this.state.svg[index] ? this.state.svg[index] : ""
                             )} */}
-                          <img
+
+                          {/* changes */}
+                          {/* <img
                             className="cert-card"
                             src="https://educhain.apsit.edu.in/api/static/media/1.svg"
                             alt="Cert_Thumb"
+                          /> */}
+
+                          <p>{certs.svg_slug}</p>
+                          <object
+                            className="cert-card1"
+                            data={`${process.env.REACT_APP_BACKEND_URL}api/static/media/${certs.svg}`}
+                            type="image/svg+xml"
                           />
                         </div>
                       </Col>

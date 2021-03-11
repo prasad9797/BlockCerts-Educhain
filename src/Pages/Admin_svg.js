@@ -91,9 +91,10 @@ class Admin_SVGUpload extends React.Component {
             this.state.slug,
             true
           );
-          this.props.history.push(
-            `/admin/upload/csv/${this.state.svgName}/${this.state.slug}`
-          );
+          var SVGN = this.state.svgName;
+          var Slug = this.state.slug;
+          console.log(SVGN);
+          this.props.history.push("/admin/upload/csv/");
         })
         .catch((err) => {
           console.log(err);
@@ -112,14 +113,14 @@ class Admin_SVGUpload extends React.Component {
 
   render() {
     return this.state.isAllowedToView ? (
-      <section id='svg-upload'>
-        <div className='custom-nav slide-bottom'>
-          <Navbar collapseOnSelect expand='lg' variant='light'>
-            <Navbar.Brand href='/'>Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-            <Navbar.Collapse id='responsive-navbar-nav'>
-              <Nav className='ml-auto'>
-                <Button className='sign' onClick={this.logout}>
+      <section id="svg-upload">
+        <div className="custom-nav slide-bottom">
+          <Navbar collapseOnSelect expand="lg" variant="light">
+            <Navbar.Brand href="/">Educhain</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="ml-auto">
+                <Button className="sign" onClick={this.logout}>
                   Log Out
                 </Button>
               </Nav>
@@ -127,7 +128,7 @@ class Admin_SVGUpload extends React.Component {
           </Navbar>
         </div>
         <div
-          className='cardTemplate'
+          className="cardTemplate"
           style={{ maxWidth: "500px", textAlign: "center", margin: "auto" }}
         >
           {/* <Card
@@ -144,11 +145,11 @@ class Admin_SVGUpload extends React.Component {
             </Card.Body> */}
           <h3>Upload Certificate Template</h3>
           <input
-            type='file'
-            name='svg'
-            id='svg'
-            className='fileInput'
-            accept='.svg'
+            type="file"
+            name="svg"
+            id="svg"
+            className="fileInput"
+            accept=".svg"
             onChange={this.handleFile}
             style={{
               color: "black",
@@ -157,29 +158,29 @@ class Admin_SVGUpload extends React.Component {
               maxWidth: "100%",
             }}
           />
-          <Form.Group controlId='formBasicEmail'>
-            <Form.Label className='swing-in-left-fwd'></Form.Label>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label className="swing-in-left-fwd"></Form.Label>
             <Form.Control
-              className='swing-in-left-fwd'
+              className="swing-in-left-fwd"
               style={{
                 animationDelay: "0.2s",
                 // width: "100%",
                 // position: "absolute",
               }}
-              type='text'
-              name='filename'
-              placeholder='Enter Filename'
+              type="text"
+              name="filename"
+              placeholder="Enter Filename"
               onChange={this.changeHandler}
             />
           </Form.Group>
-          <p align='center' className='error mt-5'>
+          <p align="center" className="error mt-5">
             {this.state.error}
           </p>
           {this.state.isSvgUploaded ? (
             <Button
-              align='center'
-              variant='primary'
-              className='swing-in-left-fwd center-btn'
+              align="center"
+              variant="primary"
+              className="swing-in-left-fwd center-btn"
               style={{ animationDelay: "0.4s" }}
               onClick={this.SVGSave}
             >
@@ -188,19 +189,19 @@ class Admin_SVGUpload extends React.Component {
           ) : null}
           {/* </Card> */}
         </div>
-        <div className='cert-thumb'>
+        <div className="cert-thumb">
           <h5
-            align='center'
-            className='info'
+            align="center"
+            className="info"
             style={{ marginTop: "50px", marginBottom: "50px" }}
           >
             Or Select From Existing Templates
           </h5>
-          <Row style={{ textAlign: "center" }} className='align-items-center'>
+          <Row style={{ textAlign: "center" }} className="align-items-center">
             {this.state.svgList.map((i) => (
               <Col md={3} lg={2} xs={6} sm={4}>
                 <div
-                  className='cert-wrapper'
+                  className="cert-wrapper"
                   onClick={() => {
                     this.props.SaveSVG(
                       `${process.env.REACT_APP_BACKEND_URL}api/static/media/${i.svg_id}`,
@@ -208,16 +209,17 @@ class Admin_SVGUpload extends React.Component {
                       i.svg_slug,
                       false
                     );
-                    this.props.history.push(
-                      `/admin/upload/csv/${i.svg_id}/${i.svg_slug}`
-                    );
+                    var SVGN = this.state.svgName;
+                    var Slug = this.state.slug;
+                    console.log(SVGN);
+                    this.props.history.push("/admin/upload/csv/");
                   }}
                 >
                   <p>{i.svg_slug}</p>
                   <object
-                    className='cert-card'
+                    className="cert-card"
                     data={`${process.env.REACT_APP_BACKEND_URL}api/static/media/${i.svg_id}`}
-                    type='image/svg+xml'
+                    type="image/svg+xml"
                   />
                 </div>
               </Col>
@@ -226,7 +228,7 @@ class Admin_SVGUpload extends React.Component {
         </div>
       </section>
     ) : (
-      <Redirect to='/login' />
+      <Redirect to="/login" />
     );
   }
 }
