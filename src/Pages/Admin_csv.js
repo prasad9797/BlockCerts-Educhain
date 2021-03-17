@@ -76,7 +76,7 @@ class Admin_SVGUpload extends React.Component {
     for (var i = 0; i < keys.length; i++) {
       if (SVG.getElementById(keys[i]) !== null) {
         console.log("Done: ", keys[i]);
-        SVG.getElementById(keys[i]).textContent = this.state.csv[i].data[
+        SVG.getElementById(keys[i]).textContent = this.state.csv[1].data[
           keys[i]
         ];
       }
