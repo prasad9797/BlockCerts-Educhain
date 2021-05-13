@@ -71,7 +71,7 @@ router.get("/uploadedSVG", async (req, res, next) => {
 router.get("/:email", async (req, res, next) => {
   try {
     var result = await pgp.query(
-      "select svg from certs where email = ${email}",
+      "select svg,id from certs where email = ${email}",
       {
         email: req.params.email,
       }
