@@ -102,10 +102,10 @@ class Login extends React.Component {
             this.setState({});
           })
           .catch((err) => {
-            // this.setState({
-            //   errors: err.data.message,
-            //   isAutheticating: false,
-            // });
+            this.setState({
+              errors: err.response.data.message,
+              isAutheticating: false,
+            });
           });
       } else {
         //Call User route

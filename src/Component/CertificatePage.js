@@ -30,8 +30,9 @@ class CertificateDisplay extends React.Component {
     this.setState({ id: id });
     //console.log(id);
     await axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/public/single/${id}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}api/v1/public/single/${id}`)
       .then((res) => {
+        console.log(res.data);
         this.setState({
           cert: res.data.result.data,
           svgName: res.data.svg,
@@ -42,7 +43,7 @@ class CertificateDisplay extends React.Component {
       });
     await axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}api/v1/public/samplesvg/${this.state.svgName}`
+        `${process.env.REACT_APP_BACKEND_URL}api/v1/public/svg/${this.state.svgName}`
       )
       .then((res) => {
         this.setState({ svg: res.data.data });
@@ -72,6 +73,7 @@ class CertificateDisplay extends React.Component {
   };
 
   componentDidMount() {
+    console.log("Keys:", this.state.cert);
     setTimeout(() => {
       var keys = Object.keys(this.state.cert);
       //console.log("Keys:", keys);

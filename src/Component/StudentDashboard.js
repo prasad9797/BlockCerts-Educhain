@@ -63,6 +63,7 @@ class StudentDashboard extends React.Component {
         //console.log("Data fetched...");
         await this.setState({ cert: res.data.data, isLoading: false });
         console.log(this.state.cert);
+        console.log(res.data);
       })
       .catch((err) => {
         //console.log(err);
@@ -150,6 +151,7 @@ class StudentDashboard extends React.Component {
                       <Col md={3} lg={4} xs={6} sm={4} key={index}>
                         <div
                           className="cert-holder"
+                          id={`${certs.id}`}
                           key={index}
                           onClick={() => {
                             this.props.history.push(
@@ -173,6 +175,11 @@ class StudentDashboard extends React.Component {
                             className="cert-card1"
                             data={`${process.env.REACT_APP_BACKEND_URL}api/static/media/${certs.svg}`}
                             type="image/svg+xml"
+                            onClick={() => {
+                              this.props.history.push(
+                                `/student/certificate/${certs.id}`
+                              );
+                            }}
                           />
                         </div>
                       </Col>
