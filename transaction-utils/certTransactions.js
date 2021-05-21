@@ -1,11 +1,11 @@
 const Tx = require("ethereumjs-tx").Transaction;
 const Web3 = require("web3");
-const config = require("config");
-const infuraURL = config.get("infuraEndpoint");
-const APIkey = config.get("infuraAPIkey");
+const config = require("../config/default.json");
+const infuraURL = config.infuraEndpoint;
+const APIkey = config.infuraAPIkey;
 const infura = `${infuraURL}/${APIkey}`;
 let web3 = new Web3(new Web3.providers.HttpProvider(infura));
-const addr = config.get("ethAddress");
+const addr = config.ethAddress;
 // const abi = config.get("abi");
 const abi = [
   {
@@ -51,9 +51,9 @@ const abi = [
     type: "function",
   },
 ];
-const pk = config.get("privateKey");
-const contractAddr = config.get("contractAddr");
-const chain = config.get("network");
+const pk = config.privateKey;
+const contractAddr = config.contractAddr;
+const chain = config.network;
 const contract = new web3.eth.Contract(abi, contractAddr);
 
 async function getTransactionCount() {

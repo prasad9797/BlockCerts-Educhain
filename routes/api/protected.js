@@ -76,9 +76,9 @@ router.get("/:email", async (req, res, next) => {
         email: req.params.email,
       }
     );
-    console.log(result);
+    console.log("hello", result);
     if (result.length == 0) {
-      res.status(400).json({
+      res.status(200).json({
         message: "certifictaes not found",
         data: result,
       });
@@ -89,10 +89,38 @@ router.get("/:email", async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.log("hello", err);
     next(err);
   }
 });
+
+router.get("/c/:cert", async (req, res, next) => {
+  try {
+    console.log("1", req.params.cert);
+    var result = await pgp.query(
+      "select svg_slug from svg_templates where svg_id = ${cert}",
+      {
+        cert: req.params.cert,
+      }
+    );
+    console.log("hello1", result);
+    if (result.length == 0) {
+      res.status(200).json({
+        message: "certifictaes not !found",
+        data: result,
+      });
+    } else {
+      res.status(200).json({
+        message: "certifictaes found",
+        data: result,
+      });
+    }
+  } catch (err) {
+    console.log("hello", err);
+    next(err);
+  }
+});
+
 router.post("/uploadSVG", async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {
