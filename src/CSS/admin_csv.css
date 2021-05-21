@@ -42,6 +42,17 @@
 #SVG {
   width: 300px;
 }
+
+svg {
+  width: 23px;
+  height: 23px;
+}
+
+#msgResponse {
+  color: green;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 1500px) {
   .card {
     padding-top: 10rem;

@@ -30,11 +30,12 @@ class StudentDashboard extends React.Component {
   }
 
   async componentWillMount() {
+    var certi = [];
+    var c = {};
     this.setState({ isLoading: true });
     if (sessionStorage.getItem("jwtToken") !== "null") {
-      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
-        "jwtToken"
-      );
+      axios.defaults.headers.common["Authorization"] =
+        sessionStorage.getItem("jwtToken");
       var sessionData = sessionStorage.getItem("jwtToken");
       var sessionData = sessionData.split(" ");
       var decoded = jwt_decode(sessionData[1]);
@@ -59,11 +60,48 @@ class StudentDashboard extends React.Component {
         `${process.env.REACT_APP_BACKEND_URL}api/v1/protected/${this.state.email}`
       )
       .then(async (res) => {
+        //<<<<<<< Updated upstream
         console.log("API call: ", res.data.data[0].svg);
         //console.log("Data fetched...");
         await this.setState({ cert: res.data.data, isLoading: false });
         console.log(this.state.cert);
         console.log(res.data);
+        // =======
+        //         console.log(JSON.stringify(res.data.data[0].svg));
+        //         res.data.data.map((r, index1) => {
+        //           c["svg"] = r.svg;
+        //           console.log(c);
+        //           certi[index1] = c;
+        //           console.log(certi);
+        //           //this.setState({ cert: r.svg, isLoading: false });
+        //         });
+        //         console.log(certi);
+        //         if (res.data.data.length == 0) {
+        //           await this.setState({ isLoading: false });
+        //         } else {
+        //           console.log("API call: ", res.data.data);
+        //           //console.log("Data fetched...");
+
+        //           await this.setState({ cert: res.data.data, isLoading: false });
+
+        //           // var result = Object.keys(this.state.cert).map((key) => [
+        //           //   Number(key),
+        //           //   this.state.cert[key],
+        //           // ]);
+
+        //           // console.log(result[0][1]);
+        //           // await axios
+        //           //   .get(
+        //           //     `${
+        //           //       process.env.REACT_APP_BACKEND_URL
+        //           //     }api/v1/protected/c/${Object.values(this.state.cert)}`
+        //           //   )
+        //           //   .then(async (res) => {
+        //           //     console.log(res);
+        //           //   });
+        //         }
+        //         console.log(this.state.cert, this.state.isLoading);
+        // >>>>>>> Stashed changes
       })
       .catch((err) => {
         //console.log(err);
@@ -162,15 +200,17 @@ class StudentDashboard extends React.Component {
                           {/* {parse(
                               this.state.svg[index] ? this.state.svg[index] : ""
                             )} */}
-
                           {/* changes */}
                           {/* <img
                             className="cert-card"
                             src="https://educhain.apsit.edu.in/api/static/media/1.svg"
                             alt="Cert_Thumb"
                           /> */}
+                          <script>
+                            console.log(certs.jsonstring.data.slug)
+                          </script>
 
-                          <p>{certs.svg_slug}</p>
+                          <p>{certs.jsonstring}</p>
                           <object
                             className="cert-card1"
                             data={`${process.env.REACT_APP_BACKEND_URL}api/static/media/${certs.svg}`}

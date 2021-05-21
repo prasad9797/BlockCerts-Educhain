@@ -17,6 +17,7 @@ class Admin_SVGUpload extends React.Component {
       isAllowedToView: false,
       isCSVUploaded: false,
       svg: null,
+      errors: "",
     };
   }
 
@@ -24,9 +25,8 @@ class Admin_SVGUpload extends React.Component {
     const Data = this.props.location;
     console.log(sessionStorage.getItem("jwtToken"));
     if (sessionStorage.getItem("jwtToken") !== "null") {
-      axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
-        "jwtToken"
-      );
+      axios.defaults.headers.common["Authorization"] =
+        sessionStorage.getItem("jwtToken");
       await this.setState({ isAllowedToView: true });
     } else if (this.props.isAdmin) {
       this.setState({ isAllowedToView: true });
@@ -76,9 +76,8 @@ class Admin_SVGUpload extends React.Component {
     for (var i = 0; i < keys.length; i++) {
       if (SVG.getElementById(keys[i]) !== null) {
         console.log("Done: ", keys[i]);
-        SVG.getElementById(keys[i]).textContent = this.state.csv[1].data[
-          keys[i]
-        ];
+        SVG.getElementById(keys[i]).textContent =
+          this.state.csv[1].data[keys[i]];
       }
     }
   }
@@ -104,10 +103,14 @@ class Admin_SVGUpload extends React.Component {
         svg: this.props.svgName,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.message);
+        document.getElementById("msgResponse").innerHTML = res.data.message;
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
+        this.setState({
+          errors: err.message,
+        });
       });
   };
 
@@ -144,6 +147,7 @@ class Admin_SVGUpload extends React.Component {
                     </Card.Title>
                   </Card.Body>
                   <CSVReader
+                    style="width: 23px, height: 23px;"
                     type=".csv"
                     noDrag
                     onDrop={(data) => {
@@ -215,6 +219,7 @@ class Admin_SVGUpload extends React.Component {
                 </Button>
               </React.Fragment>
             ) : null}
+            <p align="center" id="msgResponse"></p>
           </div>
         </section>
       </div>

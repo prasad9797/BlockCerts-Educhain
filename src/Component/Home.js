@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import {
   Container,
   Row,
@@ -43,11 +44,12 @@ class Home extends React.Component {
     this.setState({ searchQuery: e.target.value });
   };
 
-  // onSearch = () => {
-  //   if (this.state.searchQuery !== null) {
-  //     this.props.history.push(`/student/certificate/${this.state.searchQuery}`);
-  //   }
-  // };
+  onSearch = () => {
+    console.log(this.props.history);
+    if (this.state.searchQuery !== null) {
+      this.props.history.push(`/student/verify/${this.state.searchQuery}`);
+    }
+  };
 
   logout = () => {
     delete axios.defaults.headers.common["Authorization"];
@@ -58,24 +60,24 @@ class Home extends React.Component {
 
   render() {
     return (
-      <section id='home'>
-        <div className='custom-nav slide-bottom'>
-          <Navbar collapseOnSelect expand='lg' variant='light'>
+      <section id="home">
+        <div className="custom-nav slide-bottom">
+          <Navbar collapseOnSelect expand="lg" variant="light">
             <Navbar.Brand>Educhain</Navbar.Brand>
-            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-            <Navbar.Collapse id='responsive-navbar-nav'>
-              <Nav className='ml-auto'>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="ml-auto">
                 {this.state.isLoggedIn ? (
-                  <Button className='sign' onClick={this.logout}>
+                  <Button className="sign" onClick={this.logout}>
                     LogOut
                   </Button>
                 ) : (
                   <div>
-                    <Link to='/login'>
-                      <Button className='sign'>Log In</Button>
+                    <Link to="/login">
+                      <Button className="sign">Log In</Button>
                     </Link>
-                    <Link to='/signup'>
-                      <Button className='reg'>Sign Up</Button>
+                    <Link to="/signup">
+                      <Button className="reg">Sign Up</Button>
                     </Link>
                   </div>
                 )}
@@ -84,45 +86,45 @@ class Home extends React.Component {
           </Navbar>
         </div>
         <Container fluid>
-          <div className='rowWrappera'>
-            <Row sm={1} md={1} lg={1} xs={1} className='roww'>
+          <div className="rowWrappera">
+            <Row sm={1} md={1} lg={1} xs={1} className="roww">
               <Col>
-                <div className='center-div'>
+                <div className="center-div">
                   <h1
-                    align='center'
-                    className='title swing-in-left-fwd'
+                    align="center"
+                    className="title swing-in-left-fwd"
                     style={{ animationDelay: "0.2s" }}
                   >
                     Secure your{" "}
-                    <span className='decorated-text'>Certificate</span>
+                    <span className="decorated-text">Certificate</span>
                   </h1>
                   <p
-                    align='center'
-                    className='sub-title swing-in-left-fwd'
+                    align="center"
+                    className="sub-title swing-in-left-fwd"
                     style={{ animationDelay: "0.4s", fontWeight: "500" }}
                   >
                     Authenticate your Certificates with Ease!
                   </p>
                   <Form>
                     <Form.Row
-                      className=' justify-content-center align-items-center swing-in-left-fwd'
+                      className=" justify-content-center align-items-center swing-in-left-fwd"
                       style={{
                         animationDelay: "0.4s",
                       }}
                     >
-                      <Col xs='auto'>
-                        <Form.Label htmlFor='inlineFormInput' srOnly>
+                      <Col xs="auto">
+                        <Form.Label htmlFor="inlineFormInput" srOnly>
                           Cert
                         </Form.Label>
                         <Form.Control
-                          className='mb-2'
-                          id='inlineFormInput'
-                          placeholder='Search via Certificate ID...'
+                          className="mb-2"
+                          id="inlineFormInput"
+                          placeholder="Search via Certificate ID..."
                           onChange={this.handleSearch}
                         />
                       </Col>
-                      <Col xs='auto'>
-                        <Button className='mb-2' onClick={this.onSearch}>
+                      <Col xs="auto">
+                        <Button className="mb-2" onClick={this.onSearch}>
                           Search
                         </Button>
                       </Col>
@@ -171,4 +173,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
