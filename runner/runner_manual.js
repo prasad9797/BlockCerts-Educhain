@@ -18,6 +18,6 @@ const transport = nodemailer.createTransport({
 });
 
 const runner = require("./runner.js");
-//const emailrunner = require("./emailrunner.js");
+const emailrunner = require("./emailrunner.js");
 runner();
-//emailrunner();
+emailrunner();
