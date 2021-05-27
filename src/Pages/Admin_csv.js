@@ -176,7 +176,7 @@ class Admin_SVGUpload extends React.Component {
                     config={{ header: true }}
                     onError={this.handleOnError}
                     style={{ padding: "0" }}
-                    addRemoveButton
+                    // addRemoveButton
                     onRemoveFile={() => {
                       this.setState({ isCSVUploaded: false });
                     }}

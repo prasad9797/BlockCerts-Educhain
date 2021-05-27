@@ -49,20 +49,20 @@ class CertificateVerify extends React.Component {
         this.setState({ svg: res.data.data });
       });
 
-    if (sessionStorage.getItem("jwtToken") !== "null") {
-      var sessionData = sessionStorage.getItem("jwtToken");
-      var sessionData = sessionData.split(" ");
-      var decoded = jwt_decode(sessionData[1]);
-      await this.setState({
-        username: decoded.name,
-      });
-      ////console.log(this.state.username);
-    } else {
-      this.setState({ isStudent: false });
-      sessionStorage.removeItem("jwtToken");
-      this.props.Logout();
-      this.props.history.push("/login");
-    }
+    // if (sessionStorage.getItem("jwtToken") !== "null") {
+    //   var sessionData = sessionStorage.getItem("jwtToken");
+    //   var sessionData = sessionData.split(" ");
+    //   var decoded = jwt_decode(sessionData[1]);
+    //   await this.setState({
+    //     username: decoded.name,
+    //   });
+    //   ////console.log(this.state.username);
+    // } else {
+    //   this.setState({ isStudent: false });
+    //   sessionStorage.removeItem("jwtToken");
+    //   this.props.Logout();
+    //   this.props.history.push("/login");
+    // }
   }
 
   logout = () => {

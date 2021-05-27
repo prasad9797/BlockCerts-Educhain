@@ -43,10 +43,10 @@
   width: 300px;
 }
 
-svg {
+/* .card > svg {
   width: 23px;
   height: 23px;
-}
+} */
 
 #msgResponse {
   color: green;
